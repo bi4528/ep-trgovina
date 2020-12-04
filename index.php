@@ -4,6 +4,7 @@
 session_start();
 
 require_once("controller/JokesController.php");
+require_once("controller/UporabnikiController.php");
 
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
 define("IMAGES_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/images/");
@@ -39,6 +40,15 @@ $urls = [
     },
     "jokes/delete" => function () {
         JokesController::delete();
+    },
+    "jokes/delete" => function () {
+        JokesController::delete();
+    },
+    "registracija" => function () {
+        UporabnikiController::registracija();
+    },
+    "prijava" => function () {
+        UporabnikiController::prijava();
     },
     "" => function () {
         ViewHelper::redirect(BASE_URL . "jokes");

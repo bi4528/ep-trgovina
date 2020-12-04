@@ -7,6 +7,11 @@
 <h1>Vse šale</h1>
 
 <p>[
+<a href="<?= BASE_URL . "registracija" ?>">Registracija</a> |
+<a href="<?= BASE_URL . "prijava" ?>">Prijava</a>
+]</p>
+
+<p>[
 <a href="<?= BASE_URL . "jokes" ?>">Vse šale</a> |
 <a href="<?= BASE_URL . "jokes/add" ?>">Dodaj šalo</a>
 ]</p>
