@@ -2,4 +2,5 @@
 Projekt pri predmetu EP
 
 #Tukaj lahko pišemo obvestilo ali hinte
--Najprej začnimo z MVC arhitekturo (model, contoller, view)
+Najprej začnimo z MVC arhitekturo (model, contoller, view)
+Vse delamo na masterju
