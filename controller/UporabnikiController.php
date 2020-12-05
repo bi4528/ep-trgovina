@@ -3,6 +3,7 @@
 require_once("model/UporabnikDB.php");
 require_once("ViewHelper.php");
 require_once("view/forms/registracija-form.php");
+require_once("view/forms/registracija-prodajalec.php");
 require_once("view/forms/prijava-form.php");
 
 
@@ -51,7 +52,6 @@ class UporabnikiController {
     }
     
     public static function add() {
-        # TODO: Preveri ce stranka z istim mailom ze obstaja
         $form = new RegistracijaForm("registracija");
         if($form->validate()) {
             $uporabnik = $form->getValue();
@@ -78,17 +78,56 @@ class UporabnikiController {
         }
     }
     
-    public static function adminview() {        
-        echo ViewHelper::render("view/admin-home.php", [
-                "admin" => UprabnikDB::getAdmin(),
-                "prodajalci" => UprabnikDB::getProdajalci()
+    public static function addprodajalec() {
+        $form = new RegistracijaFormProdajalec("registracija");
+        if($form->validate()) {
+            $uporabnik = $form->getValue();
+            $uporabnik["vloga"] = "prodajalec";
+            $uporabnik["aktiven"] = 1;
+            $uporabnik["naslov"] = "";
+            
+            $up = UprabnikDB::getup(array("email" => $uporabnik["email"]));
+            if ($up == null) {
+                UprabnikDB::insert($uporabnik);
+                ViewHelper::redirect(BASE_URL . 'admin');
+            }else {
+                echo 'Uporabnik že obstaja';
+            }
+            
+        }else {
+            echo ViewHelper::render("view/registracija.php", [
+               "form" => $form 
             ]);
+        }
     }
     
-    public static function prodajalecview() {        
-        echo ViewHelper::render("view/prodajalec-home.php", [
-                "stranke" => UprabnikDB::getStranke()
-            ]);
+    public static function adminview() {    
+        if (isset($_SESSION["id"])) {
+            if ($_SESSION["vloga"] == "admin") {
+                echo ViewHelper::render("view/admin-home.php", [
+                        "admin" => UprabnikDB::getAdmin(),
+                        "prodajalci" => UprabnikDB::getProdajalci()
+                    ]);
+            }else {
+                echo "Nepooblaščen dostop";
+            }
+        }else {
+            ViewHelper::redirect(BASE_URL . 'prijava');
+        }
+    }
+    
+    public static function prodajalecview() {
+        if (isset($_SESSION["id"])) {
+            if ($_SESSION["vloga"] == "prodajalec") {
+                echo ViewHelper::render("view/prodajalec-home.php", [
+                        "stranke" => UprabnikDB::getStranke()
+                    ]);
+            }else {
+                echo "Nepooblaščen dostop";
+            }
+        }else {
+            ViewHelper::redirect(BASE_URL . 'prijava');
+        }
     }
     
     public static function index() {

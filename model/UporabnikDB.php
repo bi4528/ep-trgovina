@@ -30,7 +30,7 @@ class UprabnikDB extends AbstractDB2 {
 
     public static function insert(array $params) {
         return parent::modify("insert into `uporabniki` (ime, priimek, naslov, email, geslo, vloga, aktiven) "
-                        . " values (:ime, :priimek, :naslov, :email, :geslo, :vloga, :aktiven)", $params);
+                        . " values (:ime, :priimek, nullif(:naslov, ''), :email, :geslo, :vloga, :aktiven)", $params);
     }
     
     public static function getup(array $params) {

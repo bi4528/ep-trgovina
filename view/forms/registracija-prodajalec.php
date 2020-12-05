@@ -7,14 +7,13 @@ require_once 'HTML/QuickForm2/Element/InputText.php';
 require_once 'HTML/QuickForm2/Element/Select.php';
 require_once 'HTML/QuickForm2/Element/InputPassword.php';
 
-class RegistracijaForm extends HTML_QuickForm2 {
+class RegistracijaFormProdajalec extends HTML_QuickForm2 {
     
     public $ime;
     public $priimek;
     public $email;
     public $geslo;
     public $geslo2;
-    public $naslov;
     public $gumb;
     
     public function __construct($id) {
@@ -56,24 +55,16 @@ class RegistracijaForm extends HTML_QuickForm2 {
         $this->geslo2->setLabel('Ponovite geslo:');
         $this->geslo2->setAttribute('size', 20);
         $this->geslo2->addRule('required', 'Ponovno vpišite izbrano geslo.');
-        $this->geslo2->addRule('eq', 'Gesli nista enaki.', $this->geslo);
-        
-        $this->naslov = new HTML_QuickForm2_Element_InputText('naslov');
-        $this->naslov->setAttribute('size', 50);
-        $this->naslov->setLabel('Naslov:');
-        $this->naslov->addRule('required', 'Vnesite naslov.');
-        $this->naslov->addRule('maxlength', 'Naslov je predolg.', 255);
-        
+        $this->geslo2->addRule('eq', 'Gesli nista enaki.', $this->geslo);        
 
         $this->gumb = new HTML_QuickForm2_Element_InputSubmit(null);
         $this->gumb->setAttribute('value', 'Registracija');
 
         $this->fs = new HTML_QuickForm2_Container_Fieldset();
-        $this->fs->setLabel('Registracija nove stranke');
+        $this->fs->setLabel('Registracija novega prodajalca');
         $this->addElement($this->fs);
         $this->fs->addElement($this->ime);
         $this->fs->addElement($this->priimek);
-        $this->fs->addElement($this->naslov);
         $this->fs->addElement($this->email);
         $this->fs->addElement($this->geslo);
         $this->fs->addElement($this->geslo2);

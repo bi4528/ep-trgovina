@@ -60,6 +60,9 @@ $urls = [
     "prodajalec" => function () {
         UporabnikiController::prodajalecview();
     },
+    "prodajalec/add" => function () {
+        UporabnikiController::addprodajalec();
+    },
     "izdelek" => function () {
         IzdelkiController::izdelkiview();
     },

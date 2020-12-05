@@ -10,8 +10,20 @@
 if (isset($_SESSION["id"])) {
     echo '<p>';
     echo 'Pozdravljen, ' . $_SESSION["ime"] . ' | ';
+    if($_SESSION["vloga"] == "stranka") {
+        echo'<a href="' . BASE_URL . "edit/stranka" . '">Uredi profil</a> | ';
+    }
     echo'<a href="' . BASE_URL . "odjava" . '">Odjava</a> | ';
     echo '</p>';
+    if ($_SESSION["vloga"] == "admin") {
+        echo '<p>';
+        echo'<a href="' . BASE_URL . "admin" . '">Admin portal</a>'; 
+        echo '</p>';
+    }elseif($_SESSION["vloga"] == "prodajalec") {
+        echo '<p>';
+        echo'<a href="' . BASE_URL . "prodajalec" . '">Prodajalec portal</a>'; 
+        echo '</p>';
+    }
 }else {
     echo '<p>';
     echo 'Pozdravljen, anonimni uporabnik | ';

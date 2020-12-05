@@ -16,13 +16,13 @@ class PrijavaForm extends HTML_QuickForm2 {
         parent::__construct($id);
         
         $this->email = new HTML_QuickForm2_Element_InputText('email');
-        $this->email->setAttribute('size', 25);
+        $this->email->setAttribute('size', 20);
         $this->email->setLabel('Elektronski naslov:');
         $this->email->addRule('required', 'Vnesite email.');
 
         $this->geslo = new HTML_QuickForm2_Element_InputPassword('geslo');
         $this->geslo->setLabel('Izberite geslo:');
-        $this->geslo->setAttribute('size', 15);
+        $this->geslo->setAttribute('size', 20);
         $this->geslo->addRule('required', 'Vnesite geslo.');
         
 

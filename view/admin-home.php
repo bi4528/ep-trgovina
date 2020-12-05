@@ -8,8 +8,7 @@
     <body>
         <h1>Admin panel:</h1>
         <?php $admin = $admin[0]; ?> 
-        <p><a href="<?= BASE_URL . "admin/edit?id=" . $admin["id"] ?>">Uredi svoj profil</a></p>
-        <!-- TODO: ustvari prodajalca -->
+        <p><a href="<?= BASE_URL . "admin/edit?id=" . $_SESSION["id"] ?>">Uredi svoj profil</a></p>
         <!-- TODO: uredi svoj profil -->
         <h2>Prodajalci:</h2>
         <ul>
