@@ -5,6 +5,7 @@ session_start();
 
 require_once("controller/JokesController.php");
 require_once("controller/UporabnikiController.php");
+require_once("controller/IzdelkiController.php");
 
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
 define("IMAGES_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/images/");
@@ -55,6 +56,9 @@ $urls = [
     },
     "prodajalec" => function () {
         UporabnikiController::prodajalecview();
+    },
+    "izdelek" => function () {
+        IzdelkiController::izdelkiview();
     },
     "" => function () {
         ViewHelper::redirect(BASE_URL . "jokes");
