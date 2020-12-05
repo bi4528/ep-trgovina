@@ -46,10 +46,13 @@ $urls = [
         JokesController::delete();
     },
     "registracija" => function () {
-        UporabnikiController::registracija();
+        UporabnikiController::add();
     },
     "prijava" => function () {
         UporabnikiController::prijava();
+    },
+    "odjava" => function () {
+        UporabnikiController::odjava();
     },
     "admin" => function () {
         UporabnikiController::adminview();
