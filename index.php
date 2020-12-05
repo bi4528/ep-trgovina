@@ -50,6 +50,12 @@ $urls = [
     "prijava" => function () {
         UporabnikiController::prijava();
     },
+    "admin" => function () {
+        UporabnikiController::adminview();
+    },
+    "prodajalec" => function () {
+        UporabnikiController::prodajalecview();
+    },
     "" => function () {
         ViewHelper::redirect(BASE_URL . "jokes");
     },
