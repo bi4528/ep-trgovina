@@ -8,7 +8,6 @@
     <body>
         <h1>Admin panel:</h1>
         <?php $admin = $admin[0]; ?> 
-        <p>Pozdravljen, <?= $admin["ime"] ?> <?= $admin["priimek"] ?></p>
         <p><a href="<?= BASE_URL . "admin/edit?id=" . $admin["id"] ?>">Uredi svoj profil</a></p>
         <!-- TODO: ustvari prodajalca -->
         <!-- TODO: uredi svoj profil -->

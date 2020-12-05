@@ -6,10 +6,26 @@
 
 <h1>Vse šale</h1>
 
-<p>[
-<a href="<?= BASE_URL . "registracija" ?>">Registracija</a> |
+<?php
+if (isset($_SESSION["id"])) {
+    echo '<p>';
+    echo 'Pozdravljen, ' . $_SESSION["ime"] . ' | ';
+    echo'<a href="' . BASE_URL . "odjava" . '">Odjava</a> | ';
+    echo '</p>';
+}else {
+    echo '<p>';
+    echo 'Pozdravljen, anonimni uporabnik | ';
+    echo'<a href="' . BASE_URL . "registracija" . '">Registracija</a> | ';
+    echo'<a href="' . BASE_URL . "prijava" . '">Prijava</a>';
+    echo '</p>';
+    /*<a href="<?= BASE_URL . "registracija" ?>">Registracija</a> |
 <a href="<?= BASE_URL . "prijava" ?>">Prijava</a>
-]</p>
+]</p>*/
+}
+
+?>
+
+
 
 <p>[
 <a href="<?= BASE_URL . "jokes" ?>">Vse šale</a> |
