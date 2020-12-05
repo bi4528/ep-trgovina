@@ -1,5 +1,5 @@
 -- shema uporabniki
-DROP DATABASE IF EXISTS uporabiniki;
+DROP DATABASE IF EXISTS uporabniki;
 CREATE DATABASE uporabniki;
 USE uporabniki;
 
