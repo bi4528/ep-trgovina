@@ -7,7 +7,6 @@
     </head>
     <body>
         <h1>Prodajalec panel:</h1>
-        <p>Pozdravljen, <?php/*$prodajalec["ime"]; #$prodajalec["priimek"]; */?></p>
         <p><a href="<?php /* BASE_URL . "admin/edit?id=" . $admin["id"] */?>">Uredi svoj profil</a></p>
         <h2>Naročila:</h2>
         <h3>Neobdelana naročila:</h3>
