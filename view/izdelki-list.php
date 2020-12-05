@@ -2,9 +2,9 @@
 
 <link rel="stylesheet" type="text/css" href="<?= CSS_URL . "style.css" ?>">
 <meta charset="UTF-8" />
-<title>Šale</title>
+<title>Začetna stran</title>
 
-<h1>Vse šale</h1>
+<h1>Začetna stran</h1>
 
 <p>[
 <a href="<?= BASE_URL . "registracija" ?>">Registracija</a> |
@@ -14,7 +14,7 @@
 <ul>
 
     <?php foreach ($izdelki as $izdelek): ?>
-    <p><b><?= $izdelek["ID"] ?></b>:<b><?= $izdelek["Ime"] ?> </b> : <b><?= $izdelek["Uporabnik"] ?> </b></p>
+    <p><b><?= $izdelek["ime"] ?></b>:<b><?= $izdelek["opis"] ?> </b> : <b><?= $izdelek["prodajalec"] ?> </b> <b><?= $izdelek["cena"] ?> </b></p>
     <?php endforeach; ?>
 
 </ul>

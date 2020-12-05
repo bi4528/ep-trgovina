@@ -12,8 +12,8 @@
         <h3>Neobdelana naročila:</h3>
         <h3>Oddana naročila:</h3>
         <h3>Potrjena naročila:</h3>
-        <h2>Seznam artiklov:</h2>
-        [<a href="<?= BASE_URL . "artikel/add" ?>">Dodaj nov artikel</a>]
+        <h2>Seznam izdelkov:</h2>
+        [<a href="<?= BASE_URL . "izdelek/add" ?>">Dodaj nov izdelkov</a>]
         <!-- TODO: prikaz artiklov -->
         <h2>Seznam strank:</h2>
         <ul>

@@ -63,6 +63,13 @@ $urls = [
     "izdelek" => function () {
         IzdelkiController::izdelkiview();
     },
+    "izdelek/add" => function () {
+        //if ($_SERVER["REQUEST_METHOD"] == "POST") {
+           // IzdelkiController::add();
+        //} else {
+            IzdelkiController::addForm();
+        //}
+    },
     "" => function () {
         ViewHelper::redirect(BASE_URL . "jokes");
     },
