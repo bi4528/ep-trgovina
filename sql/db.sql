@@ -14,9 +14,10 @@ CREATE TABLE `uporabniki` (
   `geslo` text,
   `naslov` text,
   `vloga` text,
+  `aktiven` TINYINT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- vnosi v tabelo
-INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga) VALUES ('Adam', 'Admin', 'adam.admin@mail.com', 'adamAmin123', 'admin');
+INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Adam', 'Admin', 'adam.admin@mail.com', 'adamAmin123', 'admin', 1);
 
