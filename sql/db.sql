@@ -1,5 +1,5 @@
 -- shema uporabniki
-DROP DATABASE IF EXISTS uporabiniki;
+DROP DATABASE IF EXISTS uporabniki;
 CREATE DATABASE uporabniki;
 USE uporabniki;
 
@@ -20,4 +20,7 @@ CREATE TABLE `uporabniki` (
 
 -- vnosi v tabelo
 INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Adam', 'Admin', 'adam.admin@mail.com', 'adamAmin123', 'admin', 1);
+INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Janez', 'Novak', 'jn@mail.com', 'janez123', 'prodajalec', 1);
+INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Stane', 'Horvat', 'staneh@mail.com', 'stanko123', 'stranka', 1);
+INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Stanko', 'Horvat', 'stankohorvat@mail.com', 'stanko123', 'stranka', 1);
 
