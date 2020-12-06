@@ -57,6 +57,9 @@ $urls = [
     "admin" => function () {
         UporabnikiController::adminview();
     },
+    "admin/edit" => function () {
+        UporabnikiController::editAdmin();
+    },
     "edit/password" => function () {
         UporabnikiController::editpassword();
     },
@@ -65,6 +68,12 @@ $urls = [
     },
     "prodajalec/add" => function () {
         UporabnikiController::addprodajalec();
+    },
+    "prodajalec/edit" => function () {
+        UporabnikiController::editProdajalec();
+    },
+    "stranka/edit" => function () {
+        UporabnikiController::editStranka();
     },
     "izdelek" => function () {
         IzdelkiController::izdelkiview();
