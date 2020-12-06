@@ -57,6 +57,9 @@ $urls = [
     "admin" => function () {
         UporabnikiController::adminview();
     },
+    "edit/password" => function () {
+        UporabnikiController::editpassword();
+    },
     "prodajalec" => function () {
         UporabnikiController::prodajalecview();
     },

@@ -19,6 +19,14 @@ class UprabnikDB extends AbstractDB2 {
     public static function getStranke() {
         return parent::query("select * from uporabniki where vloga='stranka'");
     }
+    
+    public static function getPassword(array $params) {
+        return parent::query("select geslo from uporabniki where id= :id", $params);
+    }
+    
+    public static function changePassword(array $params) {
+        return parent::modify("update uporabniki set geslo = :geslo where id = :id", $params);
+    }
 
     public static function delete(array $id) {
         

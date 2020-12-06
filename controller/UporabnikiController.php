@@ -5,6 +5,7 @@ require_once("ViewHelper.php");
 require_once("view/forms/registracija-form.php");
 require_once("view/forms/registracija-prodajalec.php");
 require_once("view/forms/prijava-form.php");
+require_once("view/forms/password-form.php");
 
 
 class UporabnikiController {
@@ -75,6 +76,35 @@ class UporabnikiController {
             echo ViewHelper::render("view/registracija.php", [
                "form" => $form 
             ]);
+        }
+    }
+    
+    public static function editpassword() {
+        if (isset($_SESSION["id"])) {
+            $form = new PasswordForm("pass");
+            if($form->validate()) {
+                $uporabnik = $form->getValue();
+                //var_dump($uporabnik);
+                $trenutnoGeslo = UprabnikDB::getPassword(array("id" => $_SESSION["id"]));
+                $trenutnoGeslo = $trenutnoGeslo[0]["geslo"];
+                if ($uporabnik["geslozdaj"] == $trenutnoGeslo) {
+                    $parametri["geslo"] = $uporabnik["geslo"];
+                    $parametri["id"] = $_SESSION["id"];
+                    UprabnikDB::changePassword($parametri);
+                    echo "Vaše geslo je bilo uspešno spremenjeno!";
+                    echo '<p>' . '<a href="' . BASE_URL . '">Nazaj na prvo stran</a>' . '</p>';
+                }else {
+                    echo "Napaka: Vnesli ste napačno geslo.";
+                    echo '<p>' . '<a href="' . BASE_URL . "admin/edit/password" . '">Poskusi ponovno</a>' . '</p>';
+
+                }
+            }else {
+                echo ViewHelper::render("view/registracija.php", [
+                   "form" => $form 
+                ]);
+            }
+        }else {
+            ViewHelper::redirect(BASE_URL . 'prijava');
         }
     }
     

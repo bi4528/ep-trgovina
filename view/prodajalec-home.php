@@ -13,7 +13,9 @@
         echo'<a href="' . BASE_URL . "odjava" . '">Odjava</a> | ';
         echo '</p>';
         ?>
-        <p><a href="<?php /* BASE_URL . "admin/edit?id=" . $admin["id"] */?>">Uredi svoj profil</a></p>
+            <p><a href="<?php /* BASE_URL . "admin/edit?id=" . $admin["id"] */?>">Uredi svoj profil</a> | 
+            <a href="<?= BASE_URL . "edit/password" ?>">Spremeni geslo</a>
+        </p>
         <h2>Naročila:</h2>
         <h3>Neobdelana naročila:</h3>
         <h3>Oddana naročila:</h3>
