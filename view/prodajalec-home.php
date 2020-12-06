@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <title>Admin home</title>
+        <title>Prodajalec home</title>
         <link rel="stylesheet" type="text/css" href="<?= CSS_URL . "style.css" ?>">
         <meta charset="UTF-8" />
     </head>
@@ -13,7 +13,7 @@
         echo'<a href="' . BASE_URL . "odjava" . '">Odjava</a> | ';
         echo '</p>';
         ?>
-            <p><a href="<?php /* BASE_URL . "admin/edit?id=" . $admin["id"] */?>">Uredi svoj profil</a> | 
+            <p><a href="<?= BASE_URL . "prodajalec/edit" ?>">Uredi svoj profil</a> | 
             <a href="<?= BASE_URL . "edit/password" ?>">Spremeni geslo</a>
         </p>
         <h2>Naročila:</h2>
