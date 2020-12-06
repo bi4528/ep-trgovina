@@ -19,9 +19,10 @@ class IzdelkiDB extends AbstractDB2 {
     }
 
     public static function insert(array $params) {
-        return parent::modify("INSERT INTO izdelki (ime, opis, cena, aktiven, id) "
-                        . " VALUES (:ime, :opis, :cena, :aktiven, :id)", $params);
+        return parent::modify("INSERT INTO izdelki (ime, opis, cena, prodajalec_id, aktiven) "
+                        . " VALUES (:ime, :opis, :cena, :prodajalec_id, :aktiven)", $params);
     }
+
 
     public static function update(array $params) {
         

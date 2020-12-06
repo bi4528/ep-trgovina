@@ -16,12 +16,13 @@ class IzdelkiController {
         "ime" => "",
         "opis" => "",
         "cena" => "",
-        "prodajalec_id" => ""
+        "prodajalec_id" => "",
+        "aktiven" => ""
     ]) {
         echo ViewHelper::render("view/izdelki-add.php", $values);
     }
 
-    /*public static function add() {
+    public static function add() {
         $data = filter_input_array(INPUT_POST, self::getRules());
 
         if (self::checkValues($data)) {
@@ -33,6 +34,32 @@ class IzdelkiController {
         } else {
             self::addForm($data);
         }
-    }*/
+    }
+    
+    
+        private static function getRules() {
+        return [
+            'ime' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'opis' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'cena' => FILTER_VALIDATE_FLOAT,
+            'prodajalec_id' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'aktiven' =>FILTER_VALIDATE_INT
+            
+        ];}
+        
+        private static function checkValues($input) {
+        if (empty($input)) {
+            return FALSE;
+        }
 
-}
+        $result = TRUE;
+        foreach ($input as $value) {
+            $result = $result && $value != false;
+        }
+
+        return $result;
+    }
+
+    }
+        
+    
