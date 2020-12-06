@@ -81,7 +81,7 @@ class UporabnikiController {
     
     public static function editpassword() {
         if (isset($_SESSION["id"])) {
-            $form = new PasswordForm("pass");
+            $form = new PasswordForm("geslo");
             if($form->validate()) {
                 $uporabnik = $form->getValue();
                 //var_dump($uporabnik);
@@ -99,7 +99,7 @@ class UporabnikiController {
 
                 }
             }else {
-                echo ViewHelper::render("view/registracija.php", [
+                echo ViewHelper::render("view/geslo.php", [
                    "form" => $form 
                 ]);
             }

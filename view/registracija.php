@@ -3,13 +3,11 @@
 <html>
 
     <head>
-        <title>Registracija novega uporabnika</title>
+        <title>Registracija</title>
     </head>
 
     <body>
-        <div class="container">
-            <?php echo $form; ?>
-        </div>
+        <?php echo $form; ?>
     </body>
 
 </html>

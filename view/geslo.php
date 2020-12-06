@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Prijava</title>
+        <title>Spremeni geslo</title>
     </head>
     <body>
         <?php echo $form; ?>

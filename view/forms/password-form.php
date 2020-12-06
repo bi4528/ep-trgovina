@@ -41,7 +41,7 @@ class PasswordForm extends HTML_QuickForm2 {
         $this->gumb->setAttribute('value', 'Spremeni');
 
         $this->fs = new HTML_QuickForm2_Container_Fieldset();
-        $this->fs->setLabel('Sremeni');
+        $this->fs->setLabel('Sprememba gesla');
         $this->addElement($this->fs);
         $this->fs->addElement($this->geslozdaj);
         $this->fs->addElement($this->geslo);
