@@ -10,5 +10,6 @@ public class RegisterPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
+        //pobere Ime, Priimek, Email, Password, Naslov(sam pri strankah)
     }
 }
