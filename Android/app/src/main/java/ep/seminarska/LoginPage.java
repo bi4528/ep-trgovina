@@ -2,6 +2,7 @@ package ep.seminarska;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +35,15 @@ public class LoginPage extends AppCompatActivity {
                     tv.setText("Napaka pri vnosu podatkov. Prosim poskusite ponovno.");
                     e.printStackTrace();
                 }
+            }
+        });
+
+        btnReg.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(LoginPage.this, RegisterPage.class);
+                LoginPage.this.startActivity(myIntent);
             }
         });
     }
