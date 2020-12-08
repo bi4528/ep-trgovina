@@ -257,7 +257,7 @@ class UporabnikiController {
 
                         UprabnikDB::updateAttributes($parametri);
                         echo "Atributi so bili uspešno posodobljeni.";
-                        echo '<p>' . '<a href="' . BASE_URL . "jokes" . '">Nazaj na prodajalec panel</a>' . '</p>';
+                        echo '<p>' . '<a href="' . BASE_URL . "izdelki" . '">Nazaj na začetno stran</a>' . '</p>';
 
                     }else {
                         echo "Napaka: Vnesli ste napačno geslo.";

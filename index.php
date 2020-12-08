@@ -106,10 +106,10 @@ $urls = [
             echo "Nepooblaščen dostop";
         }
     },
-    "izdelek" => function () {
+    "izdelki" => function () {
         IzdelkiController::izdelkiview();
     },
-    "izdelek/add" => function () {
+    "izdelki/add" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             IzdelkiController::add();
         } else {
@@ -117,7 +117,7 @@ $urls = [
         }
     },
     "" => function () {
-        ViewHelper::redirect(BASE_URL . "jokes");
+        ViewHelper::redirect(BASE_URL . "izdelki");
     },
 ];
 
