@@ -60,6 +60,13 @@ $urls = [
     "admin/edit" => function () {
         UporabnikiController::editAdmin();
     },
+    "admin/edit-prodajalec" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            UporabnikiController::editAdminProdajalec();
+        } else {
+            UporabnikiController::adminview();
+        }
+    },
     "edit/password" => function () {
         UporabnikiController::editpassword();
     },
@@ -71,6 +78,13 @@ $urls = [
     },
     "prodajalec/edit" => function () {
         UporabnikiController::editProdajalec();
+    },
+    "prodajalec/edit-stranka" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            UporabnikiController::editProdajalecStranka();
+        } else {
+            UporabnikiController::prodajalecview();
+        }
     },
     "prodajalec/aktiviraj" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {

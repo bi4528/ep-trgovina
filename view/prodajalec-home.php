@@ -28,7 +28,11 @@
             [<a href="<?= BASE_URL . "stranka/add" ?>">Dodaj novo stranko</a>]
             <?php foreach ($stranke as $stranka): ?>
             <p>
-                <?= $stranka["ime"] ?> <?= $stranka["priimek"] ?> [<a href="<?= BASE_URL . "stranka/edit?id=" . $stranka["id"] ?>">Uredi</a>]
+                <?= $stranka["ime"] ?> <?= $stranka["priimek"] ?>
+                <form action="<?= BASE_URL . "prodajalec/edit-stranka" ?>" method="post">
+                <input type="hidden" name="id" value="<?php echo strval($stranka["id"]); ?>" />
+                <button>Uredi</button>
+                </form>
                 <form action="<?= BASE_URL . "stranka/aktiviraj" ?>" method="post">
                 <input type="hidden" name="id" value="<?php echo strval($stranka["id"]); ?>" />
                 <?php

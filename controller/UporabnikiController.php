@@ -133,7 +133,9 @@ class UporabnikiController {
         }
     }
     
-    public static function adminview() {    
+    public static function adminview() {
+        unset($_SESSION["id2edit"]);
+        //var_dump($_SESSION);
         if (isset($_SESSION["id"])) {
             if ($_SESSION["vloga"] == "admin") {
                 echo ViewHelper::render("view/admin-home.php", [
@@ -284,7 +286,105 @@ class UporabnikiController {
         }
     }
     
+    public static function editAdminProdajalec() {
+        $form = new EditFormAP("uredi");
+        if($form->validate()) {
+            //var_dump($_SESSION["id2edit"]);
+            $uporabnik = $form->getValue();
+            $trenutnoGeslo = UprabnikDB::getPassword(array("id" => $_SESSION["id"]))[0]["geslo"];
+
+            if ($uporabnik["geslo"] == $trenutnoGeslo) {
+                $parametri["ime"] = $uporabnik["ime"];
+                $parametri["priimek"] = $uporabnik["priimek"];
+                $parametri["email"] = $uporabnik["email"];
+                $parametri["naslov"] = "";
+                $parametri["id"] = $_SESSION["id2edit"];
+
+                UprabnikDB::updateAttributes($parametri);
+                echo "Atributi so bili uspešno posodobljeni.";
+                echo '<p>' . '<a href="' . BASE_URL . "admin" . '">Nazaj na admin panel</a>' . '</p>';
+
+            }else {
+                echo "Napaka: Vnesli ste napačno geslo.";
+                echo '<p>' . '<a href="' . BASE_URL . "admin/edit-prodajalec" . '">Poskusi ponovno</a>' . '</p>';
+            }
+        }else {
+            if (isset($_SESSION["id2edit"])) {
+                $atributi = UprabnikDB::getAttributes(array("id" => $_SESSION["id2edit"]));
+                $atributi = $atributi[0];
+            }else {
+                $atributi = UprabnikDB::getAttributes(array("id" => $_POST["id"]));
+                $atributi = $atributi[0];
+                $_SESSION["id2edit"] = $_POST["id"];
+            }
+            
+            if ($atributi["vloga"] == "prodajalec"){
+                $form->addDataSource(new HTML_QuickForm2_DataSource_Array(array(
+                    "ime" => $atributi["ime"],
+                    "priimek" => $atributi["priimek"],
+                    "email" => $atributi["email"]
+                )));
+
+                echo ViewHelper::render("view/uredi.php", [
+                   "form" => $form
+                ]);
+            }else {
+                echo "Nepooblaščeni dostop.";
+            }
+        }
+    }
+    
+    public static function editProdajalecStranka() {
+        $form = new EditFormStranka("uredi");
+        if($form->validate()) {
+            //var_dump($_SESSION["id2edit"]);
+            $uporabnik = $form->getValue();
+            $trenutnoGeslo = UprabnikDB::getPassword(array("id" => $_SESSION["id"]))[0]["geslo"];
+
+            if ($uporabnik["geslo"] == $trenutnoGeslo) {
+                $parametri["ime"] = $uporabnik["ime"];
+                $parametri["priimek"] = $uporabnik["priimek"];
+                $parametri["email"] = $uporabnik["email"];
+                $parametri["naslov"] = $uporabnik["naslov"];
+                $parametri["id"] = $_SESSION["id2edit"];
+
+                UprabnikDB::updateAttributes($parametri);
+                echo "Atributi so bili uspešno posodobljeni.";
+                echo '<p>' . '<a href="' . BASE_URL . "prodajalec" . '">Nazaj na admin panel</a>' . '</p>';
+
+            }else {
+                echo "Napaka: Vnesli ste napačno geslo.";
+                echo '<p>' . '<a href="' . BASE_URL . "prodajalec/edit-stranka" . '">Poskusi ponovno</a>' . '</p>';
+            }
+        }else {
+            if (isset($_SESSION["id2edit"])) {
+                $atributi = UprabnikDB::getAttributes(array("id" => $_SESSION["id2edit"]));
+                $atributi = $atributi[0];
+            }else {
+                $atributi = UprabnikDB::getAttributes(array("id" => $_POST["id"]));
+                $atributi = $atributi[0];
+                $_SESSION["id2edit"] = $_POST["id"];
+            }
+            
+            if ($atributi["vloga"] == "stranka"){
+                $form->addDataSource(new HTML_QuickForm2_DataSource_Array(array(
+                    "ime" => $atributi["ime"],
+                    "priimek" => $atributi["priimek"],
+                    "email" => $atributi["email"],
+                    "naslov" => $atributi["naslov"]
+                )));
+
+                echo ViewHelper::render("view/uredi.php", [
+                   "form" => $form
+                ]);
+            }else {
+                echo "Nepooblaščeni dostop.";
+            }
+        }
+    }
+    
     public static function prodajalecview() {
+        unset($_SESSION["id2edit"]);
         if (isset($_SESSION["id"])) {
             if ($_SESSION["vloga"] == "prodajalec") {
                 echo ViewHelper::render("view/prodajalec-home.php", [
