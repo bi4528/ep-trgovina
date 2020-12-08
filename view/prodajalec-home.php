@@ -20,9 +20,33 @@
         <h3>Neobdelana naročila:</h3>
         <h3>Oddana naročila:</h3>
         <h3>Potrjena naročila:</h3>
-        <h2>Seznam izdelkov:</h2>
-        [<a href="<?= BASE_URL . "izdelki/add" ?>">Dodaj nov izdelkov</a>]
-        <!-- TODO: prikaz artiklov -->
+        
+        <h2>Moji izdelki:</h2>
+        
+        <ul>
+            [<a href="<?= BASE_URL . "izdelki/add" ?>">Dodaj nov izdelek</a>]
+            <?php foreach ($izdelki as $izdelek): ?>
+            <p>
+                <li><?= $izdelek["ime"] ?> <?= $izdelek["opis"] ?> <?= $izdelek["cena"] ?>
+                <form action="<?= BASE_URL . "prodajalec/edit-izdelek" ?>" method="post">
+                <input type="hidden" name="id" value="<?php echo strval($izdelek["id"]); ?>" />
+                <button>Uredi</button>
+                </form>
+                <form action="<?= BASE_URL . "izdelek/aktiviraj" ?>" method="post">
+                <input type="hidden" name="id" value="<?php echo strval($izdelek["id"]); ?>" />
+                <?php
+                if ($izdelek["aktiven"] == 1) {
+                    echo "<button>Deaktviriaj</button>";
+                }else {
+                     echo "<button>Aktiviraj</button>";
+                }
+                ?>
+                </form>
+            </p>
+            <?php endforeach; ?>
+
+        </ul>
+        
         <h2>Seznam strank:</h2>
         <ul>
             [<a href="<?= BASE_URL . "stranka/add" ?>">Dodaj novo stranko</a>]

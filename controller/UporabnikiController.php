@@ -394,8 +394,10 @@ class UporabnikiController {
         unset($_SESSION["id2edit"]);
         if (isset($_SESSION["id"])) {
             if ($_SESSION["vloga"] == "prodajalec") {
+                $izdelki = IzdelkiDB::getIzdelkiProdajalec(array("id" => $_SESSION["id"]));
                 echo ViewHelper::render("view/prodajalec-home.php", [
-                        "stranke" => UprabnikDB::getStranke()
+                        "stranke" => UprabnikDB::getStranke(),
+                        "izdelki" => $izdelki
                     ]);
             }else {
                 echo "Nepooblaščen dostop";

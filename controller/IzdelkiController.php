@@ -52,7 +52,8 @@ class IzdelkiController {
 
                 //var_dump($params);
                 IzdelkiDB::insert($params);
-
+                echo "Izdelek je bil uspešno dodan!";
+                echo '<p>' . '<a href="' . BASE_URL . 'prodajalec' . '">Nazaj prodajalec portal.</a>' . '</p>';
             }else {
                 echo ViewHelper::render("view/dodaj-izdelek.php", [
                    "form" => $form 
