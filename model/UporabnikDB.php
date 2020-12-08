@@ -28,8 +28,12 @@ class UprabnikDB extends AbstractDB2 {
         return parent::modify("update uporabniki set geslo = :geslo where id = :id", $params);
     }
     
+    public static function changeAktiven(array $params) {
+        return parent::modify("update uporabniki set aktiven = :aktiven where id = :id", $params);
+    }
+    
     public static function getAttributes(array $params) {
-        return parent::query("select ime, priimek, naslov, email from uporabniki where id= :id", $params);
+        return parent::query("select * from uporabniki where id= :id", $params);
     }
     
     public static function updateAttributes(array $params) {

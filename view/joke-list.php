@@ -31,9 +31,6 @@ if (isset($_SESSION["id"])) {
     echo'<a href="' . BASE_URL . "registracija" . '">Registracija</a> | ';
     echo'<a href="' . BASE_URL . "prijava" . '">Prijava</a>';
     echo '</p>';
-    /*<a href="<?= BASE_URL . "registracija" ?>">Registracija</a> |
-<a href="<?= BASE_URL . "prijava" ?>">Prijava</a>
-]</p>*/
 }
 
 ?>
@@ -50,5 +47,7 @@ if (isset($_SESSION["id"])) {
     <?php foreach ($jokes as $joke): ?>
     <p><b><?= $joke["joke_date"] ?></b>: <?= $joke["joke_text"] ?> [<a href="<?= BASE_URL . "jokes/edit?id=" . $joke["id"] ?>">Uredi</a>]</b></p>
     <?php endforeach; ?>
+    
+    
 
 </ul>

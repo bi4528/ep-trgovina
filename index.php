@@ -72,6 +72,16 @@ $urls = [
     "prodajalec/edit" => function () {
         UporabnikiController::editProdajalec();
     },
+    "prodajalec/aktiviraj" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            UporabnikiController::aktiviraj();
+        } else {
+            echo "Nepooblaščen dostop";
+        }
+    },
+    "" => function () {
+        ViewHelper::redirect(BASE_URL . "jokes");
+    },
     "stranka/edit" => function () {
         UporabnikiController::editStranka();
     },

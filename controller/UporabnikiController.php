@@ -298,6 +298,24 @@ class UporabnikiController {
         }
     }
     
+    public static function aktiviraj() {
+        // TODO: Aktiviraj/Deaktiviraj vse njegove izdelke
+        echo $_POST["id"];
+        var_dump($_POST);
+        $atributi = UprabnikDB::getAttributes(array("id" => $_POST["id"]));
+        $atributi = $atributi[0];
+        var_dump($atributi);
+        if ($atributi["aktiven"] == 1) {
+            $parametri["aktiven"] = 0;
+        }else {
+            $parametri["aktiven"] = 1;
+        }
+        $parametri["id"] = $_POST["id"];
+        UprabnikDB::changeAktiven($parametri);
+        echo "Prosimo pocakajte";
+        ViewHelper::redirect(BASE_URL . 'admin');
+    }
+    
     public static function index() {
         
     }
