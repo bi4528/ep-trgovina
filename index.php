@@ -85,6 +85,13 @@ $urls = [
     "stranka/edit" => function () {
         UporabnikiController::editStranka();
     },
+    "stranka/aktiviraj" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            UporabnikiController::aktiviraj();
+        } else {
+            echo "Nepooblaščen dostop";
+        }
+    },
     "izdelek" => function () {
         IzdelkiController::izdelkiview();
     },

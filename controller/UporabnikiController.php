@@ -300,20 +300,35 @@ class UporabnikiController {
     
     public static function aktiviraj() {
         // TODO: Aktiviraj/Deaktiviraj vse njegove izdelke
-        echo $_POST["id"];
-        var_dump($_POST);
+        // VARNOST: Admin lahko deaktivira le prodajalca
+        //          Prodajalec pa le stranke
         $atributi = UprabnikDB::getAttributes(array("id" => $_POST["id"]));
         $atributi = $atributi[0];
-        var_dump($atributi);
         if ($atributi["aktiven"] == 1) {
             $parametri["aktiven"] = 0;
         }else {
             $parametri["aktiven"] = 1;
         }
         $parametri["id"] = $_POST["id"];
-        UprabnikDB::changeAktiven($parametri);
-        echo "Prosimo pocakajte";
-        ViewHelper::redirect(BASE_URL . 'admin');
+        
+        if ($_SESSION["vloga"] == "admin") {
+            if ($atributi["vloga"] == "prodajalec"){
+                UprabnikDB::changeAktiven($parametri);
+                ViewHelper::redirect(BASE_URL . 'admin');
+            }else{
+                echo "Nepooblaščen dostop";
+            }
+        }elseif ($_SESSION["vloga"] == "prodajalec") {
+            if ($atributi["vloga"] == "stranka"){
+                UprabnikDB::changeAktiven($parametri);
+                ViewHelper::redirect(BASE_URL . 'prodajalec');
+            }else{
+                echo "Nepooblaščen dostop";
+            }
+        }else {
+            echo "Nepooblaščen dostop.";
+        }
+        
     }
     
     public static function index() {
