@@ -9,6 +9,7 @@ require_once("view/forms/password-form.php");
 require_once("view/forms/edit-ap.php");
 require_once("view/forms/edit-stranka.php");
 
+//TODO: popravi posodabljanje imena pri spremembi: stranka, prodajalec
 
 class UporabnikiController {
 
@@ -110,26 +111,29 @@ class UporabnikiController {
     }
     
     public static function addprodajalec() {
-        // popravi isset admin
-        $form = new RegistracijaFormProdajalec("registracija");
-        if($form->validate()) {
-            $uporabnik = $form->getValue();
-            $uporabnik["vloga"] = "prodajalec";
-            $uporabnik["aktiven"] = 1;
-            $uporabnik["naslov"] = "";
-            
-            $up = UprabnikDB::getup(array("email" => $uporabnik["email"]));
-            if ($up == null) {
-                UprabnikDB::insert($uporabnik);
-                ViewHelper::redirect(BASE_URL . 'admin');
+        if(isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "admin") {
+            $form = new RegistracijaFormProdajalec("registracija");
+            if($form->validate()) {
+                $uporabnik = $form->getValue();
+                $uporabnik["vloga"] = "prodajalec";
+                $uporabnik["aktiven"] = 1;
+                $uporabnik["naslov"] = "";
+
+                $up = UprabnikDB::getup(array("email" => $uporabnik["email"]));
+                if ($up == null) {
+                    UprabnikDB::insert($uporabnik);
+                    ViewHelper::redirect(BASE_URL . 'admin');
+                }else {
+                    echo 'Uporabnik že obstaja';
+                }
+
             }else {
-                echo 'Uporabnik že obstaja';
+                echo ViewHelper::render("view/registracija.php", [
+                   "form" => $form 
+                ]);
             }
-            
         }else {
-            echo ViewHelper::render("view/registracija.php", [
-               "form" => $form 
-            ]);
+            echo "Nepooblaščen dostop";
         }
     }
     
@@ -166,6 +170,7 @@ class UporabnikiController {
                         $parametri["id"] = $_SESSION["id"];
 
                         UprabnikDB::updateAttributes($parametri);
+                        $_SESSION["ime"] = $parametri["ime"];
                         echo "Atributi so bili uspešno posodobljeni.";
                         echo '<p>' . '<a href="' . BASE_URL . "admin" . '">Nazaj na admin panel</a>' . '</p>';
 
@@ -211,6 +216,7 @@ class UporabnikiController {
                         $parametri["id"] = $_SESSION["id"];
 
                         UprabnikDB::updateAttributes($parametri);
+                        $_SESSION["ime"] = $parametri["ime"];
                         echo "Atributi so bili uspešno posodobljeni.";
                         echo '<p>' . '<a href="' . BASE_URL . "prodajalec" . '">Nazaj na prodajalec panel</a>' . '</p>';
 
@@ -256,6 +262,7 @@ class UporabnikiController {
                         $parametri["id"] = $_SESSION["id"];
 
                         UprabnikDB::updateAttributes($parametri);
+                        $_SESSION["ime"] = $parametri["ime"];
                         echo "Atributi so bili uspešno posodobljeni.";
                         echo '<p>' . '<a href="' . BASE_URL . "izdelki" . '">Nazaj na začetno stran</a>' . '</p>';
 

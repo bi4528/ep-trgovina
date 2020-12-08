@@ -21,7 +21,7 @@
         <h3>Oddana naročila:</h3>
         <h3>Potrjena naročila:</h3>
         <h2>Seznam izdelkov:</h2>
-        [<a href="<?= BASE_URL . "izdelek/add" ?>">Dodaj nov izdelkov</a>]
+        [<a href="<?= BASE_URL . "izdelki/add" ?>">Dodaj nov izdelkov</a>]
         <!-- TODO: prikaz artiklov -->
         <h2>Seznam strank:</h2>
         <ul>

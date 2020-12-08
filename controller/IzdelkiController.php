@@ -2,6 +2,7 @@
 
 require_once("model/IzdelkiDB.php");
 require_once("ViewHelper.php");
+require_once("view/forms/izdelek-form.php");
 
 class IzdelkiController {
 
@@ -36,6 +37,32 @@ class IzdelkiController {
         }
     }
     
+    public static function addizdelek() {
+        //var_dump($_SESSION);
+        if (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "prodajalec") {
+            $form = new IzdelekForm("dodajizdelek");
+            if($form->validate()) {
+                $izdelek = $form->getValue();
+
+                $params["ime"] = $izdelek["ime"];
+                $params["opis"] = $izdelek["opis"];
+                $params["cena"] = $izdelek["cena"];
+                $params["prodajalec_id"] = $_SESSION["id"];
+                $params["aktiven"] = 1;
+
+                //var_dump($params);
+                IzdelkiDB::insert($params);
+
+            }else {
+                echo ViewHelper::render("view/dodaj-izdelek.php", [
+                   "form" => $form 
+                ]);
+            }
+        }else {
+            echo "Nepooblaščen dostop";
+        }
+        
+    }
     
         private static function getRules() {
         return [
@@ -60,6 +87,6 @@ class IzdelkiController {
         return $result;
     }
 
-    }
+}
         
     

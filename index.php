@@ -106,15 +106,11 @@ $urls = [
             echo "Nepooblaščen dostop";
         }
     },
+    "izdelki/add" => function () {
+        IzdelkiController::addizdelek();
+    },
     "izdelki" => function () {
         IzdelkiController::izdelkiview();
-    },
-    "izdelki/add" => function () {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            IzdelkiController::add();
-        } else {
-            IzdelkiController::addForm();
-        }
     },
     "" => function () {
         ViewHelper::redirect(BASE_URL . "izdelki");
