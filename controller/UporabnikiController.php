@@ -12,40 +12,51 @@ require_once("view/forms/edit-stranka.php");
 //TODO: popravi posodabljanje imena pri spremembi: stranka, prodajalec
 
 class UporabnikiController {
-
+    const SALT = '$1$trgovina$';
+    
     public static function prijava() {
-        $form = new PrijavaForm("prijava");
-        
-        if ($form->validate()) {
-            $uporabnik = $form->getValue();
-            $email = $uporabnik["email"];
-            $geslo = $uporabnik["geslo"];
-            
-            $up = UprabnikDB::getup(array("email" => $uporabnik["email"]));
-            
-            if ($up != null) {
-                $up = $up[0];
-                //var_dump($up);
-                if ($up["geslo"] == $geslo) {
-                    if ($up["aktiven"] == 1) {
-                        session_regenerate_id();
-                        $_SESSION["id"] = $up["id"];
-                        $_SESSION["vloga"] = $up["vloga"];
-                        $_SESSION["ime"] = $up["ime"];
-                        ViewHelper::redirect(BASE_URL);
+        if (!isset($_SESSION["id"])) {
+            $form = new PrijavaForm("prijava");
+            if ($form->validate()) {
+                $uporabnik = $form->getValue();
+                $email = $uporabnik["email"];
+                $geslo = $uporabnik["geslo"];
+
+                $up = UprabnikDB::getup(array("email" => $uporabnik["email"]));
+
+                if ($up != null) {
+                    $up = $up[0];
+                    if (crypt($geslo, self::SALT) == $up["geslo"]) {
+                        if ($up["aktiven"] == 1) {
+                            session_regenerate_id();
+                            $_SESSION["id"] = $up["id"];
+                            $_SESSION["vloga"] = $up["vloga"];
+                            $_SESSION["ime"] = $up["ime"];
+                            ViewHelper::redirect(BASE_URL);
+
+                            ////TEST ENKRIPCIJE GESLA
+                            //var_dump($geslo);
+                            //$crypted = crypt($geslo, self::SALT);
+                            //echo $crypted;
+                            //$decr = crypt("adamAmin123", $crypted);
+                            //var_dump($crypted);
+                            //var_dump($decr);
+                        }else {
+                            echo "uporabnik neaktiven";
+                        }
                     }else {
-                        echo "uporabnik neaktiven";
+                        echo "napačno geslo";
                     }
                 }else {
-                    echo "napačno geslo";
+                    echo "uporabnik ne obstaja";
                 }
             }else {
-                echo "uporabnik ne obstaja";
+                echo ViewHelper::render("view/prijava.php", [
+                   "form" => $form 
+                ]);
             }
         }else {
-            echo ViewHelper::render("view/prijava.php", [
-               "form" => $form 
-            ]);
+            ViewHelper::redirect(BASE_URL);
         }
     }
     
@@ -90,8 +101,8 @@ class UporabnikiController {
                 //var_dump($uporabnik);
                 $trenutnoGeslo = UprabnikDB::getPassword(array("id" => $_SESSION["id"]));
                 $trenutnoGeslo = $trenutnoGeslo[0]["geslo"];
-                if ($uporabnik["geslozdaj"] == $trenutnoGeslo) {
-                    $parametri["geslo"] = $uporabnik["geslo"];
+                if (crypt($uporabnik["geslozdaj"], self::SALT) == $trenutnoGeslo) {
+                    $parametri["geslo"] = crypt($uporabnik["geslo"], self::SALT);
                     $parametri["id"] = $_SESSION["id"];
                     UprabnikDB::changePassword($parametri);
                     echo "Vaše geslo je bilo uspešno spremenjeno!";
@@ -162,7 +173,7 @@ class UporabnikiController {
                     $uporabnik = $form->getValue();
                     $trenutnoGeslo = UprabnikDB::getPassword(array("id" => $_SESSION["id"]))[0]["geslo"];
                     
-                    if ($uporabnik["geslo"] == $trenutnoGeslo) {
+                    if (crypt($uporabnik["geslo"], self::SALT) == $trenutnoGeslo) {
                         $parametri["ime"] = $uporabnik["ime"];
                         $parametri["priimek"] = $uporabnik["priimek"];
                         $parametri["email"] = $uporabnik["email"];
@@ -208,7 +219,7 @@ class UporabnikiController {
                     $uporabnik = $form->getValue();
                     $trenutnoGeslo = UprabnikDB::getPassword(array("id" => $_SESSION["id"]))[0]["geslo"];
                     
-                    if ($uporabnik["geslo"] == $trenutnoGeslo) {
+                    if (crypt($uporabnik["geslo"], self::SALT) == $trenutnoGeslo) {
                         $parametri["ime"] = $uporabnik["ime"];
                         $parametri["priimek"] = $uporabnik["priimek"];
                         $parametri["email"] = $uporabnik["email"];
@@ -254,7 +265,7 @@ class UporabnikiController {
                     $uporabnik = $form->getValue();
                     $trenutnoGeslo = UprabnikDB::getPassword(array("id" => $_SESSION["id"]))[0]["geslo"];
                     
-                    if ($uporabnik["geslo"] == $trenutnoGeslo) {
+                    if (crypt($uporabnik["geslo"], self::SALT) == $trenutnoGeslo) {
                         $parametri["ime"] = $uporabnik["ime"];
                         $parametri["priimek"] = $uporabnik["priimek"];
                         $parametri["naslov"] = $uporabnik["naslov"];
@@ -300,7 +311,7 @@ class UporabnikiController {
             $uporabnik = $form->getValue();
             $trenutnoGeslo = UprabnikDB::getPassword(array("id" => $_SESSION["id"]))[0]["geslo"];
 
-            if ($uporabnik["geslo"] == $trenutnoGeslo) {
+            if (crypt($uporabnik["geslo"], self::SALT) == $trenutnoGeslo) {
                 $parametri["ime"] = $uporabnik["ime"];
                 $parametri["priimek"] = $uporabnik["priimek"];
                 $parametri["email"] = $uporabnik["email"];
@@ -348,7 +359,7 @@ class UporabnikiController {
             $uporabnik = $form->getValue();
             $trenutnoGeslo = UprabnikDB::getPassword(array("id" => $_SESSION["id"]))[0]["geslo"];
 
-            if ($uporabnik["geslo"] == $trenutnoGeslo) {
+            if (crypt($uporabnik["geslo"], self::SALT) == $trenutnoGeslo) {
                 $parametri["ime"] = $uporabnik["ime"];
                 $parametri["priimek"] = $uporabnik["priimek"];
                 $parametri["email"] = $uporabnik["email"];

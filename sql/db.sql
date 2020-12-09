@@ -19,10 +19,16 @@ CREATE TABLE `uporabniki` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- vnosi v tabelo
-INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Adam', 'Admin', 'adam.admin@mail.com', 'adamAmin123', 'admin', 1);
-INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Janez', 'Novak', 'jn@mail.com', 'janez123', 'prodajalec', 1);
-INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Stane', 'Horvat', 'staneh@mail.com', 'stanko123', 'stranka', 1);
-INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Stanko', 'Horvat', 'stankohorvat@mail.com', 'stanko123', 'stranka', 1);
+INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Adam', 'Admin', 'adam.admin@mail.com', '$1$trgovina$72NkI3N6C0d4WLXcGLcd20', 'admin', 1);
+INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Janez', 'Novak', 'jn@mail.com', '$1$trgovina$oLCDeNVWtehAZ1K2W.d6V.', 'prodajalec', 1);
+INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Stane', 'Horvat', 'staneh@mail.com', '$1$trgovina$hrbdw7I138tHVdx.9yJTZ.', 'stranka', 1);
+INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Stanko', 'Horvat', 'stankohorvat@mail.com', '$1$trgovina$hrbdw7I138tHVdx.9yJTZ.', 'stranka', 1);
+--GESLA:
+--adamAmin123
+--Janez123
+--stanko123
+--stanko123
+
 
 -- tabela izdelki
 
