@@ -6,7 +6,8 @@ require_once("view/forms/izdelek-form.php");
 
 class IzdelkiController {
 
-    public static function izdelkiview() {        
+    public static function izdelkiview() {
+        //TODO: Prikazi le aktivne izdelke
         echo ViewHelper::render("view/izdelki-list.php", [
                 "izdelki" => IzdelkiDB::getAll()
             ]);

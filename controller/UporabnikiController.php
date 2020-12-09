@@ -408,7 +408,6 @@ class UporabnikiController {
     }
     
     public static function aktiviraj() {
-        // TODO: Aktiviraj/Deaktiviraj vse njegove izdelke
         // VARNOST: Admin lahko deaktivira le prodajalca
         //          Prodajalec pa le stranke
         $atributi = UprabnikDB::getAttributes(array("id" => $_POST["id"]));
@@ -423,6 +422,7 @@ class UporabnikiController {
         if ($_SESSION["vloga"] == "admin") {
             if ($atributi["vloga"] == "prodajalec"){
                 UprabnikDB::changeAktiven($parametri);
+                IzdelkiDB::changeAktivenProdajalec($parametri);
                 ViewHelper::redirect(BASE_URL . 'admin');
             }else{
                 echo "Nepooblaščen dostop";
