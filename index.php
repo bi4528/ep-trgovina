@@ -93,6 +93,13 @@ $urls = [
             echo "Nepooblaščen dostop";
         }
     },
+    "izdelek/aktiviraj" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            IzdelkiController::aktiviraj();
+        } else {
+            echo "Nepooblaščen dostop";
+        }
+    },
     "" => function () {
         ViewHelper::redirect(BASE_URL . "jokes");
     },

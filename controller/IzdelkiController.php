@@ -65,6 +65,27 @@ class IzdelkiController {
         
     }
     
+    public static function aktiviraj() {
+        // VARNOST: Izdelek lahko aktivira/deaktivira 
+        //          le njegov prodajalec
+        $atributi = IzdelkiDB::getAttributes(array("id" => $_POST["id"]));
+        $atributi = $atributi[0];
+        var_dump($atributi);
+        if ($_SESSION["id"] == $atributi["prodajalec_id"]) {
+            if ($atributi["aktiven"] == 1) {
+                $parametri["aktiven"] = 0;
+            }else {
+                $parametri["aktiven"] = 1;
+            }
+            $parametri["id"] = $_POST["id"];
+            IzdelkiDB::changeAktiven($parametri);
+            ViewHelper::redirect(BASE_URL . 'prodajalec');
+        }else {
+            echo "Nepooblaščen dostop";
+        }
+        
+    }
+    
         private static function getRules() {
         return [
             'ime' => FILTER_SANITIZE_SPECIAL_CHARS,
