@@ -8,7 +8,6 @@ class IzdelkiController {
 
     public static function izdelkiview() {
         //TODO: Prikazi le aktivne izdelke
-        // test
         echo ViewHelper::render("view/izdelki-list.php", [
                 "izdelki" => IzdelkiDB::getAll()
             ]);
