@@ -126,8 +126,66 @@ class IzdelkiController {
             ViewHelper::redirect(BASE_URL . 'prodajalec');
         }else {
             echo "Nepooblaščen dostop";
+        }   
+    }
+    
+    public static function kosarica() {
+        $method = filter_input(INPUT_SERVER, "REQUEST_METHOD", FILTER_SANITIZE_SPECIAL_CHARS);
+        if($method == "POST") {
+            $validationRules = [
+                'do' => [
+                    'filter' => FILTER_VALIDATE_REGEXP,
+                    'options' => [
+                        "regexp" => "/^(add_into_cart|purge_cart|updt)$/"
+                    ]
+                ],
+                'id' => [
+                    'filter' => FILTER_VALIDATE_INT,
+                    'options' => ['min_range' => 0]
+                ],
+                'kolicina' => [
+                    'filter' => FILTER_VALIDATE_INT,
+                    'options' => ['min_range' => 0]
+                ]
+            ];
+        }
+        $post = filter_input_array(INPUT_POST, $validationRules);
+        var_dump($post);
+        
+        switch ($post["do"]) {
+            case "add_into_cart":
+                try {
+                    if(isset($_SESSION["cart"][$post["id"]])) {
+                        $_SESSION["cart"][$post["id"]]++;
+                    }else {
+                        $_SESSION["cart"][$post["id"]] = 1;
+                    }
+                    ViewHelper::redirect(BASE_URL);
+                } catch (Exception $ex) {
+                    die($ex->getMessage());
+                }
+                break;
+            case "purge_cart":
+                try {
+                    unset($_SESSION["cart"]);
+                    ViewHelper::redirect(BASE_URL);
+                } catch (Exception $ex) {
+                    die($ex->getMessage());
+                }
+            case "updt":
+                try {
+                    if(isset($_SESSION["cart"][$post["id"]])) {
+                        $_SESSION["cart"][$post["id"]] = $post["kolicina"];
+                        ViewHelper::redirect(BASE_URL);
+                    }
+                } catch (Exception $ex) {
+                    die($ex->getMessage());
+                }
+            default:
+                break;
         }
         
+                
     }
     
         private static function getRules() {

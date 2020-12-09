@@ -107,9 +107,6 @@ $urls = [
             echo "Nepooblaščen dostop";
         }
     },
-    "" => function () {
-        ViewHelper::redirect(BASE_URL . "jokes");
-    },
     "stranka/edit" => function () {
         UporabnikiController::editStranka();
     },
@@ -125,6 +122,13 @@ $urls = [
     },
     "izdelki" => function () {
         IzdelkiController::izdelkiview();
+    },
+    "cart" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            IzdelkiController::kosarica();
+        }else {
+            ViewHelper::redirect(BASE_URL);
+        }
     },
     "" => function () {
         ViewHelper::redirect(BASE_URL . "izdelki");

@@ -8,10 +8,11 @@
         - Ogled zgodovine naročil in možnost storniranja potrjenih
 - STRANKA:
     - Košarica:
-        - Dodajanje izdelkov
-        - Spreminjanje količine dodanih
         - Zakluček nakupa, predračun
     - Seznam vseh preteklih nakupov
     - HTTPS
 - ANONIMNI UPORABNIK:
     - HTTP/HTTPS
+
+OSTALO
+- filtriraj $POST tako kot je pri košarici

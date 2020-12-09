@@ -38,9 +38,59 @@ if (isset($_SESSION["id"])) {
 <ul>
 
     <?php foreach ($izdelki as $izdelek): ?>
-    <p>
-        <b><?= $izdelek["ime"] ?></b>:<b><?= $izdelek["opis"] ?> </b> : <b><?= $izdelek["prodajalec"] ?> </b> <b><?= $izdelek["cena"] ?> </b>
-    </p>
+    <div class="izdelek">
+        <form action="<?= BASE_URL . "cart" ?>" method="post">
+            <input type="hidden" name="do" value="add_into_cart" />
+            <input type="hidden" name="id" value="<?= $izdelek["id"] ?>" />
+            <div class="ime"><?= $izdelek["ime"] ?></div>
+            <div class="prodajalec"><?= $izdelek["prodajalec"] ?></div>
+            <div class="cena"><?= number_format($izdelek["cena"], 2)?> EUR</div>
+            <button type="submit">V košarico</button>
+        </form>
+    </div>
     <?php endforeach; ?>
+    
+    <div class="cart">
+        <h3>Košarica</h3>
+        <p>
+            <?php
+            if(isset($_SESSION["cart"])) {
+                //var_dump($_SESSION["cart"]);
+                $vsota = 0;
+                
+                while ($x = current($_SESSION["cart"])) {
+                    
+                    foreach ($izdelki as $izdelek):
+                        if($izdelek["id"] == key($_SESSION["cart"])) {
+                            echo $izdelek["ime"];
+                            $vsota = $vsota + $x * $izdelek["cena"];
+                            $trenutna = $izdelek["id"];
+                            break;
+                        }
+                    endforeach;
+                    echo '<form action="' . BASE_URL . "cart" . '" method="post">';
+                        echo '<input type="number" name="kolicina" value="' . $x . '" min="0" />';
+                        echo '<input type="hidden" name="do" value="updt" />';
+                        echo '<input type="hidden" name="id" value="' . $trenutna . '" />';
+                        echo '<button type="submit">Posodobi</button>';
+                    echo '</form>';
+
+                next($_SESSION["cart"]);
+                }
+                echo "<p>";
+                echo "Skupaj: <b>" . $vsota . "</b>";
+                echo "</p>";
+            }else {
+                echo "Košarica je prazna";
+            }
+            ?>
+        <p>
+            <form action="<?= BASE_URL . "cart" ?>" method="post">
+                <input type="hidden" name="do" value="purge_cart">
+                <button type="submit">Izprazni košarico</button>
+            </form>
+            <a href="<?= BASE_URL . 'zakljuci' ?>">Zaključi nakup</a>
+        </p>
+    </div>
 
 </ul>
