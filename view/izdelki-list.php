@@ -38,7 +38,9 @@ if (isset($_SESSION["id"])) {
 <ul>
 
     <?php foreach ($izdelki as $izdelek): ?>
-    <p><b><?= $izdelek["ime"] ?></b>:<b><?= $izdelek["opis"] ?> </b> : <b><?= $izdelek["prodajalec"] ?> </b> <b><?= $izdelek["cena"] ?> </b></p>
+    <p>
+        <b><?= $izdelek["ime"] ?></b>:<b><?= $izdelek["opis"] ?> </b> : <b><?= $izdelek["prodajalec"] ?> </b> <b><?= $izdelek["cena"] ?> </b>
+    </p>
     <?php endforeach; ?>
 
 </ul>
