@@ -1,0 +1,17 @@
+- ADMIN:
+    - X.509
+- PRODAJALEC:
+    - X.509
+    - Obdelava naročil:
+        - Pregled neobdelanih naročil
+        - Potrjevanje ali preklic oddanih naročil
+        - Ogled zgodovine naročil in možnost storniranja potrjenih
+- STRANKA:
+    - Košarica:
+        - Dodajanje izdelkov
+        - Spreminjanje količine dodanih
+        - Zakluček nakupa, predračun
+    - Seznam vseh preteklih nakupov
+    - HTTPS
+- ANONIMNI UPORABNIK:
+    - HTTP/HTTPS
