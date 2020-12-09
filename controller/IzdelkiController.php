@@ -7,7 +7,6 @@ require_once("view/forms/izdelek-form.php");
 class IzdelkiController {
 
     public static function izdelkiview() {
-        //TODO: Prikazi le aktivne izdelke
         echo ViewHelper::render("view/izdelki-list.php", [
                 "izdelki" => IzdelkiDB::getAll()
             ]);
@@ -62,6 +61,50 @@ class IzdelkiController {
             }
         }else {
             echo "Nepooblaščen dostop";
+        }
+        
+    }
+    
+    public static function editIzdelek() {
+        // VARNOST: Prodajalec lahko ureja le svoje izdelke
+        if (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "prodajalec") {
+            $form = new IzdelekForm("dodajizdelek");
+            if($form->validate()) {
+                $izdelek = $form->getValue();
+
+                $params["ime"] = $izdelek["ime"];
+                $params["opis"] = $izdelek["opis"];
+                $params["cena"] = $izdelek["cena"];
+                $params["id"] = $_SESSION["id2edit"];
+
+                //var_dump($params);
+                IzdelkiDB::updateAttributes($params);
+                echo "Izdelek je bil uspešno spremenjen!";
+                echo '<p>' . '<a href="' . BASE_URL . 'prodajalec' . '">Nazaj prodajalec portal.</a>' . '</p>';
+            }else {
+                if (isset($_SESSION["id2edit"])) {
+                    $atributi = IzdelkiDB::getAttributes(array("id" => $_SESSION["id2edit"]));
+                    $atributi = $atributi[0];
+                }else {
+                    $atributi = IzdelkiDB::getAttributes(array("id" => $_POST["id"]));
+                    $atributi = $atributi[0];
+                    $_SESSION["id2edit"] = $_POST["id"];
+                }
+
+                if ($_SESSION["id"] == $atributi["prodajalec_id"]){
+                    $form->addDataSource(new HTML_QuickForm2_DataSource_Array(array(
+                        "ime" => $atributi["ime"],
+                        "opis" => $atributi["opis"],
+                        "cena" => $atributi["cena"]
+                    )));
+
+                    echo ViewHelper::render("view/uredi.php", [
+                       "form" => $form
+                    ]);
+                }else {
+                    echo "Nepooblaščeni dostop.";
+                }
+            }
         }
         
     }

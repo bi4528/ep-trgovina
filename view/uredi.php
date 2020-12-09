@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Uredi profil</title>
+        <title>Uredi</title>
     </head>
     <body>
         <?php echo $form; ?>

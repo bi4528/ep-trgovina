@@ -86,6 +86,13 @@ $urls = [
             UporabnikiController::prodajalecview();
         }
     },
+    "prodajalec/edit-izdelek" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            IzdelkiController::editIzdelek();
+        } else {
+            UporabnikiController::prodajalecview();
+        }
+    },
     "prodajalec/aktiviraj" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UporabnikiController::aktiviraj();

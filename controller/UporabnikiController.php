@@ -392,6 +392,7 @@ class UporabnikiController {
     
     public static function prodajalecview() {
         unset($_SESSION["id2edit"]);
+        //var_dump($_SESSION);
         if (isset($_SESSION["id"])) {
             if ($_SESSION["vloga"] == "prodajalec") {
                 $izdelki = IzdelkiDB::getIzdelkiProdajalec(array("id" => $_SESSION["id"]));

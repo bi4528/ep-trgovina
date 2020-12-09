@@ -41,7 +41,7 @@ class IzdelekForm extends HTML_QuickForm2 {
         $this->gumb->setAttribute('value', 'Dodaj');
 
         $this->fs = new HTML_QuickForm2_Container_Fieldset();
-        $this->fs->setLabel('Dodaj nov izdelek');
+        $this->fs->setLabel('Izdelek');
         $this->addElement($this->fs);
         $this->fs->addElement($this->ime);
         $this->fs->addElement($this->opis);
