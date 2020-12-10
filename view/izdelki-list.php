@@ -78,7 +78,7 @@ if (isset($_SESSION["id"])) {
                 next($_SESSION["cart"]);
                 }
                 echo "<p>";
-                echo "Skupaj: <b>" . $vsota . "</b>";
+                echo "Skupaj: <b>" . number_format($vsota,2) . " EUR</b>";
                 echo "</p>";
             }else {
                 echo "Košarica je prazna";
@@ -90,7 +90,7 @@ if (isset($_SESSION["id"])) {
                 <button type="submit">Izprazni košarico</button>
             </form>
             <?php
-            if(isset($_SESSION["cart"])) {
+            if(isset($_SESSION["cart"]) && isset($_SESSION["id"])) {
                 echo '<a href="' . BASE_URL . 'predracun' . '">Zaključi nakup</a>';
             }
             ?>

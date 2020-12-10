@@ -7,8 +7,6 @@
         - Potrjevanje ali preklic oddanih naročil
         - Ogled zgodovine naročil in možnost storniranja potrjenih
 - STRANKA:
-    - Košarica:
-        - Zakluček nakupa, predračun
     - Seznam vseh preteklih nakupov
     - HTTPS
 - ANONIMNI UPORABNIK:

@@ -191,30 +191,35 @@ class IzdelkiController {
     }
     
     public static function predracun() {
-        $izdelki = IzdelkiDB::getAll();
+        if(isset($_SESSION["id"])) {
+            $izdelki = IzdelkiDB::getAll();
         
-        $vsota = 0;
-        $predracun["izdelki"] = array();
-        while ($x = current($_SESSION["cart"])) {
-            foreach ($izdelki as $izdelek):
-                if($izdelek["id"] == key($_SESSION["cart"])) {
-                    $vsota = $vsota + $x * $izdelek["cena"];
-                    $trenutni["ime"] = $izdelek["ime"];
-                    $trenutni["cena"] = $izdelek["cena"];
-                    $trenutni["kolicina"] = $x;
-                    $trenutni["prodajalec"] = $izdelek["prodajalec"];
-                    array_push($predracun["izdelki"], $trenutni);
-                    break;
-                }
-            endforeach;
-            
-            next($_SESSION["cart"]);
+            $vsota = 0;
+            $predracun["izdelki"] = array();
+            while ($x = current($_SESSION["cart"])) {
+                foreach ($izdelki as $izdelek):
+                    if($izdelek["id"] == key($_SESSION["cart"])) {
+                        $vsota = $vsota + $x * $izdelek["cena"];
+                        $trenutni["ime"] = $izdelek["ime"];
+                        $trenutni["cena"] = $izdelek["cena"];
+                        $trenutni["kolicina"] = $x;
+                        $trenutni["prodajalec"] = $izdelek["prodajalec"];
+                        array_push($predracun["izdelki"], $trenutni);
+                        break;
+                    }
+                endforeach;
+
+                next($_SESSION["cart"]);
+            }
+
+            $predracun["vsota"] = $vsota;
+            echo ViewHelper::render("view/predracun.php", [
+                    "predracun" => $predracun
+                ]);
+        }else {
+            echo "Nepooblaščen dostop";
         }
         
-        $predracun["vsota"] = $vsota;
-        echo ViewHelper::render("view/predracun.php", [
-                "predracun" => $predracun
-            ]);
     }
     
         private static function getRules() {
