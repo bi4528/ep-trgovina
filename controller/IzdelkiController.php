@@ -175,7 +175,11 @@ class IzdelkiController {
             case "updt":
                 try {
                     if(isset($_SESSION["cart"][$post["id"]])) {
-                        $_SESSION["cart"][$post["id"]] = $post["kolicina"];
+                        if ($post["kolicina"] < 1) {
+                            unset($_SESSION["cart"][$post["id"]]);
+                        }else {
+                            $_SESSION["cart"][$post["id"]] = $post["kolicina"];
+                        }
                         ViewHelper::redirect(BASE_URL);
                     }
                 } catch (Exception $ex) {
@@ -184,8 +188,33 @@ class IzdelkiController {
             default:
                 break;
         }
+    }
+    
+    public static function predracun() {
+        $izdelki = IzdelkiDB::getAll();
         
-                
+        $vsota = 0;
+        $predracun["izdelki"] = array();
+        while ($x = current($_SESSION["cart"])) {
+            foreach ($izdelki as $izdelek):
+                if($izdelek["id"] == key($_SESSION["cart"])) {
+                    $vsota = $vsota + $x * $izdelek["cena"];
+                    $trenutni["ime"] = $izdelek["ime"];
+                    $trenutni["cena"] = $izdelek["cena"];
+                    $trenutni["kolicina"] = $x;
+                    $trenutni["prodajalec"] = $izdelek["prodajalec"];
+                    array_push($predracun["izdelki"], $trenutni);
+                    break;
+                }
+            endforeach;
+            
+            next($_SESSION["cart"]);
+        }
+        
+        $predracun["vsota"] = $vsota;
+        echo ViewHelper::render("view/predracun.php", [
+                "predracun" => $predracun
+            ]);
     }
     
         private static function getRules() {

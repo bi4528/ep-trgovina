@@ -130,6 +130,9 @@ $urls = [
             ViewHelper::redirect(BASE_URL);
         }
     },
+    "predracun" => function () {
+        IzdelkiController::predracun();
+    },
     "" => function () {
         ViewHelper::redirect(BASE_URL . "izdelki");
     },

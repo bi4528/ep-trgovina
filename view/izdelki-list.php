@@ -89,7 +89,7 @@ if (isset($_SESSION["id"])) {
                 <input type="hidden" name="do" value="purge_cart">
                 <button type="submit">Izprazni košarico</button>
             </form>
-            <a href="<?= BASE_URL . 'zakljuci' ?>">Zaključi nakup</a>
+            <a href="<?= BASE_URL . 'predracun' ?>">Zaključi nakup</a>
         </p>
     </div>
 
