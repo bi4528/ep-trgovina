@@ -2,7 +2,7 @@
 
 require_once 'model/AbstractDB.php';
 
-class IzdelkiDB extends AbstractDB2 {
+class NarocilaDB extends AbstractDB2 {
 
     public static function getAll() {
         return parent::query("SELECT CONCAT(u.ime, \" \" ,u.priimek) AS prodajalec, i.ime AS ime, i.opis AS opis, i.cena AS cena, i.id AS id "
@@ -19,15 +19,11 @@ class IzdelkiDB extends AbstractDB2 {
     }
 
     public static function insert(array $params) {
-        return parent::modify("INSERT INTO izdelki (ime, opis, cena, prodajalec_id, aktiven) "
-                        . " VALUES (:ime, :opis, :cena, :prodajalec_id, :aktiven)", $params);
+        return parent::modify("INSERT INTO narocila (kupec_id, prodajalec_id, izdelek_id, postavka_id, stanje, cas) "
+                        . " VALUES (:kupec_id, :prodajalec_id, :izdelek_id, :postavka_id, 'neobdelano', CURRENT_TIMESTAMP())", $params);
     }
     
-    public static function getAllAtributes() {
-        return parent::query("SELECT * FROM  izdelki;");
-    }
-    
-    public static function getIzdelkiProdajalec(array $params) {
+    /*public static function getIzdelkiProdajalec(array $params) {
         return parent::query("select * from izdelki where prodajalec_id= :id", $params);
     }
     
@@ -45,10 +41,11 @@ class IzdelkiDB extends AbstractDB2 {
     
     public static function updateAttributes(array $params) {
         return parent::modify("update izdelki set ime= :ime, opis= :opis, cena= :cena where id= :id", $params);
-    }
+    }*/
 
 
     public static function update(array $params) {
         
     }
 }
+

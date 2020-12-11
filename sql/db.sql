@@ -23,11 +23,11 @@ INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('A
 INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Janez', 'Novak', 'jn@mail.com', '$1$trgovina$oLCDeNVWtehAZ1K2W.d6V.', 'prodajalec', 1);
 INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Stane', 'Horvat', 'staneh@mail.com', '$1$trgovina$hrbdw7I138tHVdx.9yJTZ.', 'stranka', 1);
 INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Stanko', 'Horvat', 'stankohorvat@mail.com', '$1$trgovina$hrbdw7I138tHVdx.9yJTZ.', 'stranka', 1);
---GESLA:
---adamAmin123
---Janez123
---stanko123
---stanko123
+-- GESLA:
+-- adamAmin123
+-- Janez123
+-- stanko123
+-- stanko123
 
 
 -- tabela izdelki
@@ -49,3 +49,17 @@ INSERT INTO `izdelki` (ime, opis, cena, prodajalec_id, aktiven) VALUES ('Očala'
 INSERT INTO `izdelki` (ime, opis, cena, prodajalec_id, aktiven) VALUES ('Voda', 'Evian', '2', '3', 1);
 INSERT INTO `izdelki` (ime, opis, cena, prodajalec_id, aktiven) VALUES ('Radio', 'Pioneer radio z uro', '17', '4', 1);
 
+DROP TABLE IF EXISTS `narocila`;
+CREATE TABLE `narocila` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `kupec_id` int(11) NOT NULL,
+  `prodajalec_id` int(11) NOT NULL,
+  `izdelek_id` int(11) NOT NULL,
+  `postavka_id` int(11) NOT NULL,
+  `stanje` text NOT NULL,
+  `cas` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`kupec_id`) REFERENCES  uporabniki(`id`),
+  FOREIGN KEY (`prodajalec_id`) REFERENCES  uporabniki(`id`),
+  FOREIGN KEY (`izdelek_id`) REFERENCES  izdelki(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

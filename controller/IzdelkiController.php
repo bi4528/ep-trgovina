@@ -1,6 +1,7 @@
 <?php
 
 require_once("model/IzdelkiDB.php");
+require_once("model/NarocilaDB.php");
 require_once("ViewHelper.php");
 require_once("view/forms/izdelek-form.php");
 
@@ -220,6 +221,38 @@ class IzdelkiController {
             echo "Nepooblaščen dostop";
         }
         
+    }
+    
+    public static function oddajNarocilo() {
+        if(isset($_SESSION["id"])) {
+            $izdelki = IzdelkiDB::getAllAtributes();
+            var_dump($izdelki);
+            while ($x = current($_SESSION["cart"])) {
+                foreach ($izdelki as $izdelek):
+                    if($izdelek["id"] == key($_SESSION["cart"])) {
+                        
+                        $narociloIzdelek["kupec_id"] = $_SESSION["id"];
+                        $narociloIzdelek["prodajalec_id"] = $izdelek["prodajalec_id"];
+                        $narociloIzdelek["izdelek_id"] = $izdelek["id"];
+                        $narociloIzdelek["postavka_id"] = 1;
+                        //$narociloIzdelek["stanje"] = "neobdelano";
+                        //$narociloIzdelek["prodajalec_id"] = ;
+                        
+                        NarocilaDB::insert($narociloIzdelek);
+                        
+                        break;
+                    }
+                endforeach;
+
+                next($_SESSION["cart"]);
+            }
+
+            /*echo ViewHelper::render("view/oddaja.php", [
+                    "predracun" => $predracun
+                ]);*/
+        }else {
+            echo "Nepooblaščen dostop";
+        }
     }
     
         private static function getRules() {
