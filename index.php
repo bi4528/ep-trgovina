@@ -20,47 +20,52 @@ $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
   var_dump($path);
   exit(); */
 
+var_dump($_SESSION);
+
+
+
 // ROUTER: defines mapping between URLS and controllers
 $urls = [
-    "jokes" => function () {
-        JokesController::index();
-    },
-    "jokes/add" => function () {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            JokesController::add();
-        } else {
-            JokesController::addForm();
-        }
-    },
-    "jokes/edit" => function () {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            JokesController::edit();
-        } else {
-            JokesController::editForm();
-        }
-    },
-    "jokes/delete" => function () {
-        JokesController::delete();
-    },
-    "jokes/delete" => function () {
-        JokesController::delete();
-    },
     "registracija" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         UporabnikiController::add();
     },
     "prijava" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         UporabnikiController::prijava();
     },
     "odjava" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         UporabnikiController::odjava();
     },
     "admin" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         UporabnikiController::adminview();
     },
     "admin/edit" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         UporabnikiController::editAdmin();
     },
     "admin/edit-prodajalec" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UporabnikiController::editAdminProdajalec();
         } else {
@@ -68,18 +73,38 @@ $urls = [
         }
     },
     "edit/password" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         UporabnikiController::editpassword();
     },
     "prodajalec" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         UporabnikiController::prodajalecview();
     },
     "prodajalec/add" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         UporabnikiController::addprodajalec();
     },
     "prodajalec/edit" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         UporabnikiController::editProdajalec();
     },
     "prodajalec/edit-stranka" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UporabnikiController::editProdajalecStranka();
         } else {
@@ -87,6 +112,10 @@ $urls = [
         }
     },
     "prodajalec/edit-izdelek" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             IzdelkiController::editIzdelek();
         } else {
@@ -94,6 +123,10 @@ $urls = [
         }
     },
     "prodajalec/aktiviraj" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UporabnikiController::aktiviraj();
         } else {
@@ -101,6 +134,10 @@ $urls = [
         }
     },
     "izdelek/aktiviraj" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             IzdelkiController::aktiviraj();
         } else {
@@ -108,9 +145,17 @@ $urls = [
         }
     },
     "stranka/edit" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         UporabnikiController::editStranka();
     },
     "stranka/aktiviraj" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UporabnikiController::aktiviraj();
         } else {
@@ -118,12 +163,24 @@ $urls = [
         }
     },
     "izdelki/add" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         IzdelkiController::addizdelek();
     },
     "izdelki" => function () {
+        if (!isset($_SERVER["HTTPS"]) && isset($_SESSION["id"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }        
         IzdelkiController::izdelkiview();
     },
     "cart" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             IzdelkiController::kosarica();
         }else {
@@ -131,9 +188,17 @@ $urls = [
         }
     },
     "predracun" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         IzdelkiController::predracun();
     },
     "oddaj" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
         IzdelkiController::oddajNarocilo();
     },
     "" => function () {
