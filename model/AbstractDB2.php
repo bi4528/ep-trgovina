@@ -157,6 +157,11 @@ abstract class AbstractDB2 {
 
         return $result;
     }
+    
+    protected static function lastInsertId() {
+        
+        return self::getConnection()->lastInsertId();
+    }
 
     public static abstract function get(array $id);
 

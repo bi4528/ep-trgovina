@@ -2,6 +2,7 @@
 
 require_once("model/IzdelkiDB.php");
 require_once("model/NarocilaDB.php");
+require_once("model/izdelekNarocilaDB.php");
 require_once("ViewHelper.php");
 require_once("view/forms/izdelek-form.php");
 
@@ -227,18 +228,22 @@ class IzdelkiController {
         if(isset($_SESSION["id"])) {
             $izdelki = IzdelkiDB::getAllAtributes();
             var_dump($izdelki);
+            
+            $narocilo["kupec_id"] = $_SESSION["id"];
+            NarocilaDB::insert($narocilo);
+            
+            $narocilo_id = NarocilaDB::lastInsertId();
+            //$narocilo_id = mysql_insert_id();
+            var_dump($narocilo_id);
             while ($x = current($_SESSION["cart"])) {
                 foreach ($izdelki as $izdelek):
                     if($izdelek["id"] == key($_SESSION["cart"])) {
                         
-                        $narociloIzdelek["kupec_id"] = $_SESSION["id"];
-                        $narociloIzdelek["prodajalec_id"] = $izdelek["prodajalec_id"];
-                        $narociloIzdelek["izdelek_id"] = $izdelek["id"];
-                        $narociloIzdelek["postavka_id"] = 1;
-                        //$narociloIzdelek["stanje"] = "neobdelano";
-                        //$narociloIzdelek["prodajalec_id"] = ;
+                        $izdelekNarocila["narocilo_id"] = $narocilo_id;
+                        $izdelekNarocila["izdelek_id"] = $izdelek["id"];
+                        $izdelekNarocila["steviloIzdelkov"] = $x;
                         
-                        NarocilaDB::insert($narociloIzdelek);
+                        izdelekNarocilaDB::insert($izdelekNarocila);
                         
                         break;
                     }
@@ -246,7 +251,8 @@ class IzdelkiController {
 
                 next($_SESSION["cart"]);
             }
-
+            
+            //NarocilaDB::insert($izdelekNarocila);
             /*echo ViewHelper::render("view/oddaja.php", [
                     "predracun" => $predracun
                 ]);*/

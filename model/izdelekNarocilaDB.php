@@ -1,30 +1,24 @@
 <?php
 
-require_once 'model/AbstractDB2.php';
+require_once 'model/AbstractDB.php';
 
-class NarocilaDB extends AbstractDB2 {
+class izdelekNarocilaDB extends AbstractDB2 {
 
     public static function getAll() {
-        return parent::query("SELECT CONCAT(u.ime, \" \" ,u.priimek) AS prodajalec, i.ime AS ime, i.opis AS opis, i.cena AS cena, i.id AS id "
-                . "FROM uporabniki u, izdelki i "
-                . "WHERE u.id = i.prodajalec_id and i.aktiven = 1;");
+        
     }
     
     public static function delete(array $id) {
         
     }
-    
+
     public static function get(array $id) {
         
     }
 
-    public static function getNarociloByKupec(array $params) {
-        return parent::query("SELECT narocila.id FROM narocila WHERE narocila.kupec_id = :kupec_id", $params);
-    }
-
     public static function insert(array $params) {
-        return parent::modify("INSERT INTO narocila (kupec_id, stanje, cas) "
-                        . " VALUES (:kupec_id, 'neobdelano', CURRENT_TIMESTAMP())", $params);
+        return parent::modify("INSERT INTO izdelekNarocila (narocilo_id, izdelek_id, steviloIzdelkov) "
+                        . " VALUES (:narocilo_id, :izdelek_id, :steviloIzdelkov)", $params);
     }
     
     /*public static function getIzdelkiProdajalec(array $params) {
@@ -50,10 +44,6 @@ class NarocilaDB extends AbstractDB2 {
 
     public static function update(array $params) {
         
-    }
-    
-    public static function lastInsertId(){
-        return parent::lastInsertId();
     }
 }
 

@@ -53,13 +53,18 @@ DROP TABLE IF EXISTS `narocila`;
 CREATE TABLE `narocila` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `kupec_id` int(11) NOT NULL,
-  `prodajalec_id` int(11) NOT NULL,
-  `izdelek_id` int(11) NOT NULL,
-  `postavka_id` int(11) NOT NULL,
   `stanje` text NOT NULL,
   `cas` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`kupec_id`) REFERENCES  uporabniki(`id`),
-  FOREIGN KEY (`prodajalec_id`) REFERENCES  uporabniki(`id`),
+  FOREIGN KEY (`kupec_id`) REFERENCES  uporabniki(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `izdelekNarocila`;
+CREATE TABLE `izdelekNarocila` (
+  `narocilo_id` int(11) NOT NULL,
+  `izdelek_id` int(11) NOT NULL,
+  `steviloIzdelkov` int(11),
+  PRIMARY KEY (`narocilo_id`, `izdelek_id`),
+  FOREIGN KEY (`narocilo_id`) REFERENCES  narocila(`id`),
   FOREIGN KEY (`izdelek_id`) REFERENCES  izdelki(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
