@@ -28,21 +28,27 @@ class UporabnikiController {
                     $up = $up[0];
                     if (crypt($geslo, self::SALT) == $up["geslo"]) {
                         if ($up["aktiven"] == 1) {
-                            session_regenerate_id();
-                            $_SESSION["id"] = $up["id"];
-                            $_SESSION["vloga"] = $up["vloga"];
-                            $_SESSION["ime"] = $up["ime"];
-                            ViewHelper::redirect(BASE_URL);
+                            if ($up["vloga"] == "stranka") {
+                                session_regenerate_id();
+                                $_SESSION["id"] = $up["id"];
+                                $_SESSION["vloga"] = $up["vloga"];
+                                $_SESSION["ime"] = $up["ime"];
+                                ViewHelper::redirect(BASE_URL);
 
-                            ////TEST ENKRIPCIJE GESLA
-                            //var_dump($geslo);
-                            //$crypted = crypt($geslo, self::SALT);
-                            //echo $crypted;
-                            //$decr = crypt("adamAmin123", $crypted);
-                            //var_dump($crypted);
-                            //var_dump($decr);
+                                ////TEST ENKRIPCIJE GESLA
+                                //var_dump($geslo);
+                                //$crypted = crypt($geslo, self::SALT);
+                                //echo $crypted;
+                                //$decr = crypt("adamAmin123", $crypted);
+                                //var_dump($crypted);
+                                //var_dump($decr);
+                            }else {
+                                echo "Napaka: Za vašo vlogo je potrebna prijava s certifikatom.";
+                                echo '<p>' . '<a href="' . BASE_URL . "prijava/osebje" . '">Kliknite tukaj za varno prijavo.</a>' . '</p>';
+                            }
+                           
                         }else {
-                            echo "uporabnik neaktiven";
+                            echo "Napaka: Uporabnik je neaktiven";
                         }
                     }else {
                         echo "napačno geslo";
@@ -60,6 +66,67 @@ class UporabnikiController {
         }
     }
     
+    public static function prijavaosebje() {
+        $prodajalci = ["janez", "lojze"];
+        
+        $client_cert = filter_input(INPUT_SERVER, "SSL_CLIENT_CERT");
+        
+        $cert_data = openssl_x509_parse($client_cert);
+        $commonname = $cert_data["subject"]["CN"];
+        $emailAddr = $cert_data["subject"]["emailAddress"];
+        
+        //var_dump($cert_data);
+        
+        if (!isset($_SESSION["id"])) {
+            $form = new PrijavaForm("prijava");
+            if ($form->validate()) {
+                $uporabnik = $form->getValue();
+                $email = $uporabnik["email"];
+                $geslo = $uporabnik["geslo"];
+
+                $up = UprabnikDB::getup(array("email" => $uporabnik["email"]));
+
+                if ($up != null) {
+                    $up = $up[0];
+                    if (crypt($geslo, self::SALT) == $up["geslo"]) {
+                        if ($up["aktiven"] == 1) {
+                            // preveri ce se en prodajalec vpise z e:p od drugega
+                            if ($commonname == "admin" && $up["vloga"] == "admin") {
+                                session_regenerate_id();
+                                $_SESSION["id"] = $up["id"];
+                                $_SESSION["vloga"] = $up["vloga"];
+                                $_SESSION["ime"] = $up["ime"];
+                                ViewHelper::redirect(BASE_URL . "admin");
+                            }elseif(in_array($commonname, $prodajalci) && $up["vloga"] == "prodajalec" && $uporabnik["email"] == $emailAddr) {
+                                session_regenerate_id();
+                                $_SESSION["id"] = $up["id"];
+                                $_SESSION["vloga"] = $up["vloga"];
+                                $_SESSION["ime"] = $up["ime"];
+                                ViewHelper::redirect(BASE_URL . "prodajalec");
+                            }else {
+                                echo "Napaka: Napačen email ali geslo";
+                                echo '<p>' . '<a href="' . BASE_URL . "prijava/osebje" . '">Poskusi ponovno</a>' . '</p>';
+                            }
+                        }else {
+                            echo "uporabnik neaktiven";
+                        }
+                    }else {
+                        echo "napačno geslo";
+                    }
+                }else {
+                    echo "uporabnik ne obstaja";
+                }
+            }else {
+                echo ViewHelper::render("view/prijava.php", [
+                   "form" => $form 
+                ]);
+            }
+        }else {
+            ViewHelper::redirect(BASE_URL);
+        }
+        
+    }
+    
     public static function odjava() {
         session_regenerate_id();
         session_destroy();
@@ -74,6 +141,7 @@ class UporabnikiController {
             $uporabnik["aktiven"] = 1;
             $up = UprabnikDB::getup(array("email" => $uporabnik["email"]));
             if ($up == null) {
+                $uporabnik["geslo"] = crypt($uporabnik["geslo"], self::SALT);
                 UprabnikDB::insert($uporabnik);
                 $up = UprabnikDB::getup(array("email" => $uporabnik["email"]));
                 $up = $up[0];
@@ -129,9 +197,10 @@ class UporabnikiController {
                 $uporabnik["vloga"] = "prodajalec";
                 $uporabnik["aktiven"] = 1;
                 $uporabnik["naslov"] = "";
-
+                $uporabnik["geslo"] = crypt($uporabnik["geslo"], self::SALT);
                 $up = UprabnikDB::getup(array("email" => $uporabnik["email"]));
                 if ($up == null) {
+                    
                     UprabnikDB::insert($uporabnik);
                     ViewHelper::redirect(BASE_URL . 'admin');
                 }else {

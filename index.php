@@ -20,7 +20,7 @@ $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
   var_dump($path);
   exit(); */
 
-var_dump($_SESSION);
+//var_dump($_SESSION);
 
 
 
@@ -39,6 +39,13 @@ $urls = [
             header("Location: " . $url);
         }
         UporabnikiController::prijava();
+    },
+    "prijava/osebje" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
+        UporabnikiController::prijavaosebje();
     },
     "odjava" => function () {
         if (!isset($_SERVER["HTTPS"])) {

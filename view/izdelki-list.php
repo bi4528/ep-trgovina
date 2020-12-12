@@ -29,7 +29,8 @@ if (isset($_SESSION["id"])) {
     echo '<p>';
     echo 'Pozdravljen, anonimni uporabnik | ';
     echo'<a href="' . BASE_URL . "registracija" . '">Registracija</a> | ';
-    echo'<a href="' . BASE_URL . "prijava" . '">Prijava</a>';
+    echo'<a href="' . BASE_URL . "prijava" . '">Prijava</a> | ';
+    echo'<a href="' . BASE_URL . "prijava/osebje" . '">Prijava za osebje</a>';
     echo '</p>';
 }
 
