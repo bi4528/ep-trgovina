@@ -6,6 +6,7 @@ require_once 'HTML/QuickForm2/Element/InputSubmit.php';
 require_once 'HTML/QuickForm2/Element/InputText.php';
 require_once 'HTML/QuickForm2/Element/Select.php';
 require_once 'HTML/QuickForm2/Element/InputPassword.php';
+require_once 'HTML/QuickForm2/Element/Captcha/TextCAPTCHA.php';
 
 class RegistracijaForm extends HTML_QuickForm2 {
     
@@ -16,6 +17,7 @@ class RegistracijaForm extends HTML_QuickForm2 {
     public $geslo2;
     public $naslov;
     public $gumb;
+    public $captcha;
     
     public function __construct($id) {
         parent::__construct($id);
@@ -64,6 +66,14 @@ class RegistracijaForm extends HTML_QuickForm2 {
         $this->naslov->addRule('required', 'Vnesite naslov.');
         $this->naslov->addRule('maxlength', 'Naslov je predolg.', 255);
         
+        $this->captcha = new HTML_QuickForm2_Element_Captcha_TextCAPTCHA(
+                        'captcha["equation"]',
+                        array('id' => 'captcha_equation'),
+                        array(
+                            'label' => 'Captcha',
+                            'captchaType' => 'Equation',
+                        )
+                    );
 
         $this->gumb = new HTML_QuickForm2_Element_InputSubmit(null);
         $this->gumb->setAttribute('value', 'Registracija');
@@ -77,6 +87,7 @@ class RegistracijaForm extends HTML_QuickForm2 {
         $this->fs->addElement($this->email);
         $this->fs->addElement($this->geslo);
         $this->fs->addElement($this->geslo2);
+        $this->fs->addElement($this->captcha);
         $this->fs->addElement($this->gumb);
 
         $this->addRecursiveFilter('trim');

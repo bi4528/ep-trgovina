@@ -10,3 +10,7 @@ mysql> show databases;
 mysql> use uporabniki;  
 mysql> show tables;  
 mysql> select * from uporabniki;  
+
+## Captcha #
+apt-get install php-text-captcha
+pear install HTML_QuickForm2_Captcha-0.1.2
