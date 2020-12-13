@@ -13,6 +13,7 @@ if (isset($_SESSION["id"])) {
     if($_SESSION["vloga"] == "stranka") {
         echo '<a href="' . BASE_URL . "stranka/edit" . '">Uredi profil</a> | ';
         echo '<a href="' . BASE_URL . "edit/password" . '">Spremeni geslo</a> | ';
+        echo '<a href="' . BASE_URL . "seznamNarocil" . '">Seznam narocil</a> | ';
     }
     echo'<a href="' . BASE_URL . "odjava" . '">Odjava</a> | ';
     echo '</p>';

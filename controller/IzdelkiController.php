@@ -253,12 +253,21 @@ class IzdelkiController {
             }
             
             //NarocilaDB::insert($izdelekNarocila);
-            /*echo ViewHelper::render("view/oddaja.php", [
-                    "predracun" => $predracun
-                ]);*/
+            echo ViewHelper::render("view/oddaja.php");
         }else {
             echo "Nepooblaščen dostop";
         }
+    }
+    
+    public static function seznamNarocil() {
+        if(isset($_SESSION["id"])) {
+            echo ViewHelper::render("view/seznamNarocil.php", [
+                    "narocila" => NarocilaDB::getAll()
+                ]);
+        }else {
+            echo "Nepooblaščen dostop";
+        }
+        
     }
     
         private static function getRules() {

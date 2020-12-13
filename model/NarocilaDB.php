@@ -5,9 +5,7 @@ require_once 'model/AbstractDB2.php';
 class NarocilaDB extends AbstractDB2 {
 
     public static function getAll() {
-        return parent::query("SELECT CONCAT(u.ime, \" \" ,u.priimek) AS prodajalec, i.ime AS ime, i.opis AS opis, i.cena AS cena, i.id AS id "
-                . "FROM uporabniki u, izdelki i "
-                . "WHERE u.id = i.prodajalec_id and i.aktiven = 1;");
+        return parent::query("SELECT * FROM narocila");
     }
     
     public static function delete(array $id) {
