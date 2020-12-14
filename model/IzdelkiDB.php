@@ -46,8 +46,13 @@ class IzdelkiDB extends AbstractDB2 {
     public static function updateAttributes(array $params) {
         return parent::modify("update izdelki set ime= :ime, opis= :opis, cena= :cena where id= :id", $params);
     }
-
-
+    
+    public static function getIsci(array $params) {
+        return parent::query("select * "
+                            . "from (select *, match(ime, opis) against(concat('*',:isc,'*') in boolean mode) as score from izdelki) "
+                            . "as dt where score <> 0 order by score desc", $params);
+    }
+    
     public static function update(array $params) {
         
     }

@@ -49,7 +49,7 @@
         
         <h2>Seznam strank:</h2>
         <ul>
-            [<a href="<?= BASE_URL . "stranka/add" ?>">Dodaj novo stranko</a>]
+            [<a href="<?= BASE_URL . "registracija" ?>">Dodaj novo stranko</a>]
             <?php foreach ($stranke as $stranka): ?>
             <p>
                 <?= $stranka["ime"] ?> <?= $stranka["priimek"] ?>

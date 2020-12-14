@@ -46,6 +46,8 @@ CREATE TABLE `izdelki` (
   FOREIGN KEY (`prodajalec_id`) REFERENCES  uporabniki(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ALTER TABLE `izdelki` add FULLTEXT(ime, opis);
+
 -- vnosi v tabelo
 INSERT INTO `izdelki` (ime, opis, cena, prodajalec_id, aktiven) VALUES ('Očala', 'Ray-Ban očala', '50', '2', 1);
 INSERT INTO `izdelki` (ime, opis, cena, prodajalec_id, aktiven) VALUES ('Voda', 'Evian', '2', '3', 1);
