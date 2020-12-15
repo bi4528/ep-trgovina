@@ -37,15 +37,27 @@ if (isset($_SESSION["id"])) {
 
 ?>
 
+<p>
+<form action="<?php BASE_URL ?>" method="get">
+    Išči izdelke: <input type="text" name="isc">
+</form>
+</p>
+
 <ul>
 
+    <?php
+        if (empty($izdelki)) {
+            echo "Noben izdelek ne ustreza vašemu iskanju.";
+        }
+    ?>
+    
     <?php foreach ($izdelki as $izdelek): ?>
     <div class="izdelek">
         <form action="<?= BASE_URL . "cart" ?>" method="post">
             <input type="hidden" name="do" value="add_into_cart" />
             <input type="hidden" name="id" value="<?= $izdelek["id"] ?>" />
             <div class="ime"><?= $izdelek["ime"] ?></div>
-            <div class="prodajalec"><?= $izdelek["prodajalec"] ?></div>
+            <div class="opis"><?= $izdelek["opis"] ?></div>
             <div class="cena"><?= number_format($izdelek["cena"], 2)?> EUR</div>
             <button type="submit">V košarico</button>
         </form>

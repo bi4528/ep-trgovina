@@ -42,9 +42,10 @@ CREATE TABLE `izdelki` (
   `cena` text,
   `prodajalec_id` int(11) NOT NULL,
   `aktiven` TINYINT,
+  FULLTEXT(ime, opis),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`prodajalec_id`) REFERENCES  uporabniki(`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- vnosi v tabelo
 INSERT INTO `izdelki` (ime, opis, cena, prodajalec_id, aktiven) VALUES ('Očala', 'Ray-Ban očala', '50', '2', 1);

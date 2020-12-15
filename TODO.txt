@@ -1,7 +1,0 @@
-- PRODAJALEC:
-    - Obdelava naročil:
-        - Pregled neobdelanih naročil
-        - Potrjevanje ali preklic oddanih naročil
-        - Ogled zgodovine naročil in možnost storniranja potrjenih
-- STRANKA:
-    - Seznam vseh preteklih nakupov

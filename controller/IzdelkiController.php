@@ -9,8 +9,19 @@ require_once("view/forms/izdelek-form.php");
 class IzdelkiController {
 
     public static function izdelkiview() {
+        
+        if(isset($_GET["isc"])) {
+            $get = filter_input(INPUT_GET, 'isc', FILTER_SANITIZE_SPECIAL_CHARS);
+            if(!empty($get)){
+                $izdelki = IzdelkiDB::getIsci(array("isc" => $get));
+            }else {
+                $izdelki = IzdelkiDB::getAll();
+            }
+        }else {
+            $izdelki = IzdelkiDB::getAll();
+        }
         echo ViewHelper::render("view/izdelki-list.php", [
-                "izdelki" => IzdelkiDB::getAll()
+                "izdelki" => $izdelki
             ]);
     }
     
