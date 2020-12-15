@@ -5,17 +5,36 @@
 <title>Začetna stran</title>
 
 <h1>Začetna stran</h1>
+<a href="<?= BASE_URL . "" ?>">Nazaj</a>
 
-<?php 
-    var_dump($narocila);
-    foreach ($narocila as $narocilo): ?>
-    <table class="narocilo">
-        <tr>
-            <td>Datum in čas oddaje naročila: <?= $narocilo["cas"] ?> </td>
-        </tr>
-        <tr>
-            <td>Stanje oddanega naročila: <?= $narocilo["stanje"] ?></td>
-        </tr>
-    </table>
-<?php endforeach; ?>
+<ul>
+        <?php
+            foreach($narocila as $narocilo):
+                echo '<li>';
+                echo 'Čas oddaje: ';
+                echo $narocilo["cas"];
+                echo '</div>';
+                echo '<br>';
+                //echo number_format($izdelek["cena"] * $izdelek["kolicina"],2);
+                echo 'Stanje: ';
+                echo $narocilo["stanje"];
+                echo '<br> Izdelki: ';
+                echo '<ul>';
+                    foreach($narocilo["izdelki"] as $izdelek):
+                        echo '<div class="izdelek">';
+                        echo $izdelek["ime"];
+                        echo ' x';
+                        echo $izdelek["kolicina"];
+                        
+                        echo '</div>';
+                    endforeach;
+                echo '</ul>';
+                echo '<div class="cena">';
+                echo 'Cena: ';
+                echo $narocilo["vsota"];
+                echo '</div>';
+                echo '</li> <br>';
+            endforeach;
+        ?>
+</ul>
 

@@ -277,42 +277,35 @@ class IzdelkiController {
             
             foreach ($narocila as $narocilo):
                 
-                var_dump($narocilo);
                 $predracun["cas"] = $narocilo["cas"];
                 $predracun["stanje"] = $narocilo["stanje"];
                 
                 $izdelkiNarocila = izdelekNarocilaDB::getIzdelkiByNarocilo($narocilo);
-                var_dump($izdelkiNarocila);
                 
-                /*$izdelki = array();
-                foreach ($izdelkiNarocila as $izdelekNarocila):
-                    $izd = IzdelkiDB::get($izdelekNarocila);
-                    array_push($izdelki, $izd);
-                endforeach;
-                var_dump($izdelki);*/
-                
+                                
                 $vsota = 0;
                 $predracun["izdelki"] = array();
                 
                 foreach ($izdelkiNarocila as $izdelekNarocila):
                     $izdelek = IzdelkiDB::get($izdelekNarocila);
-                    var_dump($izdelek);   
+                       
                     $trenutni["ime"] = $izdelek[0]["ime"];
                     $trenutni["cena"] = $izdelek[0]["cena"];
+                    $trenutni["opis"] = $izdelek[0]["opis"];
                     $trenutni["kolicina"] = $izdelekNarocila["steviloIzdelkov"];
                     $vsota = $vsota + $izdelekNarocila["steviloIzdelkov"] * $izdelek[0]["cena"];
                     array_push($predracun["izdelki"], $trenutni);
-                    break;
+                    //break;
                     
                     
                 endforeach;
 
                 $predracun["vsota"] = $vsota;
-                var_dump($predracun);
+                
                 array_push($predracuni, $predracun);
                 
             endforeach;
-            var_dump($predracuni);
+            
             echo ViewHelper::render("view/seznamNarocil.php", [
                         "narocila" => $predracuni
                     ]);
