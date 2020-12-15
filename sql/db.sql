@@ -24,6 +24,7 @@ INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('J
 INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Stane', 'Horvat', 'staneh@mail.com', '$1$trgovina$hrbdw7I138tHVdx.9yJTZ.', 'stranka', 1);
 INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Stanko', 'Horvat', 'stankohorvat@mail.com', '$1$trgovina$hrbdw7I138tHVdx.9yJTZ.', 'stranka', 1);
 INSERT INTO `uporabniki` (ime, priimek, email, geslo, vloga, aktiven) VALUES ('Lojze', 'Novak', 'lojze@ep.si', '$1$trgovina$ytHsAsNVAOYpLo/hBAFyS1', 'prodajalec', 1);
+
 -- GESLA:
 -- adamAmin123
 -- Janez123
@@ -45,7 +46,8 @@ CREATE TABLE `izdelki` (
   FULLTEXT(ime, opis),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`prodajalec_id`) REFERENCES  uporabniki(`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+-- ) ENGINE=MyISAM DEFAULT CHARSET=utf8 za oddaljeno
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- vnosi v tabelo
 INSERT INTO `izdelki` (ime, opis, cena, prodajalec_id, aktiven) VALUES ('Očala', 'Ray-Ban očala', '50', '2', 1);

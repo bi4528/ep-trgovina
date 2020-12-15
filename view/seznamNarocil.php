@@ -6,7 +6,9 @@
 
 <h1>Začetna stran</h1>
 
-<?php foreach ($narocila as $narocilo): ?>
+<?php 
+    var_dump($narocila);
+    foreach ($narocila as $narocilo): ?>
     <table class="narocilo">
         <tr>
             <td>Datum in čas oddaje naročila: <?= $narocilo["cas"] ?> </td>

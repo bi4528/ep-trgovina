@@ -14,8 +14,8 @@ class IzdelkiDB extends AbstractDB2 {
         
     }
 
-    public static function get(array $id) {
-        
+    public static function get(array $params) {
+        return parent::query("SELECT * FROM izdelki WHERE izdelki.id = :izdelek_id", $params);
     }
 
     public static function insert(array $params) {

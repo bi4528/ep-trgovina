@@ -21,6 +21,10 @@ class izdelekNarocilaDB extends AbstractDB2 {
                         . " VALUES (:narocilo_id, :izdelek_id, :steviloIzdelkov)", $params);
     }
     
+    public static function getIzdelkiByNarocilo(array $params){
+        return parent::query("SELECT * FROM izdelekNarocila WHERE izdelekNarocila.narocilo_id = :id", $params);
+    }
+    
     /*public static function getIzdelkiProdajalec(array $params) {
         return parent::query("select * from izdelki where prodajalec_id= :id", $params);
     }
