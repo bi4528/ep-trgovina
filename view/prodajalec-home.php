@@ -18,8 +18,10 @@
         </p>
         <h2>Naročila:</h2>
         <h3>Neobdelana naročila:</h3>
-        <h3>Oddana naročila:</h3>
+        
         <h3>Potrjena naročila:</h3>
+        
+        <h3>Stornirana naročila:</h3>
         
         <h2>Moji izdelki:</h2>
         
