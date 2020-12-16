@@ -11,16 +11,16 @@ object BookService {
 
         companion object {
             // AVD emulator
-             const val URL = "http://10.0.2.2:8080/netbeans/mvc-rest/api/"
+             const val URL = "http://10.0.2.2:8080/netbeans/ep-trgovina/api/"
             // Genymotion
             //const val URL = "http://10.0.3.2:8080/netbeans/mvc-rest/api/"
         }
 
-        @GET("books")
-        fun getAll(): Call<List<Book>>
+        @GET("izdelki")
+        fun getAll(): Call<List<Artikel>>
 
-        @GET("books/{id}")
-        fun get(@Path("id") id: Int): Call<Book>
+        @GET("izdelki/{id}")
+        fun get(@Path("id") id: Int): Call<Artikel>
 
         @FormUrlEncoded
         @POST("books")

@@ -8,25 +8,25 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import java.util.*
 
-class BookAdapter(context: Context) : ArrayAdapter<Book>(context, 0, ArrayList()) {
+class BookAdapter(context: Context) : ArrayAdapter<Artikel>(context, 0, ArrayList()) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         // Check if an existing view is being reused, otherwise inflate the view
         val view = if (convertView == null)
-            LayoutInflater.from(context).inflate(R.layout.booklist_element, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.itemlist_element, parent, false)
         else
             convertView
 
         val tvTitle = view.findViewById<TextView>(R.id.tvTitle)
-        val tvAuthor = view.findViewById<TextView>(R.id.tvAuthor)
+        val tvAuthor = view.findViewById<TextView>(R.id.tvSeller)
         val tvPrice = view.findViewById<TextView>(R.id.tvPrice)
 
 
         val book = getItem(position)
 
-        tvTitle.text = book?.title
-        tvAuthor.text = book?.author
-        tvPrice.text = String.format(Locale.ENGLISH, "%.2f EUR", book?.price)
+        tvTitle.text = book?.ime
+        tvAuthor.text = book?.prodajalec
+        tvPrice.text = String.format(Locale.ENGLISH, "%.2f EUR", book?.cena)
 
         return view
     }

@@ -12,7 +12,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
 
-class MainActivity : AppCompatActivity(), Callback<List<Book>> {
+class MainActivity : AppCompatActivity(), Callback<List<Artikel>> {
     private val tag = this::class.java.canonicalName
 
     private lateinit var adapter: BookAdapter
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), Callback<List<Book>> {
 
         container.setOnRefreshListener { BookService.instance.getAll().enqueue(this) }
 
-        btnSave.setOnClickListener {
+        btnLogin.setOnClickListener {
             val intent = Intent(this, BookFormActivity::class.java)
             startActivity(intent)
         }
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(), Callback<List<Book>> {
         BookService.instance.getAll().enqueue(this)
     }
 
-    override fun onResponse(call: Call<List<Book>>, response: Response<List<Book>>) {
+    override fun onResponse(call: Call<List<Artikel>>, response: Response<List<Artikel>>) {
         if (response.isSuccessful) {
             val hits = response.body() ?: emptyList()
             Log.i(tag, "Got ${hits.size} hits")
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity(), Callback<List<Book>> {
         container.isRefreshing = false
     }
 
-    override fun onFailure(call: Call<List<Book>>, t: Throwable) {
+    override fun onFailure(call: Call<List<Artikel>>, t: Throwable) {
         Log.w(tag, "Error: ${t.message}", t)
         container.isRefreshing = false
     }
