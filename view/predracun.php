@@ -9,6 +9,9 @@
         <h2>Vaše naročilo:</h2>
         <ul>
             <?php
+                if(!isset($_SESSION["cart"])){
+                    ViewHelper::redirect(BASE_URL);
+                }
                 foreach($predracun["izdelki"] as $izdelek):
                     echo '<li>';
                     echo '<div class="izdelek">';
