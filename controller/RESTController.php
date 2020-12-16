@@ -24,4 +24,40 @@ class RESTController {
                 . $_SERVER["REQUEST_URI"];
         echo ViewHelper::renderJSON(IzdelkiDB::getAll());
     }
+    
+    public static function add() {
+        $data = filter_input_array(INPUT_POST, IzdelkiController::getRules());
+
+        if (IzdelkiController::checkValues($data)) {
+            $id = IzdelkiDB::insert($data);
+            echo ViewHelper::renderJSON("", 201);
+            ViewHelper::redirect(BASE_URL . "api/izdelki/$id");
+        } else {
+            echo ViewHelper::renderJSON("Missing data.", 400);
+        }
+    }
+
+    public static function edit($id) {
+        // spremenljivka $_PUT ne obstaja, zato jo moremo narediti sami
+        $_PUT = [];
+        parse_str(file_get_contents("php://input"), $_PUT);
+        $data = filter_var_array($_PUT, IzdelkiController::getRules());
+
+        if (IzdelkiController::checkValues($data)) {
+            $data["id"] = $id;
+            IzdelkiDB::update($data);
+            echo ViewHelper::renderJSON("", 200);
+        } else {
+            echo ViewHelper::renderJSON("Missing data.", 400);
+        }
+    }
+
+    public static function delete($id) {
+        try {
+            echo ViewHelper::renderJSON(IzdelkiDB::delete(["id" => $id]));
+            echo ViewHelper::renderJSON("", 204);
+        } catch (InvalidArgumentException $e) {
+            echo ViewHelper::renderJSON($e->getMessage(), 404);
+        }
+    }
 }

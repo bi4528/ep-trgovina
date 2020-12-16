@@ -389,7 +389,7 @@ class IzdelkiController {
         
     }
     
-        private static function getRules() {
+        public static function getRules() {
         return [
             'ime' => FILTER_SANITIZE_SPECIAL_CHARS,
             'opis' => FILTER_SANITIZE_SPECIAL_CHARS,
@@ -399,7 +399,7 @@ class IzdelkiController {
             
         ];}
         
-        private static function checkValues($input) {
+        public static function checkValues($input) {
         if (empty($input)) {
             return FALSE;
         }

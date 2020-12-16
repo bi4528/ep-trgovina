@@ -11,7 +11,7 @@ class IzdelkiDB extends AbstractDB2 {
     }
     
     public static function delete(array $id) {
-        
+        return parent::modify("DELETE FROM izdelki WHERE id= :id", $id);
     }
 
     public static function get(array $params) {
@@ -21,6 +21,10 @@ class IzdelkiDB extends AbstractDB2 {
     public static function insert(array $params) {
         return parent::modify("INSERT INTO izdelki (ime, opis, cena, prodajalec_id, aktiven) "
                         . " VALUES (:ime, :opis, :cena, :prodajalec_id, :aktiven)", $params);
+    }
+    
+    public static function update(array $params) {
+        return parent::modify("UPDATE izdelki SET ime= :ime, opis= :opis, cena= :cena WHERE id= :id", $params);
     }
     
     public static function getAllAtributes() {
@@ -53,7 +57,4 @@ class IzdelkiDB extends AbstractDB2 {
                             . "as dt where score <> 0 order by score desc", $params);
     }
     
-    public static function update(array $params) {
-        
-    }
 }

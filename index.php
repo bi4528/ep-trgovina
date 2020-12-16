@@ -253,11 +253,15 @@ $urls = [
     },
     "/^api\/izdelki\/(\d+)$/" => function ($method, $id) {
         // TODO: izbris knjige z uporabo HTTP metode DELETE
+        //var_dump("tuki");
         switch ($method) {
             case "PUT":
                 RESTController::edit($id);
                 break;
-            default: # GET
+            case "DELETE":
+                RESTController::delete($id);
+                break;
+            default: #"GET"
                 RESTController::get($id);
                 break;
         }
@@ -267,11 +271,11 @@ $urls = [
             case "POST":
                 RESTController::add();
                 break;
-            default: # GET
+            default: #"GET"
                 RESTController::index();
                 break;
         }
-    },
+    }
 ];
 
 foreach ($urls as $pattern => $controller) {
