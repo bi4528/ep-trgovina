@@ -91,9 +91,16 @@ if (isset($_SESSION["id"])) {
 
                 next($_SESSION["cart"]);
                 }
-                echo "<p>";
-                echo "Skupaj: <b>" . number_format($vsota,2) . " EUR</b>";
-                echo "</p>";
+                
+                if($vsota == 0){
+                    unset($_SESSION["cart"]);
+                    echo "Košarica je prazna";
+                }
+                else{
+                    echo "<p>";
+                    echo "Skupaj: <b>" . number_format($vsota,2) . " EUR</b>";
+                    echo "</p>";
+                }
             }else {
                 echo "Košarica je prazna";
             }
