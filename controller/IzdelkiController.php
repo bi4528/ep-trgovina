@@ -371,6 +371,21 @@ class IzdelkiController {
         
     }
     
+    public static function seznamStorniranihNarocil() {
+        
+            
+        $predracuni = IzdelkiController::seznamVsehNarocil();
+
+        foreach($predracuni as $key => $predracun):
+            if ($predracun["stanje"] !== "stornirano"){
+                unset($predracuni[$key]);
+            }
+        endforeach;
+        //var_dump($predracuni);
+        return $predracuni;
+        
+    }
+    
         private static function getRules() {
         return [
             'ime' => FILTER_SANITIZE_SPECIAL_CHARS,

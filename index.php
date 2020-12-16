@@ -162,6 +162,17 @@ $urls = [
             echo "Nepooblaščen dostop";
         }
     },
+    "/^prodajalec\/storniraj$/" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            UporabnikiController::storniranjeNarocila();
+        } else {
+            echo "Nepooblaščen dostop";
+        }
+    },
     "/^izdelek\/aktiviraj$/" => function () {
         if (!isset($_SERVER["HTTPS"])) {
             $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];

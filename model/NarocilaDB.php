@@ -36,6 +36,10 @@ class NarocilaDB extends AbstractDB2 {
     public static function updatePotrditev(array $id) {
         return parent::modify("UPDATE narocila SET stanje = 'potrjeno' WHERE narocila.id = :id ", $id);
     }
+    
+    public static function updateStorniranje(array $id) {
+        return parent::modify("UPDATE narocila SET stanje = 'stornirano' WHERE narocila.id = :id ", $id);
+    }
     /*public static function getIzdelkiProdajalec(array $params) {
         return parent::query("select * from izdelki where prodajalec_id= :id", $params);
     }
