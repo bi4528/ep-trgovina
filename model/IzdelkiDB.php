@@ -27,8 +27,8 @@ class IzdelkiDB extends AbstractDB2 {
         return parent::query("SELECT * FROM  izdelki;");
     }
     
-    public static function getIzdelkiProdajalec(array $params) {
-        return parent::query("select * from izdelki where prodajalec_id= :id", $params);
+    public static function getIzdelkiProdajalec() {
+        return parent::query("select * from izdelki");
     }
     
     public static function changeAktiven(array $params) {

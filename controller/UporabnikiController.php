@@ -476,7 +476,7 @@ class UporabnikiController {
         //var_dump($_SESSION);
         if (isset($_SESSION["id"])) {
             if ($_SESSION["vloga"] == "prodajalec") {
-                $izdelki = IzdelkiDB::getIzdelkiProdajalec(array("id" => $_SESSION["id"]));
+                $izdelki = IzdelkiDB::getIzdelkiProdajalec();
                 $narocila = IzdelkiController::seznamNeobdelanihNarocil();
                 //var_dump($narocila);
                 $narocilaPotrjena = IzdelkiController::seznamPotrjenihNarocil();
