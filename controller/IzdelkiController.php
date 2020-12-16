@@ -185,6 +185,14 @@ class IzdelkiController {
                 } catch (Exception $ex) {
                     die($ex->getMessage());
                 }
+            case "purge_cart_stay":
+                try {
+                    unset($_SESSION["cart"]);
+                    var_dump(BASE_URL);
+                    ViewHelper::redirect(BASE_URL . "/oddaj");
+                } catch (Exception $ex) {
+                    die($ex->getMessage());
+                }
             case "updt":
                 try {
                     if(isset($_SESSION["cart"][$post["id"]])) {
@@ -262,7 +270,7 @@ class IzdelkiController {
 
                 next($_SESSION["cart"]);
             }
-            
+            unset($_SESSION["cart"]);
             //NarocilaDB::insert($izdelekNarocila);
             echo ViewHelper::render("view/oddaja.php");
         }else {
