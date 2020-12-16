@@ -8,6 +8,7 @@ require_once("view/forms/prijava-form.php");
 require_once("view/forms/password-form.php");
 require_once("view/forms/edit-ap.php");
 require_once("view/forms/edit-stranka.php");
+require_once("controller/IzdelkiController.php");
 
 //TODO: popravi posodabljanje imena pri spremembi: stranka, prodajalec
 
@@ -476,9 +477,11 @@ class UporabnikiController {
         if (isset($_SESSION["id"])) {
             if ($_SESSION["vloga"] == "prodajalec") {
                 $izdelki = IzdelkiDB::getIzdelkiProdajalec(array("id" => $_SESSION["id"]));
+                $narocila = IzdelkiController::seznamVsehNarocil();
                 echo ViewHelper::render("view/prodajalec-home.php", [
                         "stranke" => UprabnikDB::getStranke(),
-                        "izdelki" => $izdelki
+                        "izdelki" => $izdelki,
+                        "narocila" => $narocila
                     ]);
             }else {
                 echo "Nepooblaščen dostop";

@@ -2,10 +2,10 @@
 
 <link rel="stylesheet" type="text/css" href="<?= CSS_URL . "style.css" ?>">
 <meta charset="UTF-8" />
-<title>Začetna stran</title>
+<title>Seznam vaših naročil</title>
 
-<h1>Začetna stran</h1>
-<a href="<?= BASE_URL . "" ?>">Nazaj</a>
+<h1>Seznam vaših naročil</h1>
+<a href="<?= BASE_URL . "" ?>">Pojdi na začetno stran</a>
 
 <ul>
         <?php

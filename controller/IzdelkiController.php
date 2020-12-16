@@ -270,25 +270,31 @@ class IzdelkiController {
         }
     }
     
-    public static function seznamNarocil() {
-        if(isset($_SESSION["id"])) {
-            $narocila = NarocilaDB::getAll();
-            $predracuni = array();
-            
-            foreach ($narocila as $narocilo):
-                
+    public static function seznamVsehNarocil() {
+        
+        $narocila = NarocilaDB::getAll();
+        $predracuni = array();
+        $predracuniNeobdelani = array();
+        foreach ($narocila as $narocilo):
+            //if ($narocilo["kupec_id"] == $_SESSION["id"]){
+                $predracun["id"] = $narocilo["id"];
+                $predracun["kupec_id"] = $narocilo["kupec_id"];
+                $kp = NarocilaDB::getImeKupcaById($narocilo);
+                //var_dump($kp); problem ker vrača array
+                $predracun["kupec_ime"] = $kp[0]["kupec_ime"];
+                //var_dump($predracun);
                 $predracun["cas"] = $narocilo["cas"];
                 $predracun["stanje"] = $narocilo["stanje"];
-                
+
                 $izdelkiNarocila = izdelekNarocilaDB::getIzdelkiByNarocilo($narocilo);
-                
-                                
+
+
                 $vsota = 0;
                 $predracun["izdelki"] = array();
-                
+
                 foreach ($izdelkiNarocila as $izdelekNarocila):
                     $izdelek = IzdelkiDB::get($izdelekNarocila);
-                       
+
                     $trenutni["ime"] = $izdelek[0]["ime"];
                     $trenutni["cena"] = $izdelek[0]["cena"];
                     $trenutni["opis"] = $izdelek[0]["opis"];
@@ -296,19 +302,38 @@ class IzdelkiController {
                     $vsota = $vsota + $izdelekNarocila["steviloIzdelkov"] * $izdelek[0]["cena"];
                     array_push($predracun["izdelki"], $trenutni);
                     //break;
-                    
-                    
+
+
                 endforeach;
 
                 $predracun["vsota"] = $vsota;
-                
+
                 array_push($predracuni, $predracun);
-                
+
+                if($predracun["stanje"] === "neobdelano"){
+                    array_push($predracuniNeobdelani, $predracun);
+                }
+            //}
+        endforeach;
+
+        return $predracuni;  
+        
+    }
+    
+    public static function seznamNarocil() {
+        if(isset($_SESSION["id"])) {
+            
+            $predracuni = IzdelkiController::seznamVsehNarocil();
+            
+            foreach($predracuni as $key => $predracun):
+                if ($predracun["kupec_id"] != $_SESSION["id"]){
+                    unset($predracuni[$key]);
+                }
             endforeach;
             
             echo ViewHelper::render("view/seznamNarocil.php", [
-                        "narocila" => $predracuni
-                    ]);
+                            "narocila" => $predracuni
+                        ]);
             
         }else {
             echo "Nepooblaščen dostop";

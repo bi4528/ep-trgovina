@@ -18,7 +18,34 @@
         </p>
         <h2>Naročila:</h2>
         <h3>Neobdelana naročila:</h3>
-        
+        <ul>
+            <?php foreach ($narocila as $narocilo): ?>
+            <p>
+                <li>Čas oddaje: <?= $narocilo["cas"] ;
+                        foreach($narocilo["izdelki"] as $izdelek):
+                            echo '<div class="izdelek">';
+                            echo $izdelek["ime"];
+                            echo ' x';
+                            echo $izdelek["kolicina"];
+
+                            echo '</div>';
+                        endforeach;
+                    ?>
+                    <div>Kupec: <?= $narocilo["kupec_ime"] ?></div>
+                <form action="<?= BASE_URL . "preklic/potrditev" ?>" method="post">
+                <input type="hidden" name="id" value="<?php echo strval($narocilo["id"]); ?>" />
+                <?php
+                
+                echo "<button>Prekliči</button>";
+                
+                echo "<button>Potrdi</button>";
+                
+                ?>
+                </form>
+            </p>
+            <?php endforeach; ?>
+
+        </ul>
         <h3>Potrjena naročila:</h3>
         
         <h3>Stornirana naročila:</h3>
