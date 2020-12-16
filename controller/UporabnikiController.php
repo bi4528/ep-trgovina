@@ -477,11 +477,15 @@ class UporabnikiController {
         if (isset($_SESSION["id"])) {
             if ($_SESSION["vloga"] == "prodajalec") {
                 $izdelki = IzdelkiDB::getIzdelkiProdajalec(array("id" => $_SESSION["id"]));
-                $narocila = IzdelkiController::seznamVsehNarocil();
+                $narocila = IzdelkiController::seznamNeobdelanihNarocil();
+                //var_dump($narocila);
+                $narocilaPotrjena = IzdelkiController::seznamPotrjenihNarocil();
+                //var_dump($narocilaPotrjena);
                 echo ViewHelper::render("view/prodajalec-home.php", [
                         "stranke" => UprabnikDB::getStranke(),
                         "izdelki" => $izdelki,
-                        "narocila" => $narocila
+                        "narocila" => $narocila,
+                        "narocilaPotrjena" => $narocilaPotrjena
                     ]);
             }else {
                 echo "Nepooblaščen dostop";
@@ -518,6 +522,28 @@ class UporabnikiController {
             }else{
                 echo "Nepooblaščen dostop";
             }
+        }else {
+            echo "Nepooblaščen dostop.";
+        }
+        
+    }
+    
+    public static function preklicNarocila() {
+         
+        if ($_SESSION["vloga"] == "prodajalec") {
+            NarocilaDB::updatePreklic(array("id" => $_POST["id"]));
+            ViewHelper::redirect(BASE_URL . 'prodajalec');
+        }else {
+            echo "Nepooblaščen dostop.";
+        }
+        
+    }
+    
+    public static function potrditevNarocila() {
+         
+        if ($_SESSION["vloga"] == "prodajalec") {
+            NarocilaDB::updatePotrditev(array("id" => $_POST["id"]));
+            ViewHelper::redirect(BASE_URL . 'prodajalec');
         }else {
             echo "Nepooblaščen dostop.";
         }

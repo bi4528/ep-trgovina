@@ -140,6 +140,28 @@ $urls = [
             echo "Nepooblaščen dostop";
         }
     },
+    "/^prodajalec\/preklic$/" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            UporabnikiController::preklicNarocila();
+        } else {
+            echo "Nepooblaščen dostop";
+        }
+    },
+    "/^prodajalec\/potrditev$/" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            UporabnikiController::potrditevNarocila();
+        } else {
+            echo "Nepooblaščen dostop";
+        }
+    },
     "/^izdelek\/aktiviraj$/" => function () {
         if (!isset($_SERVER["HTTPS"])) {
             $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];

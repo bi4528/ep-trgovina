@@ -341,6 +341,36 @@ class IzdelkiController {
         
     }
     
+    public static function seznamPotrjenihNarocil() {
+        
+            
+        $predracuni = IzdelkiController::seznamVsehNarocil();
+
+        foreach($predracuni as $key => $predracun):
+            if ($predracun["stanje"] !== "potrjeno"){
+                unset($predracuni[$key]);
+            }
+        endforeach;
+        //var_dump($predracuni);
+        return $predracuni;
+        
+    }
+    
+    public static function seznamNeobdelanihNarocil() {
+        
+            
+        $predracuni = IzdelkiController::seznamVsehNarocil();
+
+        foreach($predracuni as $key => $predracun):
+            if ($predracun["stanje"] !== "neobdelano"){
+                unset($predracuni[$key]);
+            }
+        endforeach;
+        //var_dump($predracuni);
+        return $predracuni;
+        
+    }
+    
         private static function getRules() {
         return [
             'ime' => FILTER_SANITIZE_SPECIAL_CHARS,

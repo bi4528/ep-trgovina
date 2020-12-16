@@ -32,22 +32,48 @@
                         endforeach;
                     ?>
                     <div>Kupec: <?= $narocilo["kupec_ime"] ?></div>
-                <form action="<?= BASE_URL . "preklic/potrditev" ?>" method="post">
+                    <div>Stanje: <?= $narocilo["stanje"] ?></div>
+                <form action="<?= BASE_URL . "prodajalec/preklic" ?>" method="post">
                 <input type="hidden" name="id" value="<?php echo strval($narocilo["id"]); ?>" />
-                <?php
-                
-                echo "<button>Prekliči</button>";
-                
-                echo "<button>Potrdi</button>";
-                
-                ?>
+                <?php echo "<button>Prekliči</button>"; ?>
                 </form>
+                <form action="<?= BASE_URL . "prodajalec/potrditev" ?>" method="post">
+                <input type="hidden" name="id" value="<?php echo strval($narocilo["id"]); ?>" />
+                <?php echo "<button>Potrdi</button>"; ?>
+                </form>
+                
             </p>
             <?php endforeach; ?>
 
         </ul>
         <h3>Potrjena naročila:</h3>
-        
+        <ul>
+        <?php foreach ($narocilaPotrjena as $narociloPotrjena): ?>
+            <p>
+                <li>Čas oddaje: <?= $narociloPotrjena["cas"] ;
+                        foreach($narociloPotrjena["izdelki"] as $izdelek):
+                            echo '<div class="izdelek">';
+                            echo $izdelek["ime"];
+                            echo ' x';
+                            echo $izdelek["kolicina"];
+
+                            echo '</div>';
+                        endforeach;
+                    ?>
+                    <div>Kupec: <?= $narociloPotrjena["kupec_ime"] ?></div>
+                    <div>Stanje: <?= $narociloPotrjena["stanje"] ?></div>
+                <form action="<?= BASE_URL . "prodajalec/preklic" ?>" method="post">
+                <input type="hidden" name="id" value="<?php echo strval($narociloPotrjena["id"]); ?>" />
+                <?php echo "<button>Prekliči</button>"; ?>
+                </form>
+                <form action="<?= BASE_URL . "prodajalec/potrditev" ?>" method="post">
+                <input type="hidden" name="id" value="<?php echo strval($narociloPotrjena["id"]); ?>" />
+                <?php echo "<button>Potrdi</button>"; ?>
+                </form>
+                
+            </p>
+            <?php endforeach; ?>
+        </ul>
         <h3>Stornirana naročila:</h3>
         
         <h2>Moji izdelki:</h2>

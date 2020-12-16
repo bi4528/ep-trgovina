@@ -29,6 +29,13 @@ class NarocilaDB extends AbstractDB2 {
         return parent::query("SELECT DISTINCT CONCAT(u.ime, \" \" ,u.priimek) AS kupec_ime FROM  narocila n, uporabniki u WHERE n.kupec_id = :kupec_id AND n.kupec_id = u.id", $id);
     }
     
+    public static function updatePreklic(array $id) {
+        return parent::modify("UPDATE narocila SET stanje = 'preklicano' WHERE narocila.id = :id ", $id);
+    }
+    
+    public static function updatePotrditev(array $id) {
+        return parent::modify("UPDATE narocila SET stanje = 'potrjeno' WHERE narocila.id = :id ", $id);
+    }
     /*public static function getIzdelkiProdajalec(array $params) {
         return parent::query("select * from izdelki where prodajalec_id= :id", $params);
     }
