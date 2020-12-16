@@ -566,5 +566,31 @@ class UporabnikiController {
     public static function index() {
         
     }
+    //(ime, priimek, naslov, email, geslo, vloga, aktiven)
+    public static function getRules() {
+        return [
+            'ime' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'priimek' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'naslov' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'email' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'geslo' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'vloga' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'aktiven' =>FILTER_VALIDATE_INT
+            
+        ];}
+        
+        public static function checkValues($input) {
+        if (empty($input)) {
+            
+            return FALSE;
+        }
+        //echo ViewHelper::renderJSON($input, 400);
+        $result = TRUE;
+        foreach ($input as $value) {
+            $result = $result && $value != false;
+        }
+
+        return $result;
+    }
 
 }

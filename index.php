@@ -6,6 +6,7 @@ session_start();
 require_once("controller/UporabnikiController.php");
 require_once("controller/IzdelkiController.php");
 require_once("controller/RESTController.php");
+require_once("controller/RESTUporabnikiController.php");
 
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
 define("IMAGES_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/images/");
@@ -273,6 +274,31 @@ $urls = [
                 break;
             default: #"GET"
                 RESTController::index();
+                break;
+        }
+    },
+    "/^api\/uporabniki\/(\d+)$/" => function ($method, $id) {
+        // TODO: izbris knjige z uporabo HTTP metode DELETE
+        //var_dump("tuki");
+        switch ($method) {
+            case "PUT":
+                RESTUporabnikiController::edit($id);
+                break;
+            case "DELETE":
+                RESTUporabnikiController::delete($id);
+                break;
+            default: #"GET"
+                RESTUporabnikiController::get($id);
+                break;
+        }
+    },
+    "/^api\/uporabniki$/" => function ($method) {
+        switch ($method) {
+            case "POST":
+                RESTUporabnikiController::add();
+                break;
+            default: #"GET"
+                RESTUporabnikiController::index();
                 break;
         }
     }

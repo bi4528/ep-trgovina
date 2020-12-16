@@ -45,7 +45,7 @@ class UprabnikDB extends AbstractDB2 {
     }
 
     public static function delete(array $id) {
-        
+        return parent::modify("DELETE FROM uporabniki WHERE id= :id", $id);
     }
 
     public static function get(array $id) {
@@ -62,7 +62,7 @@ class UprabnikDB extends AbstractDB2 {
     }
 
     public static function update(array $params) {
-        
+        return parent::modify("update uporabniki set ime= :ime, priimek= :priimek, email= :email, naslov= nullif(:naslov, '') where id= :id", $params);
     }
 
 }
