@@ -18,7 +18,7 @@ class BookFormActivity : AppCompatActivity(), Callback<Void> {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_form)
 
-        btnSave.setOnClickListener {
+        btnLogin.setOnClickListener {
             val author = etAuthor.text.toString().trim()
             val title = etTitle.text.toString().trim()
             val description = etDescription.text.toString().trim()
