@@ -20,26 +20,24 @@ object BookService {
         fun getAll(): Call<List<Artikel>>
 
         @GET("izdelki/{id}")
-        fun get(@Path("id") id: Int): Call<Artikel>
+        fun get(@Path("id") id: Int): Call<Array<Artikel>>
 
         @FormUrlEncoded
-        @POST("books")
-        fun insert(@Field("author") author: String,
-                   @Field("title") title: String,
-                   @Field("price") price: Double,
-                   @Field("year") year: Int,
-                   @Field("description") description: String): Call<Void>
+        @POST("izdelki")
+        fun insert(@Field("ime") ime: String,
+                   @Field("opis") opis: String,
+                   @Field("cena") cena: Double,
+                   @Field("prodajalec") prodajalec: String): Call<Void>
 
         @FormUrlEncoded
-        @PUT("books/{id}")
+        @PUT("izdelki/{id}")
         fun update(@Path("id") id: Int,
-                   @Field("author") author: String,
-                   @Field("title") title: String,
-                   @Field("price") price: Double,
-                   @Field("year") year: Int,
-                   @Field("description") description: String): Call<Void>
+                   @Field("ime") ime: String,
+                   @Field("opis") opis: String,
+                   @Field("cena") cena: Double,
+                   @Field("prodajalec") prodajalec: String): Call<Void>
 
-        @DELETE("books/{id}")
+        @DELETE("izdelki/{id}")
         fun delete(@Path("id") id: Int): Call<Void>
     }
 

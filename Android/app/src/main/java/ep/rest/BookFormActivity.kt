@@ -26,11 +26,11 @@ class BookFormActivity : AppCompatActivity(), Callback<Void> {
             val year = etYear.text.toString().trim().toInt()
 
             if (book == null) { // dodajanje
-                BookService.instance.insert(author, title, price,
-                        year, description).enqueue(this)
+                //BookService.instance.insert(author, title, price,
+                //        year, description).enqueue(this)
             } else { // urejanje
-                BookService.instance.update(book!!.id, author, title, price,
-                        year, description).enqueue(this)
+               // BookService.instance.update(book!!.id, author, title, price,
+               //         year, description).enqueue(this)
             }
         }
 
