@@ -46,6 +46,8 @@ CREATE TABLE `izdelki` (
   FULLTEXT(ime, opis),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`prodajalec_id`) REFERENCES  uporabniki(`id`)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE
 -- ) ENGINE=MyISAM DEFAULT CHARSET=utf8 za oddaljeno
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -61,6 +63,8 @@ CREATE TABLE `slike` (
   `slika` longtext NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`izdelek_id`) REFERENCES  izdelki(`id`)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `narocila`;
@@ -71,6 +75,8 @@ CREATE TABLE `narocila` (
   `cas` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`kupec_id`) REFERENCES  uporabniki(`id`)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `izdelekNarocila`;
@@ -79,6 +85,10 @@ CREATE TABLE `izdelekNarocila` (
   `izdelek_id` int(11) NOT NULL,
   `steviloIzdelkov` int(11),
   PRIMARY KEY (`narocilo_id`, `izdelek_id`),
-  FOREIGN KEY (`narocilo_id`) REFERENCES  narocila(`id`),
+  FOREIGN KEY (`narocilo_id`) REFERENCES  narocila(`id`)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE,
   FOREIGN KEY (`izdelek_id`) REFERENCES  izdelki(`id`)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
