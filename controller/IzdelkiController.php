@@ -11,6 +11,7 @@ class IzdelkiController {
 
     public static function izdelkiview() {
         
+        $slike = SlikeDB::getAll();
         if(isset($_GET["isc"])) {
             $get = filter_input(INPUT_GET, 'isc', FILTER_SANITIZE_SPECIAL_CHARS);
             if(!empty($get)){
@@ -22,8 +23,21 @@ class IzdelkiController {
             $izdelki = IzdelkiDB::getAll();
         }
         echo ViewHelper::render("view/izdelki-list.php", [
-                "izdelki" => $izdelki
+                "izdelki" => $izdelki,
+                "slike" => $slike
             ]);
+    }
+    
+    public static function slikeIzdelka($id) {
+        $slike = SlikeDB::getAll();
+        
+        foreach($slike as $key => $slika): 
+            if ($slika["izdelek_id"] != $id){
+                unset($key);
+            }
+        endforeach;
+        
+        return $slika;
     }
     
     public static function addForm($values = [

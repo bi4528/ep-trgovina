@@ -57,6 +57,11 @@ if (isset($_SESSION["id"])) {
             <input type="hidden" name="do" value="add_into_cart" />
             <input type="hidden" name="id" value="<?= $izdelek["id"] ?>" />
             <div class="ime"><?= $izdelek["ime"] ?></div>
+            <div> <?php foreach($slike as $slika): 
+                    if ($slika["izdelek_id"] == $izdelek["id"]){?>
+                <img src="<?= $slika["slika"]?>" height="80">
+                <?php
+                } endforeach; ?> </div> 
             <div class="opis"><?= $izdelek["opis"] ?></div>
             <div class="cena"><?= number_format($izdelek["cena"], 2)?> EUR</div>
             <button type="submit">V košarico</button>
