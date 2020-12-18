@@ -197,19 +197,15 @@ class IzdelkiController {
                     $_SESSION["id2edit"] = $_POST["id"];
                 }
 
-                if ($_SESSION["id"] == $atributi["prodajalec_id"]){
-                    $form->addDataSource(new HTML_QuickForm2_DataSource_Array(array(
-                        "ime" => $atributi["ime"],
-                        "opis" => $atributi["opis"],
-                        "cena" => $atributi["cena"]
-                    )));
+                $form->addDataSource(new HTML_QuickForm2_DataSource_Array(array(
+                    "ime" => $atributi["ime"],
+                    "opis" => $atributi["opis"],
+                    "cena" => $atributi["cena"]
+                )));
 
-                    echo ViewHelper::render("view/uredi.php", [
-                       "form" => $form
-                    ]);
-                }else {
-                    echo "Nepooblaščeni dostop.";
-                }
+                echo ViewHelper::render("view/uredi.php", [
+                   "form" => $form
+                ]);
             }
         }
         
@@ -220,8 +216,8 @@ class IzdelkiController {
         //          le njegov prodajalec
         $atributi = IzdelkiDB::getAttributes(array("id" => $_POST["id"]));
         $atributi = $atributi[0];
-        var_dump($atributi);
-        if ($_SESSION["id"] == $atributi["prodajalec_id"]) {
+        //var_dump($atributi);
+        if ($_SESSION["vloga"] == "prodajalec") {
             if ($atributi["aktiven"] == 1) {
                 $parametri["aktiven"] = 0;
             }else {

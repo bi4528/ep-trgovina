@@ -228,7 +228,12 @@ $urls = [
         if (!isset($_SERVER["HTTPS"]) && isset($_SESSION["id"])) {
             $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
             header("Location: " . $url);
-        }        
+        }
+        if (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "prodajalec") {
+            UporabnikiController::prodajalecview();
+        }elseif (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "admin") {
+            UporabnikiController::adminview();
+        }
         IzdelkiController::izdelkiview();
     },
     "/^cart$/" => function () {
