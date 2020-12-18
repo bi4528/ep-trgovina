@@ -172,6 +172,13 @@ class IzdelkiController {
         ViewHelper::redirect(BASE_URL . 'prodajalec');
     }
     
+    public static function addOcena() {
+        if (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "stranka") {
+            $ocena = array();
+            
+        }
+    }
+    
     public static function editIzdelek() {
         if (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "prodajalec") {
             $form = new IzdelekForm("dodajizdelek");

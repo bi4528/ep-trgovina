@@ -92,3 +92,18 @@ CREATE TABLE `izdelekNarocila` (
   ON UPDATE CASCADE
   ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ocene
+CREATE TABLE `ocene` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `izdelek_id` int(11) NOT NULL,
+  `kupec_id` int(11) NOT NULL,
+  `ocena` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`izdelek_id`) REFERENCES  izdelki(`id`)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE,
+  FOREIGN KEY (`kupec_id`) REFERENCES  uporabniki(`id`)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

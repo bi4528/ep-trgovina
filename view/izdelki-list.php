@@ -64,6 +64,8 @@ if (isset($_SESSION["id"])) {
                 } endforeach; ?> </div> 
             <div class="opis"><?= $izdelek["opis"] ?></div>
             <div class="cena"><?= number_format($izdelek["cena"], 2)?> EUR</div>
+            <form action="<?= BASE_URL . "cart" ?>" method="post">
+            </form>
             <button type="submit">V košarico</button>
         </form>
     </div>
