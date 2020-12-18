@@ -146,10 +146,12 @@ class UporabnikiController {
                 UprabnikDB::insert($uporabnik);
                 $up = UprabnikDB::getup(array("email" => $uporabnik["email"]));
                 $up = $up[0];
-                session_regenerate_id();
-                $_SESSION["id"] = $up["id"];
-                $_SESSION["vloga"] = $up["vloga"];
-                $_SESSION["ime"] = $up["ime"];
+                if (!isset($_SESSION["vloga"])) {
+                    session_regenerate_id();
+                    $_SESSION["id"] = $up["id"];
+                    $_SESSION["vloga"] = $up["vloga"];
+                    $_SESSION["ime"] = $up["ime"];
+                }
                 ViewHelper::redirect(BASE_URL);
             }else {
                 echo 'Uporabnik že obstaja';
