@@ -97,7 +97,11 @@
                 <li><?= $izdelek["ime"] ?> <?= $izdelek["opis"] ?> <?= $izdelek["cena"] ?></li> 
                 <li> <?php foreach($slike as $slika): 
                     if ($slika["izdelek_id"] == $izdelek["id"]){?>
-                <img src="<?= $slika["slika"]?>">
+                <form action="<?= BASE_URL . "izdelki/slika/delete" ?>" method="post">
+                <input type="hidden" name="id" value="<?php echo strval($slika["id"]); ?>" />
+                <input type="hidden" name="method" value="delete" />
+                <img src="<?= $slika["slika"]?>" height="80">
+                <button>Pobriši</button>
                 <?php
                 } endforeach; ?> </li> 
                 <form action="<?= BASE_URL . "prodajalec/edit-izdelek" ?>" method="post">

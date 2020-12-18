@@ -149,6 +149,14 @@ class IzdelkiController {
         
     }
     
+    public static function deleteSlika() {
+        var_dump($_POST);
+        if($_POST["method"] == "delete"){
+            SlikeDB::delete(array("id" => $_POST["id"]));
+        }
+        ViewHelper::redirect(BASE_URL . 'prodajalec');
+    }
+    
     public static function editIzdelek() {
         // VARNOST: Prodajalec lahko ureja le svoje izdelke
         if (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "prodajalec") {
