@@ -71,6 +71,7 @@ if (isset($_SESSION["id"])) {
             <button type="submit">V košarico</button>
         </form>
     </div>
+    <br>
     <?php endforeach; ?>
     
     <div class="cart">
