@@ -107,3 +107,6 @@ CREATE TABLE `ocene` (
   ON UPDATE CASCADE
   ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into ocene (kupec_id, izdelek_id, ocena) values (3, 1, 4);
+insert into ocene (kupec_id, izdelek_id, ocena) values (3, 1, 3);

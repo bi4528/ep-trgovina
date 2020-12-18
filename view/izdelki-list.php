@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<?php require_once("model/OceneDB.php"); ?>
 <link rel="stylesheet" type="text/css" href="<?= CSS_URL . "style.css" ?>">
 <meta charset="UTF-8" />
 <title>Začetna stran</title>
@@ -68,6 +68,15 @@ if (isset($_SESSION["id"])) {
                 <input type="number" name="ocena" value="" min="0" />
                 <button type="submit">Oceni</button>
             </form>
+            <?php
+            $ocena = OceneDB::getPovprecna(array("id" => $izdelek["id"]))[0]["AVG(ocena)"];
+            if ($ocena == null) {
+                $ocena_str = "Ta izdelek še ni bil ocenjen";
+            }else {
+                $ocena_str = str_repeat('*', number_format($ocena, 0));
+            }
+            ?>
+            <div class="ocena">Povprečna ocena: <?php echo $ocena_str; ?> </div>
             <button type="submit">V košarico</button>
         </form>
     </div>
