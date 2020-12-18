@@ -1,6 +1,6 @@
 <?php
 
-require_once 'model/AbstractDB.php';
+require_once 'model/AbstractDB2.php';
 
 class IzdelkiDB extends AbstractDB2 {
 
