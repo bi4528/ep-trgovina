@@ -164,10 +164,9 @@ class IzdelkiController {
     
     public static function deleteSlika() {
         $safePost = filter_input_array(INPUT_POST);
+            
+        SlikeDB::delete(array("id" => $safePost["id"]));
         
-        if($safePost["method"] == "delete"){
-            SlikeDB::delete(array("id" => $safePost["id"]));
-        }
         ViewHelper::redirect(BASE_URL . 'prodajalec');
     }
     
