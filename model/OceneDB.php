@@ -26,7 +26,7 @@ class OceneDB extends AbstractDB2 {
 
     public static function insert(array $params) {
         return parent::modify("INSERT INTO ocene (kupec_id, izdelek_id, ocena) "
-                        . " VALUES (:kupec_id, :izdelek_id, :ocena)", $params);
+                        . " VALUES (:kid, :iid, :ocena)", $params);
     }
     
     public static function update(array $params) {

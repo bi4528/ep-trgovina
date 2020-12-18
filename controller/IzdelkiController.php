@@ -173,7 +173,12 @@ class IzdelkiController {
     
     public static function addOcena() {
         if (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "stranka") {
-                        
+            $ocena = filter_input_array(INPUT_POST, FILTER_SANITIZE_NUMBER_INT);
+            //var_dump($ocena);
+            $params = array("kid" => $_SESSION["id"], "iid" => $ocena["iid"], "ocena" => $ocena["ocena"]);
+            OceneDB::insert($params);
+            //var_dump($params);
+            ViewHelper::redirect(BASE_URL);
         }
     }
     

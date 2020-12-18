@@ -66,20 +66,6 @@ if (isset($_SESSION["id"])) {
             <div class="cena"><?= number_format($izdelek["cena"], 2)?> EUR</div>
             
             <?php
-            if (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "stranka") {
-                $params = array("kid" => $_SESSION["id"], "iid" => $izdelek["id"]);
-                $je = OceneDB::jeOcenil($params);
-                if ($je == null) {
-                    echo '<form action="' . BASE_URL . "izedlki/ocena" . '" method="post">';
-                        echo '<input type="number" name="ocena" value="" min="1" max="5" />';
-                        echo '<button type="submit">Oceni</button>';
-                    echo '</form>';
-                }
-            }
-            ?>
-            
-            
-            <?php
             $ocena = OceneDB::getPovprecna(array("id" => $izdelek["id"]))[0]["AVG(ocena)"];
             if ($ocena == null) {
                 $ocena_str = "Ta izdelek še ni bil ocenjen";
@@ -90,6 +76,19 @@ if (isset($_SESSION["id"])) {
             <div class="ocena">Povprečna ocena: <?php echo $ocena_str; ?> </div>
             <button type="submit">V košarico</button>
         </form>
+        <?php
+        if (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "stranka") {
+            $params = array("kid" => $_SESSION["id"], "iid" => $izdelek["id"]);
+            $je = OceneDB::jeOcenil($params);
+            if ($je == null) {
+                echo '<form action="' . BASE_URL . "izdelki/ocena" . '" method="post">';
+                    echo '<input type="number" name="ocena" value="5" min="1" max="5" />';
+                    echo '<input type="hidden" name="iid" value="' . $izdelek["id"] . '" />';
+                    echo '<button type="submit">Oceni</button>';
+                echo '</form>';
+            }
+        }
+        ?>
     </div>
     <br>
     <?php endforeach; ?>
