@@ -482,12 +482,14 @@ class UporabnikiController {
                 $narocilaPotrjena = IzdelkiController::seznamPotrjenihNarocil();
                 $narocilaStornirana = IzdelkiController::seznamStorniranihNarocil();
                 //var_dump($narocilaPotrjena);
+                $slike = SlikeDB::getAll();
                 echo ViewHelper::render("view/prodajalec-home.php", [
                         "stranke" => UprabnikDB::getStranke(),
                         "izdelki" => $izdelki,
                         "narocila" => $narocila,
                         "narocilaPotrjena" => $narocilaPotrjena,
-                        "narocilaStornirana" => $narocilaStornirana
+                        "narocilaStornirana" => $narocilaStornirana,
+                        "slike" => $slike
                     ]);
             }else {
                 echo "Nepooblaščen dostop";

@@ -94,7 +94,12 @@
             [<a href="<?= BASE_URL . "izdelki/add" ?>">Dodaj nov izdelek</a>]
             <?php foreach ($izdelki as $izdelek): ?>
             <p>
-                <li><?= $izdelek["ime"] ?> <?= $izdelek["opis"] ?> <?= $izdelek["cena"] ?>
+                <li><?= $izdelek["ime"] ?> <?= $izdelek["opis"] ?> <?= $izdelek["cena"] ?></li> 
+                <li> <?php foreach($slike as $slika): 
+                    if ($slika["izdelek_id"] == $izdelek["id"]){?>
+                <img src="<?= $slika["slika"]?>">
+                <?php
+                } endforeach; ?> </li> 
                 <form action="<?= BASE_URL . "prodajalec/edit-izdelek" ?>" method="post">
                 <input type="hidden" name="id" value="<?php echo strval($izdelek["id"]); ?>" />
                 <button>Uredi</button>
