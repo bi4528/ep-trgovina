@@ -54,6 +54,15 @@ INSERT INTO `izdelki` (ime, opis, cena, prodajalec_id, aktiven) VALUES ('Očala'
 INSERT INTO `izdelki` (ime, opis, cena, prodajalec_id, aktiven) VALUES ('Voda', 'Evian', '2', '3', 1);
 INSERT INTO `izdelki` (ime, opis, cena, prodajalec_id, aktiven) VALUES ('Radio', 'Pioneer radio z uro', '17', '4', 1);
 
+-- slike
+CREATE TABLE `slike` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `izdelek_id` int(11) NOT NULL,
+  `slika` varchar(80) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`izdelek_id`) REFERENCES  izdelki(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 DROP TABLE IF EXISTS `narocila`;
 CREATE TABLE `narocila` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

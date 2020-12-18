@@ -30,7 +30,7 @@ class IzdelekForm extends HTML_QuickForm2 {
         $this->opis->addRule('required', 'Vnesite opis.');
         $this->opis->addRule('regex', 'Pri opisu uporabite le črke.', '/^[a-zA-ZšŠčČćĆžŽđĐ\- ]+$/');
         $this->opis->addRule('maxlength', 'Opis je predolg.', 500);
-
+        
         $this->cena = new HTML_QuickForm2_Element_InputText('cena');
         $this->cena->setLabel('Izberite ceno:');
         $this->cena->setAttribute('size', 20);

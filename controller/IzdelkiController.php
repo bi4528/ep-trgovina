@@ -78,6 +78,59 @@ class IzdelkiController {
         
     }
     
+    public static function addSlika() {
+        var_dump($_SESSION);
+        if (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "prodajalec") {
+            // Count total files
+        $countfiles = count($_FILES['files']['name']);
+        var_dump($countfiles);
+        // Prepared statement
+        //$query = "INSERT INTO images (name,image) VALUES(?,?)";
+
+        //$statement = self::getConnection()->prepare($query);
+
+            // Loop all files
+            for($i=0;$i<$countfiles;$i++){
+
+              // File name
+              $filename = $_FILES['files']['name'][$i];
+              var_dump($filename);
+              // Location
+              $target_file = '/home/ep/NetBeansProjects/ep-trgovina/upload/'.$filename;
+
+              // file extension
+              $file_extension = pathinfo($target_file, PATHINFO_EXTENSION);
+              $file_extension = strtolower($file_extension);
+              
+              var_dump($file_extension);
+              var_dump($target_file);
+              var_dump($_FILES['files']['tmp_name'][$i]);
+              // Valid image extension
+              $valid_extension = array("png","jpeg","jpg");
+
+              if(in_array($file_extension, $valid_extension)){
+
+                 // Upload file
+                 $moved = move_uploaded_file($_FILES['files']['tmp_name'][$i],$target_file);
+
+                    // Execute query
+                    //$statement->execute(array($filename,$target_file));
+
+                 if( $moved ) {
+                    echo "Successfully uploaded";         
+                  } else {
+                    echo "Not uploaded because of error #".$_FILES["files"]["error"][$i];
+                  }
+              }
+
+            }
+            //echo "File upload successfully";
+        }else {
+            echo "Nepooblaščen dostop";
+        }
+        
+    }
+    
     public static function editIzdelek() {
         // VARNOST: Prodajalec lahko ureja le svoje izdelke
         if (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "prodajalec") {

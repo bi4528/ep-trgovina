@@ -8,6 +8,7 @@
 
     <body>
         <?php echo $form; ?>
+        
     </body>
 
 </html>
