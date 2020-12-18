@@ -202,8 +202,8 @@ class IzdelkiController {
         //          le njegov prodajalec
         $atributi = IzdelkiDB::getAttributes(array("id" => $_POST["id"]));
         $atributi = $atributi[0];
-        var_dump($atributi);
-        if ($_SESSION["id"] == $atributi["prodajalec_id"]) {
+        //var_dump($atributi);
+        if ($_SESSION["vloga"] == "prodajalec") {
             if ($atributi["aktiven"] == 1) {
                 $parametri["aktiven"] = 0;
             }else {
