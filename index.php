@@ -224,6 +224,13 @@ $urls = [
         }
         IzdelkiController::deleteSlika();
     },
+    "/^izdelki\/ocena$/" => function () {
+        if (!isset($_SERVER["HTTPS"])) {
+            $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+            header("Location: " . $url);
+        }
+        IzdelkiController::addOcena();
+    },
     "/^izdelki$/" => function () {
         if (!isset($_SERVER["HTTPS"]) && isset($_SESSION["id"])) {
             $url = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
