@@ -64,7 +64,9 @@ if (isset($_SESSION["id"])) {
                 } endforeach; ?> </div> 
             <div class="opis"><?= $izdelek["opis"] ?></div>
             <div class="cena"><?= number_format($izdelek["cena"], 2)?> EUR</div>
-            <form action="<?= BASE_URL . "cart" ?>" method="post">
+            <form action="<?= BASE_URL . "izedlki/ocena" ?>" method="post">
+                <input type="number" name="ocena" value="" min="0" />
+                <button type="submit">Oceni</button>
             </form>
             <?php
             $ocena = OceneDB::getPovprecna(array("id" => $izdelek["id"]))[0]["AVG(ocena)"];
