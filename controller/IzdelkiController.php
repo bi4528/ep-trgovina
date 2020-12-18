@@ -94,14 +94,14 @@ class IzdelkiController {
     }
     
     public static function addSlika() {
-        var_dump($_SESSION);
+        //var_dump($_SESSION);
         
         //$izdelek_id = IzdelekDB::get(array("id" => $_POST["id"]));
         
         if (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "prodajalec") {
             // Count total files
         $countfiles = count($_FILES['files']['name']);
-        var_dump($countfiles);
+        //var_dump($countfiles);
         // Prepared statement
         //$query = "INSERT INTO images (name,image) VALUES(?,?)";
 
@@ -113,7 +113,7 @@ class IzdelkiController {
 
               // File name
               $filename = $_FILES['files']['name'][$i];
-              var_dump($filename);
+              //var_dump($filename);
               // Location
               $target_file = '/var/www/html/'.$filename;
               
@@ -124,9 +124,9 @@ class IzdelkiController {
               $file_extension = pathinfo($target_file, PATHINFO_EXTENSION);
               $file_extension = strtolower($file_extension);
               
-              var_dump($file_extension);
-              var_dump($target_file);
-              var_dump($_FILES['files']['tmp_name'][$i]);
+              //var_dump($file_extension);
+              //var_dump($target_file);
+              //var_dump($_FILES['files']['tmp_name'][$i]);
               // Valid image extension
               $valid_extension = array("png","jpeg","jpg");
 
@@ -136,12 +136,13 @@ class IzdelkiController {
                  $image_base64 = base64_encode(file_get_contents($_FILES['files']['tmp_name'][$i]) );
                  $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
                  
-                 var_dump($image);
-                 var_dump($_POST["id"]);
+                 //var_dump($image);
+                 //var_dump($_POST["id"]);
                  
                  $slika["slika"] = $image;
                  SlikeDB::insert($slika);
-                  
+                 
+                 ViewHelper::redirect(BASE_URL . 'prodajalec');
                  // Upload file
                  //$moved = move_uploaded_file($_FILES['files']['tmp_name'][$i],$target_file);
 
@@ -164,7 +165,7 @@ class IzdelkiController {
     }
     
     public static function deleteSlika() {
-        var_dump($_POST);
+        //var_dump($_POST);
         if($_POST["method"] == "delete"){
             SlikeDB::delete(array("id" => $_POST["id"]));
         }
@@ -249,7 +250,7 @@ class IzdelkiController {
             ];
         }
         $post = filter_input_array(INPUT_POST, $validationRules);
-        var_dump($post);
+        //var_dump($post);
         
         switch ($post["do"]) {
             case "add_into_cart":
@@ -324,14 +325,14 @@ class IzdelkiController {
     public static function oddajNarocilo() {
         if(isset($_SESSION["id"])) {
             $izdelki = IzdelkiDB::getAllAtributes();
-            var_dump($izdelki);
+            //var_dump($izdelki);
             
             $narocilo["kupec_id"] = $_SESSION["id"];
             NarocilaDB::insert($narocilo);
             
             $narocilo_id = NarocilaDB::lastInsertId();
             //$narocilo_id = mysql_insert_id();
-            var_dump($narocilo_id);
+            //var_dump($narocilo_id);
             if(!isset($_SESSION["cart"])){
                 echo ViewHelper::redirect(BASE_URL);
             }
