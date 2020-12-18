@@ -95,9 +95,8 @@ class IzdelkiController {
     }
     
     public static function addSlika() {
-        //var_dump($_SESSION);
         
-        //$izdelek_id = IzdelekDB::get(array("id" => $_POST["id"]));
+        $safePost = filter_input_array(INPUT_POST);
         
         if (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "prodajalec") {
             // Count total files
@@ -108,7 +107,7 @@ class IzdelkiController {
 
         //$statement = self::getConnection()->prepare($query);
             $slika = array();
-            $slika["izdelek_id"] = $_POST["id"];
+            $slika["izdelek_id"] = $safePost["id"];
             // Loop all files
             for($i=0;$i<$countfiles;$i++){
 
@@ -137,8 +136,6 @@ class IzdelkiController {
                  $image_base64 = base64_encode(file_get_contents($_FILES['files']['tmp_name'][$i]) );
                  $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
                  
-                 //var_dump($image);
-                 //var_dump($_POST["id"]);
                  
                  $slika["slika"] = $image;
                  SlikeDB::insert($slika);
@@ -166,9 +163,10 @@ class IzdelkiController {
     }
     
     public static function deleteSlika() {
-        //var_dump($_POST);
-        if($_POST["method"] == "delete"){
-            SlikeDB::delete(array("id" => $_POST["id"]));
+        $safePost = filter_input_array(INPUT_POST);
+        
+        if($safePost["method"] == "delete"){
+            SlikeDB::delete(array("id" => $safePost["id"]));
         }
         ViewHelper::redirect(BASE_URL . 'prodajalec');
     }
@@ -180,6 +178,7 @@ class IzdelkiController {
     }
     
     public static function editIzdelek() {
+        $safePost = filter_input_array(INPUT_POST, self::getRules());
         if (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "prodajalec") {
             $form = new IzdelekForm("dodajizdelek");
             if($form->validate()) {
@@ -199,9 +198,9 @@ class IzdelkiController {
                     $atributi = IzdelkiDB::getAttributes(array("id" => $_SESSION["id2edit"]));
                     $atributi = $atributi[0];
                 }else {
-                    $atributi = IzdelkiDB::getAttributes(array("id" => $_POST["id"]));
+                    $atributi = IzdelkiDB::getAttributes(array("id" => $safePost["id"]));
                     $atributi = $atributi[0];
-                    $_SESSION["id2edit"] = $_POST["id"];
+                    $_SESSION["id2edit"] = $safePost["id"];
                 }
 
                 $form->addDataSource(new HTML_QuickForm2_DataSource_Array(array(
@@ -219,7 +218,9 @@ class IzdelkiController {
     }
     
     public static function aktiviraj() {
-        $atributi = IzdelkiDB::getAttributes(array("id" => $_POST["id"]));
+        $safePost = filter_input_array(INPUT_POST, self::getRules);
+        
+        $atributi = IzdelkiDB::getAttributes(array("id" => $safePost["id"]));
         $atributi = $atributi[0];
         //var_dump($atributi);
         if ($_SESSION["vloga"] == "prodajalec") {
@@ -228,7 +229,7 @@ class IzdelkiController {
             }else {
                 $parametri["aktiven"] = 1;
             }
-            $parametri["id"] = $_POST["id"];
+            $parametri["id"] = $safePost["id"];
             IzdelkiDB::changeAktiven($parametri);
             ViewHelper::redirect(BASE_URL . 'prodajalec');
         }else {
