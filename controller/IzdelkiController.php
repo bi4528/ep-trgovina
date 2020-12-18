@@ -2,6 +2,7 @@
 
 require_once("model/IzdelkiDB.php");
 require_once("model/NarocilaDB.php");
+require_once("model/SlikeDB.php");
 require_once("model/izdelekNarocilaDB.php");
 require_once("ViewHelper.php");
 require_once("view/forms/izdelek-form.php");
@@ -80,6 +81,9 @@ class IzdelkiController {
     
     public static function addSlika() {
         var_dump($_SESSION);
+        
+        //$izdelek_id = IzdelekDB::get(array("id" => $_POST["id"]));
+        
         if (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "prodajalec") {
             // Count total files
         $countfiles = count($_FILES['files']['name']);
@@ -88,7 +92,8 @@ class IzdelkiController {
         //$query = "INSERT INTO images (name,image) VALUES(?,?)";
 
         //$statement = self::getConnection()->prepare($query);
-
+            $slika = array();
+            $slika["izdelek_id"] = $_POST["id"];
             // Loop all files
             for($i=0;$i<$countfiles;$i++){
 
@@ -96,7 +101,10 @@ class IzdelkiController {
               $filename = $_FILES['files']['name'][$i];
               var_dump($filename);
               // Location
-              $target_file = '/home/ep/NetBeansProjects/ep-trgovina/upload/'.$filename;
+              $target_file = '/var/www/html/'.$filename;
+              
+              // Select file type
+              $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
               // file extension
               $file_extension = pathinfo($target_file, PATHINFO_EXTENSION);
@@ -109,18 +117,28 @@ class IzdelkiController {
               $valid_extension = array("png","jpeg","jpg");
 
               if(in_array($file_extension, $valid_extension)){
-
+                 
+                 //Convert
+                 $image_base64 = base64_encode(file_get_contents($_FILES['files']['tmp_name'][$i]) );
+                 $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
+                 
+                 var_dump($image);
+                 var_dump($_POST["id"]);
+                 
+                 $slika["slika"] = $image;
+                 SlikeDB::insert($slika);
+                  
                  // Upload file
-                 $moved = move_uploaded_file($_FILES['files']['tmp_name'][$i],$target_file);
+                 //$moved = move_uploaded_file($_FILES['files']['tmp_name'][$i],$target_file);
 
                     // Execute query
                     //$statement->execute(array($filename,$target_file));
 
-                 if( $moved ) {
+                 /*if( $moved ) {
                     echo "Successfully uploaded";         
                   } else {
                     echo "Not uploaded because of error #".$_FILES["files"]["error"][$i];
-                  }
+                  }*/
               }
 
             }

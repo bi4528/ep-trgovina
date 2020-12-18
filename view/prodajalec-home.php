@@ -112,6 +112,7 @@
                 <form method='post' action='izdelki/slika' enctype='multipart/form-data'>
                     <label>Naloži slike</label>
                     <input type='file' name='files[]' multiple />
+                    <input type="hidden" name="id" value="<?php echo strval($izdelek["id"]); ?>" />
                     <input type='submit' value='Pošlji sliko' name='submit' />
                 </form>
             </p>
