@@ -183,19 +183,15 @@ class IzdelkiController {
                     $_SESSION["id2edit"] = $_POST["id"];
                 }
 
-                if ($_SESSION["id"] == $atributi["prodajalec_id"]){
-                    $form->addDataSource(new HTML_QuickForm2_DataSource_Array(array(
-                        "ime" => $atributi["ime"],
-                        "opis" => $atributi["opis"],
-                        "cena" => $atributi["cena"]
-                    )));
+                $form->addDataSource(new HTML_QuickForm2_DataSource_Array(array(
+                    "ime" => $atributi["ime"],
+                    "opis" => $atributi["opis"],
+                    "cena" => $atributi["cena"]
+                )));
 
-                    echo ViewHelper::render("view/uredi.php", [
-                       "form" => $form
-                    ]);
-                }else {
-                    echo "Nepooblaščeni dostop.";
-                }
+                echo ViewHelper::render("view/uredi.php", [
+                   "form" => $form
+                ]);
             }
         }
         
