@@ -1,6 +1,7 @@
 <?php
 
 require_once("model/IzdelkiDB.php");
+require_once("model/OceneDB.php");
 require_once("model/NarocilaDB.php");
 require_once("model/SlikeDB.php");
 require_once("model/izdelekNarocilaDB.php");
@@ -174,8 +175,7 @@ class IzdelkiController {
     
     public static function addOcena() {
         if (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "stranka") {
-            $ocena = array();
-            
+                        
         }
     }
     
