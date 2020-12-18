@@ -469,7 +469,7 @@ class IzdelkiController {
         $predracuni = IzdelkiController::seznamVsehNarocil();
 
         foreach($predracuni as $key => $predracun):
-            if ($predracun["stanje"] !== "stornirano"){
+            if (($predracun["stanje"] !== "stornirano") && ($predracun["stanje"] !== "preklicano")){
                 unset($predracuni[$key]);
             }
         endforeach;

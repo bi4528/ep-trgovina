@@ -69,7 +69,7 @@
             </p>
             <?php endforeach; ?>
         </ul>
-        <h3>Stornirana naročila:</h3>
+        <h3>Stornirana in preklicana naročila:</h3>
         <ul>
         <?php foreach ($narocilaStornirana as $narociloStornirana): ?>
             <p>
@@ -88,7 +88,7 @@
             </p>
             <?php endforeach; ?>
         </ul>
-        <h2>Moji izdelki:</h2>
+        <h2>Izdelki:</h2>
         
         <ul>
             [<a href="<?= BASE_URL . "izdelki/add" ?>">Dodaj nov izdelek</a>]
