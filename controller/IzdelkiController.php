@@ -172,7 +172,6 @@ class IzdelkiController {
     }
     
     public static function editIzdelek() {
-        // VARNOST: Prodajalec lahko ureja le svoje izdelke
         if (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "prodajalec") {
             $form = new IzdelekForm("dodajizdelek");
             if($form->validate()) {
@@ -212,8 +211,6 @@ class IzdelkiController {
     }
     
     public static function aktiviraj() {
-        // VARNOST: Izdelek lahko aktivira/deaktivira 
-        //          le njegov prodajalec
         $atributi = IzdelkiDB::getAttributes(array("id" => $_POST["id"]));
         $atributi = $atributi[0];
         //var_dump($atributi);
