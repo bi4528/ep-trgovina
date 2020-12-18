@@ -19,6 +19,10 @@ class OceneDB extends AbstractDB2 {
     public static function getPovprecna(array $params) {
         return parent::query("SELECT AVG(ocena) FROM ocene WHERE izdelek_id = :id", $params);
     }
+    
+    public static function jeOcenil(array $params) {
+        return parent::query("SELECT ocena FROM ocene WHERE izdelek_id = :iid and kupec_id = :kid", $params);
+    }
 
     public static function insert(array $params) {
         return parent::modify("INSERT INTO ocene (kupec_id, izdelek_id, ocena) "
