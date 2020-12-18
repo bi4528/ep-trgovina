@@ -327,6 +327,13 @@ $urls = [
                 RESTUporabnikiController::index();
                 break;
         }
+    },
+    "/^api\/verify$/" => function ($method) {
+        switch ($method) {
+            case "POST":
+                RESTUporabnikiController::verify();
+                break;
+        }
     }
 ];
 

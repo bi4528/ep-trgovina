@@ -9,7 +9,8 @@ require_once("controller/UporabnikiController.php");
 require_once("ViewHelper.php");
 
 class RESTUporabnikiController {
-
+    const SALT = '$1$trgovina$';
+    
     public static function get($id) {
         try {
             $izdelek = UprabnikDB::getAttributes(["id" => $id]);
@@ -51,6 +52,30 @@ class RESTUporabnikiController {
         } else {
             echo ViewHelper::renderJSON("Missing data.", 400);
         }
+    }
+    
+    public static function verify() {
+        $_PUT = [];
+        parse_str(file_get_contents("php://input"), $_PUT);
+        $data = filter_var_array($_PUT, UporabnikiController::getRules());
+        $geslo = $data["geslo"];
+        $up = UprabnikDB::getup(array("email" => $data["email"]));
+        
+        if ($up != null) {
+            $up = $up[0];
+            if (crypt($geslo, self::SALT) == $up["geslo"]) {
+                if ($up["aktiven"] == 1) {
+                    ViewHelper::renderJSON("OK.", 200);
+                }else {
+                    echo ViewHelper::renderJSON("Forbidden.", 403);
+                }
+            }else {
+                echo ViewHelper::renderJSON("Unauthorized.", 401);
+            }
+        }else {
+            echo ViewHelper::renderJSON("Unauthorized.", 401);
+        }
+        
     }
 
     public static function delete($id) {
