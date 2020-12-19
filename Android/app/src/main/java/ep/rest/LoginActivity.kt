@@ -7,9 +7,12 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import kotlinx.android.synthetic.main.activity_login.*
+import okhttp3.internal.wait
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
+import kotlin.concurrent.thread
 
 class LoginActivity : AppCompatActivity(), Callback<Void> {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,17 +24,28 @@ class LoginActivity : AppCompatActivity(), Callback<Void> {
         val allUsers = arrayOf(User())
 
         btnPrijava.setOnClickListener{
-            var email = etEmail.text.toString().trim()
-            val splited = email.split("@")
-            email = splited[0]+"%40"+splited[1]
-            BookService.instance.verify(etPassword.text.toString().trim(),etEmail.text.toString().trim()).enqueue(this)
-            Log.i("email",email)
+            try {
+                val email = etEmail.text.toString().trim()
+                val splited = email.split("@")
+                //email = splited[0] + "%40" + splited[1]
+                val x= arrayOf(0)
+                thread {
+                    val test=Test()
+                    val res=test.run(etPassword.text.toString().trim(), etEmail.text.toString().trim())
+                    Log.i("HTTPresponse", res)
+                    x[0]++
+                }
 
 
-            val intent = Intent(this, MainActivity::class.java)
-            val msg = email
-            intent.putExtra("email",msg)
-            startActivity(intent)
+
+                val intent = Intent(this, MainActivity::class.java)
+                val msg = email
+                intent.putExtra("email", msg)
+                startActivity(intent)
+            }catch (e:Exception){
+                Log.e("HTTP",e.stackTraceToString())
+                tvErr.setText(e.stackTrace.toString())
+            }
         }
 
         //)
@@ -48,7 +62,7 @@ class LoginActivity : AppCompatActivity(), Callback<Void> {
 
     override fun onFailure(call: Call<Void>, t: Throwable) {
         Log.i("sth:", t.stackTrace.toString())
-        etEmail.setText("")
+        tvErr.setText("Napaka pri prijavi")
 
     }
 
