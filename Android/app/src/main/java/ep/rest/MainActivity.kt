@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity(), Callback<List<Artikel>> {
             startActivity(intent)
         }
 
+
         BookService.instance.getAll().enqueue(this)
     }
 

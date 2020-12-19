@@ -30,6 +30,9 @@ object BookService {
         @GET("uporabniki/{id}")
         fun getUser(@Path("id") id: Int): Call<Array<User>>
 
+//        @GET("uporabniki/{email}")
+//        fun getUserByEmail(@Path("email") email: String): Call<Array<User>>
+
         @FormUrlEncoded
         @POST("izdelki")
         fun insert(@Field("ime") ime: String,
