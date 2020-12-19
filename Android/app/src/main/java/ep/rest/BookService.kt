@@ -11,16 +11,24 @@ object BookService {
 
         companion object {
             // AVD emulator
-             const val URL = "http://10.0.2.2:8080/netbeans/ep-trgovina/api/"
+             //const val URL = "http://10.0.2.2:8080/netbeans/ep-trgovina/api/"
             // Genymotion
             //const val URL = "http://10.0.3.2:8080/netbeans/mvc-rest/api/"
+            //proba
+            const val URL = "http://192.168.1.71:8080/netbeans/ep-trgovina/api/"
         }
 
         @GET("izdelki")
         fun getAll(): Call<List<Artikel>>
 
+        @GET("uporabniki")
+        fun getAllUsers(): Call<List<User>>
+
         @GET("izdelki/{id}")
         fun get(@Path("id") id: Int): Call<Array<Artikel>>
+
+        @GET("uporabniki/{id}")
+        fun getUser(@Path("id") id: Int): Call<Array<User>>
 
         @FormUrlEncoded
         @POST("izdelki")
@@ -39,6 +47,12 @@ object BookService {
 
         @DELETE("izdelki/{id}")
         fun delete(@Path("id") id: Int): Call<Void>
+
+        @FormUrlEncoded
+        @POST("verify/{geslo}{email}")
+        fun verify(@Field("geslo") geslo: String,
+                   @Field("email") email: String): Call<Void>
+         
     }
 
     val instance: RestApi by lazy {

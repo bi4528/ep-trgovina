@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,6 +21,17 @@ class MainActivity : AppCompatActivity(), Callback<List<Artikel>> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //val userId = intent.getIntExtra("email", 0)
+        val userEmail = intent?.getStringExtra("email")
+        if (userEmail!="" && userEmail!=null) {
+            Log.e("userEmail: ", userEmail.toString())
+            btnProfil.isVisible=true
+        //   BookService.instance.get(id).enqueue(BookDetailActivity.OnLoadCallbacks(this))
+        }
+        else{
+            Log.e("UID is null","guest access")
+            btnProfil.isVisible=false
+        }
 
         adapter = BookAdapter(this)
         items.adapter = adapter
@@ -35,7 +47,7 @@ class MainActivity : AppCompatActivity(), Callback<List<Artikel>> {
         container.setOnRefreshListener { BookService.instance.getAll().enqueue(this) }
 
         btnLogin.setOnClickListener {
-            val intent = Intent(this, BookFormActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
