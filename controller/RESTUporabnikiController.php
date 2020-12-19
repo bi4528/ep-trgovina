@@ -21,6 +21,16 @@ class RESTUporabnikiController {
         }
     }
     
+    public static function getByEmail($email){
+        try {
+            $izdelek = UprabnikDB::getAttributesEmail(["email" => $email]);
+            //var_dump($izdelek);
+            echo ViewHelper::renderJSON($izdelek);
+        } catch (InvalidArgumentException $e) {
+            echo ViewHelper::renderJSON($e->getMessage(), 404);
+        }
+    }
+    
     public static function index() {
         $prefix = $_SERVER["REQUEST_SCHEME"] . "://" . $_SERVER["HTTP_HOST"]
                 . $_SERVER["REQUEST_URI"];
