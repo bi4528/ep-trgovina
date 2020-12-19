@@ -11,8 +11,9 @@
     <string name="action_delete">Delete</string>
     <string name="add">Add</string>
     <string name="year">Year of publishing</string>
-    <string name="login">Login</string>
-    <string name="profile">Profile</string>
+    <string name="login">Prijava</string>
+    <string name="logout">Odjava</string>
+    <string name="profile">Profil</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

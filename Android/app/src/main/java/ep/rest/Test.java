@@ -2,23 +2,10 @@ package ep.rest;
 
 import android.util.Log;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.jetbrains.annotations.NotNull;
-
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
+import okhttp3.FormBody;
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -31,26 +18,32 @@ public class Test {
 
     private final OkHttpClient client = new OkHttpClient();
 
-    public String run(String pass,String mail) throws Exception {
+    public int run(String pass, String mail)  {
         // Use the imgur image upload API as documented at https://api.imgur.com/endpoints/image
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("geslo", pass)
-                .addFormDataPart("email", mail)
+        RequestBody formBody = new FormBody.Builder()
+                .add("geslo", pass)
+                .add("email", mail)
                 .build();
-
+        String body = pass+"&"+mail;
         Request request = new Request.Builder()
                 .url("http://192.168.1.71:8080/netbeans/ep-trgovina/api/verify/")
-                .post(requestBody)
+                .post(formBody)
                 .build();
+        Log.i("Http request",request.body().toString());
 
         try (Response response = client.newCall(request).execute()) {
-            Log.e("HTTP status:", String.valueOf(response.code()));
-            System.out.println(response);
-            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+            int res=response.code();
+            Log.e("HTTP status:", String.valueOf(res));
+            //System.out.println(response);
+            if (!response.isSuccessful())
+                Log.i("WTF","Neki ni kul");
             Log.e("HTTPresponse",response.body().string());
-            System.out.println(response.body().string());
-            return response.body().toString();
+            //System.out.println(response.body().string());
+            return res;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return -1;
         }
     }
 

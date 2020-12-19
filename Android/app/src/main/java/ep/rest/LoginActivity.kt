@@ -26,25 +26,40 @@ class LoginActivity : AppCompatActivity(), Callback<Void> {
         btnPrijava.setOnClickListener{
             try {
                 val email = etEmail.text.toString().trim()
-                val splited = email.split("@")
-                //email = splited[0] + "%40" + splited[1]
-                val x= arrayOf(0)
+               // val splited = email.split("@")
+               // email = splited[0] + "%40" + splited[1]
+                val pass = etPassword.text.toString().trim()
+                val x = arrayOf(0)
+                var a=13
                 thread {
                     val test=Test()
-                    val res=test.run(etPassword.text.toString().trim(), etEmail.text.toString().trim())
-                    Log.i("HTTPresponse", res)
+                    val res=test.run(pass, email)
+                    //Log.i("HTTPresponse", res)
+                    a=res
                     x[0]++
+                }
+                while(x[0]<1){
+                    Thread.sleep(100)
+                }
+                Log.i("HTTPSYNC:",x[0].toString())
+                Log.i("HTTPX:", a.toString())
+                if(a==200){
+                    val intent = Intent(this, MainActivity::class.java)
+                    val msg = email
+                    intent.putExtra("email", msg)
+                    startActivity(intent)
+                }
+                else{
+                    tvErr.setText("Uporabniško ime ali geslo je napačno")
+                    etEmail.setText("")
+                    etPassword.setText("")
                 }
 
 
 
-                val intent = Intent(this, MainActivity::class.java)
-                val msg = email
-                intent.putExtra("email", msg)
-                startActivity(intent)
             }catch (e:Exception){
                 Log.e("HTTP",e.stackTraceToString())
-                tvErr.setText(e.stackTrace.toString())
+                tvErr.setText("Napaka")
             }
         }
 

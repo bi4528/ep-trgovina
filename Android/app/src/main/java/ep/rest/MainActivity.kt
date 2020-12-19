@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity(), Callback<List<Artikel>> {
         if (userEmail!="" && userEmail!=null) {
             Log.e("userEmail: ", userEmail.toString())
             btnProfil.isVisible=true
+            btnLogin.setText("Odjava")
         //   BookService.instance.get(id).enqueue(BookDetailActivity.OnLoadCallbacks(this))
         }
         else{
