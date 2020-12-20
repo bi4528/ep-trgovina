@@ -82,6 +82,7 @@
         android:id="@+id/btnPosodobi"
         android:layout_width="103dp"
         android:layout_height="70dp"
+        android:background="@android:color/holo_blue_light"
         android:text="Posodobi podatke"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/etRepeatPass"
@@ -94,7 +95,7 @@
         android:id="@+id/btnPreklici"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/design_default_color_error"
+        android:background="@android:color/holo_red_light"
         android:text="Prekliči"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnPosodobi"
@@ -107,12 +108,10 @@
         android:id="@+id/tvUpdateError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/etRepeatPass"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="@+id/etRepeatPass"
-        app:layout_constraintTop_toBottomOf="@+id/btnPosodobi"
-        app:layout_constraintVertical_bias="0.29" />
+        app:layout_constraintBottom_toTopOf="@+id/etIme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etOldPass"
