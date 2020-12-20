@@ -11,11 +11,11 @@ object BookService {
 
         companion object {
             // AVD emulator
-             //const val URL = "http://10.0.2.2:8080/netbeans/ep-trgovina/api/"
+             const val URL = "http://10.0.2.2:8080/netbeans/ep-trgovina/api/"
             // Genymotion
             //const val URL = "http://10.0.3.2:8080/netbeans/mvc-rest/api/"
             //home srv
-            const val URL = "http://192.168.1.71:8080/netbeans/ep-trgovina/api/"
+            //const val URL = "http://192.168.1.71:8080/netbeans/ep-trgovina/api/"
         }
 
         @GET("izdelki")
