@@ -60,6 +60,10 @@ class RESTUporabnikiController {
             $geslo = $data["geslo"];
             $data["geslo"]=crypt($geslo, self::SALT);
             UprabnikDB::update($data);
+            $prev=UprabnikDB::getPassword(["id" => $id]);
+            if($geslo!=$prev){
+                UprabnikDB::changePassword($data);
+            }
             echo ViewHelper::renderJSON("", 200);
         } else {
             echo ViewHelper::renderJSON("Missing data.", 400);
