@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Profile" >
+    tools:context=".ProfileActivity" >
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/etIme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Ime"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,80 +21,111 @@
         app:layout_constraintVertical_bias="0.065" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/etPriimek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Priimek"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName2"
+        app:layout_constraintEnd_toEndOf="@+id/etIme"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
+        app:layout_constraintStart_toStartOf="@+id/etIme"
+        app:layout_constraintTop_toBottomOf="@+id/etIme"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/etEmailEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName3"
+        app:layout_constraintEnd_toEndOf="@+id/etPriimek"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName3"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3"
+        app:layout_constraintStart_toStartOf="@+id/etPriimek"
+        app:layout_constraintTop_toBottomOf="@+id/etPriimek"
         app:layout_constraintVertical_bias="0.016" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/etPasswordEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Novo geslo"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
-        app:layout_constraintVertical_bias="0.035" />
+        app:layout_constraintEnd_toEndOf="@+id/etEmailEdit"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/etEmailEdit"
+        app:layout_constraintTop_toBottomOf="@+id/etEmailEdit"
+        app:layout_constraintVertical_bias="0.112" />
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
+        android:id="@+id/etRepeatPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Ponovi geslo"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
+        app:layout_constraintEnd_toEndOf="@+id/etPasswordEdit"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
-        app:layout_constraintVertical_bias="0.031" />
+        app:layout_constraintStart_toStartOf="@+id/etPasswordEdit"
+        app:layout_constraintTop_toBottomOf="@+id/etPasswordEdit"
+        app:layout_constraintVertical_bias="0.018" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
+        android:id="@+id/btnPosodobi"
+        android:layout_width="103dp"
+        android:layout_height="70dp"
+        android:text="Posodobi podatke"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword2"
+        app:layout_constraintEnd_toEndOf="@+id/etRepeatPass"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2"
-        app:layout_constraintVertical_bias="0.083" />
+        app:layout_constraintStart_toStartOf="@+id/etRepeatPass"
+        app:layout_constraintTop_toBottomOf="@+id/etRepeatPass"
+        app:layout_constraintVertical_bias="0.03" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnPreklici"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:background="@color/design_default_color_error"
+        android:text="Prekliči"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/btnPosodobi"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2"
-        app:layout_constraintVertical_bias="0.083" />
+        app:layout_constraintStart_toStartOf="@+id/etRepeatPass"
+        app:layout_constraintTop_toBottomOf="@+id/etRepeatPass"
+        app:layout_constraintVertical_bias="0.028" />
+
+    <TextView
+        android:id="@+id/tvUpdateError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/etRepeatPass"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="@+id/etRepeatPass"
+        app:layout_constraintTop_toBottomOf="@+id/btnPosodobi"
+        app:layout_constraintVertical_bias="0.29" />
+
+    <EditText
+        android:id="@+id/etOldPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Trenutno Geslo"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/etPasswordEdit"
+        app:layout_constraintEnd_toEndOf="@+id/etEmailEdit"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/etEmailEdit"
+        app:layout_constraintTop_toBottomOf="@+id/etEmailEdit"
+        app:layout_constraintVertical_bias="0.655" />
 </androidx.constraintlayout.widget.ConstraintLayout>

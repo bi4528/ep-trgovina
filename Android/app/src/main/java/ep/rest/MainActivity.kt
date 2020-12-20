@@ -52,6 +52,12 @@ class MainActivity : AppCompatActivity(), Callback<List<Artikel>> {
             startActivity(intent)
         }
 
+        btnProfil.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            intent.putExtra("email",userEmail)
+            startActivity(intent)
+        }
+
 
         BookService.instance.getAll().enqueue(this)
     }
