@@ -57,6 +57,8 @@ class RESTUporabnikiController {
 
         if (UporabnikiController::checkValues($data)) {
             $data["id"] = $id;
+            $geslo = $data["geslo"];
+            $data["geslo"]=crypt($geslo, self::SALT);
             UprabnikDB::update($data);
             echo ViewHelper::renderJSON("", 200);
         } else {
