@@ -14,7 +14,7 @@ object BookService {
              //const val URL = "http://10.0.2.2:8080/netbeans/ep-trgovina/api/"
             // Genymotion
             //const val URL = "http://10.0.3.2:8080/netbeans/mvc-rest/api/"
-            //proba
+            //home srv
             const val URL = "http://192.168.1.71:8080/netbeans/ep-trgovina/api/"
         }
 
@@ -39,6 +39,14 @@ object BookService {
                    @Field("opis") opis: String,
                    @Field("cena") cena: Double,
                    @Field("prodajalec") prodajalec: String): Call<Void>
+
+        @FormUrlEncoded
+        @PUT("uporabniki/{id}")
+        fun updateUser(@Path("id") id: Int,
+                   @Field("ime") ime: String,
+                   @Field("priimek") priimek: String,
+                   @Field("email") email: String,
+                   @Field("geslo") geslo: String): Call<Void>
 
         @FormUrlEncoded
         @PUT("izdelki/{id}")
