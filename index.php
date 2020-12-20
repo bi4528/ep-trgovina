@@ -318,6 +318,21 @@ $urls = [
                 break;
         }
     },
+    "/^api\/uporabniki\/(\S+@\S+\.\S+)$/" => function ($method, $email) {
+        // TODO: izbris knjige z uporabo HTTP metode DELETE
+        //var_dump("tuki");
+        switch ($method) {
+////            case "PUT":
+               // RESTUporabnikiController::edit($id);
+                //break;
+            //case "DELETE":
+              //  RESTUporabnikiController::delete($id);
+              //  break;
+            default: #"GET"
+                RESTUporabnikiController::getByEmail($email);
+                break;
+        }
+    },
     "/^api\/uporabniki$/" => function ($method) {
         switch ($method) {
             case "POST":
