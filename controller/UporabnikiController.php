@@ -151,8 +151,16 @@ class UporabnikiController {
                     $_SESSION["id"] = $up["id"];
                     $_SESSION["vloga"] = $up["vloga"];
                     $_SESSION["ime"] = $up["ime"];
+                }else {
+                    if (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "prodajalec") {
+                        ViewHelper::redirect(BASE_URL . "prodajalec");
+                    }elseif (isset($_SESSION["vloga"]) && $_SESSION["vloga"] == "admin") {
+                        ViewHelper::redirect(BASE_URL . "admin");
+                    }else {
+                        ViewHelper::redirect(BASE_URL);
+                    }
                 }
-                ViewHelper::redirect(BASE_URL);
+                
             }else {
                 echo 'Uporabnik že obstaja';
             }
