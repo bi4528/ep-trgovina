@@ -1,1 +1,0 @@
-Geslo za uvoz vseh uporabniških certifikatov je: ep
