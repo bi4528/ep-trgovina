@@ -20,20 +20,7 @@ class BookDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_book_detail)
         setSupportActionBar(toolbar)
 
-        fabEdit.setOnClickListener {
-            val intent = Intent(this, BookFormActivity::class.java)
-            intent.putExtra("ep.rest.book", book)
-            startActivity(intent)
-        }
 
-        fabDelete.setOnClickListener {
-            val dialog = AlertDialog.Builder(this)
-            dialog.setTitle("Confirm deletion")
-            dialog.setMessage("Are you sure?")
-            dialog.setPositiveButton("Yes") { _, _ -> deleteBook() }
-            dialog.setNegativeButton("Cancel", null)
-            dialog.create().show()
-        }
 
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
