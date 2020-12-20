@@ -21,7 +21,13 @@ class LoginActivity : AppCompatActivity(), Callback<Void> {
         val etEmail = findViewById<EditText>(R.id.etEmail)
         val etPassword = findViewById<EditText>(R.id.etPassword)
         val btnPrijava = findViewById<Button>(R.id.btnLogin1)
+        val btnNazaj = findViewById<Button>(R.id.btnNazaj)
         val allUsers = arrayOf(User())
+
+        btnNazaj.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
 
         btnPrijava.setOnClickListener{
             try {

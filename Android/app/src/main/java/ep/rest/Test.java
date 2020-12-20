@@ -48,13 +48,14 @@ public class Test {
     }
 
 
-    public int updateUserOK3(int id, int aktiven, String vloga,String ime, String priimek, String email, String pass){
+    public int updateUserOK3(int id, int aktiven, String vloga,String ime, String priimek, String email, String pass, String naslov){
+        if(naslov==null) naslov = "a";
         RequestBody formBody = new FormBody.Builder()
                 .add("aktiven", String.valueOf(aktiven))
                 .add("ime", ime)
                 .add("priimek", priimek)
                 .add("email", email)
-                .add("naslov","")
+                .add("naslov",naslov)
                 .add("id", String.valueOf(id))
                 .add("geslo",pass)
                 .add("vloga",vloga)

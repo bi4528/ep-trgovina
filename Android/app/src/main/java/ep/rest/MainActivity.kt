@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(), Callback<List<Artikel>> {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //val userId = intent.getIntExtra("email", 0)
-        val userEmail = intent?.getStringExtra("email")
+        var userEmail = intent?.getStringExtra("email")
         if (userEmail!="" && userEmail!=null) {
             Log.e("userEmail: ", userEmail.toString())
             btnProfil.isVisible=true
@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity(), Callback<List<Artikel>> {
                 val intent = Intent(this, BookDetailActivity::class.java)
                 intent.putExtra("ep.rest.id", book.id)
                 startActivity(intent)
+
+                //this.deleteSharedPreferences(userEmail)
             }
         }
 
@@ -49,7 +51,9 @@ class MainActivity : AppCompatActivity(), Callback<List<Artikel>> {
 
         btnLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
+            if(btnLogin.text=="Odjava") userEmail=null
             startActivity(intent)
+            this.finish()
         }
 
         btnProfil.setOnClickListener {
@@ -60,6 +64,11 @@ class MainActivity : AppCompatActivity(), Callback<List<Artikel>> {
 
 
         BookService.instance.getAll().enqueue(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
     }
 
     override fun onResponse(call: Call<List<Artikel>>, response: Response<List<Artikel>>) {

@@ -60,7 +60,7 @@ class ProfileActivity : AppCompatActivity() {
                     var b = 13
                     thread {
                         val test = Test()
-                        val res = test.updateUserOK3(user.id,user.aktiven,user.vloga,ime, priimek, email, newPass)
+                        val res = test.updateUserOK3(user.id,user.aktiven,user.vloga,ime, priimek, email, newPass,user.naslov)
                         b=res
                         y[0]++
                     }
