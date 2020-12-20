@@ -9,7 +9,8 @@
         <h1>Admin panel:</h1>
         <p>
             <a href="<?= BASE_URL . "admin/edit" ?>">Uredi svoj profil</a> | 
-            <a href="<?= BASE_URL . "edit/password" ?>">Spremeni geslo</a>
+            <a href="<?= BASE_URL . "edit/password" ?>">Spremeni geslo</a> |
+            <a href="<?= BASE_URL . "odjava" ?>">Odjava</a>
         </p>
         <h2>Prodajalci:</h2>
         <ul>

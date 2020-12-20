@@ -188,7 +188,7 @@ class UporabnikiController {
                     echo '<p>' . '<a href="' . BASE_URL . '">Nazaj na prvo stran</a>' . '</p>';
                 }else {
                     echo "Napaka: Vnesli ste napačno geslo.";
-                    echo '<p>' . '<a href="' . BASE_URL . "admin/edit/password" . '">Poskusi ponovno</a>' . '</p>';
+                    echo '<p>' . '<a href="' . BASE_URL . "edit/password" . '">Poskusi ponovno</a>' . '</p>';
                 }
             }else {
                 echo ViewHelper::render("view/geslo.php", [
