@@ -1,14 +1,7 @@
-## EMAILI IN GESLA ZA PRIJAVO #
-# VLOGE, EMAILI #
-administrator: admin@ep.si 
-prodajalec: janez@ep.si
-stranka: staneh@mail.com
-stranka: stankohorvat@mail.com
-prodajalec: lojze@ep.si
-
-# GESLA: #
-adamAmin123
-Janez123
-stanko123
-stanko123
-Lojze123
+## Uporabniki #
+# VLOGA, EMAIL, GESLO #
+administrator: admin@ep.si adamAmin123 \
+prodajalec: janez@ep.si Janez123 \
+stranka: staneh@mail.com stanko123 \
+stranka: stankohorvat@mail.com stanko123 \
+prodajalec: lojze@ep.si Lojze123 \
