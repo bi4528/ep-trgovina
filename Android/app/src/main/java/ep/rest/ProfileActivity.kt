@@ -56,7 +56,23 @@ class ProfileActivity : AppCompatActivity() {
                     val priimek = etPriimek.text.toString().trim()
                     val email = etEmailEdit.text.toString().trim()
                     val newPass = etRepeatPass.text.toString().trim()
-                    BookService.instance.updateUser(user.id,ime, priimek,email,newPass).enqueue(OnLoadCallbacks1(this))
+                    val y = arrayOf(0)
+                    var b = 13
+                    thread {
+                        val test = Test()
+                        val res = test.updateUserOK3(user.id,user.aktiven,user.vloga,ime, priimek, email, newPass)
+                        b=res
+                        y[0]++
+                    }
+                    while (y[0]<1){
+                        Thread.sleep(100)
+                    }
+                    if (b==200){
+                        Log.wtf("HTTP OK 3 update:","Success!")
+                        tvUpdateError.setText("Uspešno posodobljeno")
+                    }
+                    else Log.wtf("HTTP OK 3 update:","FAIL!!!")
+                    //BookService.instance.updateUser(user.id,ime, priimek,email,newPass).enqueue(OnLoadCallbacks1(this))
                 }
             }
         }

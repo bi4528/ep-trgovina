@@ -48,6 +48,36 @@ public class Test {
     }
 
 
-    //public int update()
+    public int updateUserOK3(int id, int aktiven, String vloga,String ime, String priimek, String email, String pass){
+        RequestBody formBody = new FormBody.Builder()
+                .add("aktiven", String.valueOf(aktiven))
+                .add("ime", ime)
+                .add("priimek", priimek)
+                .add("email", email)
+                .add("naslov","")
+                .add("id", String.valueOf(id))
+                .add("geslo",pass)
+                .add("vloga",vloga)
+                .build();
+        Request request = new Request.Builder()
+                .url("http://192.168.1.71:8080/netbeans/ep-trgovina/api/uporabniki/"+id)
+                .put(formBody)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            int res=response.code();
+            Log.e("HTTP update status:", String.valueOf(res));
+            //System.out.println(response);
+            if (!response.isSuccessful())
+                Log.i("WTF","Neki ni kul");
+            Log.e("UPDATE:",response.body().string());
+            return res;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+
+    }
 
 }
