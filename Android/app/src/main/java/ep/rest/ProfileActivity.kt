@@ -32,17 +32,48 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(intent)
         }
         btnPosodobi.setOnClickListener {
-            if(etPasswordEdit!=etRepeatPass) tvUpdateError.setText("Gesli se ne ujemata!")
-            val pass = etOldPass.text.toString().trim()
-            //val email = etEmailEdit.text.toString().trim()
-            val x = arrayOf(0)
-            var a=13
-            thread {
-                val test=Test()
-                val res=test.run(pass, id)
-                //Log.i("HTTPresponse", res)
-                a=res
-                x[0]++
+            if(etPasswordEdit.text.toString().trim()!=etRepeatPass.text.toString().trim()) tvUpdateError.setText("Gesli se ne ujemata!")
+            else {
+                val pass = etOldPass.text.toString().trim()
+                //val email = etEmailEdit.text.toString().trim()
+                val x = arrayOf(0)
+                var a = 13
+                thread {
+                    val test = Test()
+                    val res = test.run(pass, id)
+                    //Log.i("HTTPresponse", res)
+                    a = res
+                    x[0]++
+                }
+                while (x[0] < 1) {
+                    Thread.sleep(100)
+                }
+                if (a != 200) {
+                    tvUpdateError.setText("Geslo ni pravilno")
+                }
+                else{
+                    val ime = etIme.text.toString().trim()
+                    val priimek = etPriimek.text.toString().trim()
+                    val email = etEmailEdit.text.toString().trim()
+                    val newPass = etRepeatPass.text.toString().trim()
+                    val y = arrayOf(0)
+                    var b = 13
+                    thread {
+                        val test = Test()
+                        val res = test.updateUserOK3(user.id,user.aktiven,user.vloga,ime, priimek, email, newPass)
+                        b=res
+                        y[0]++
+                    }
+                    while (y[0]<1){
+                        Thread.sleep(100)
+                    }
+                    if (b==200){
+                        Log.wtf("HTTP OK 3 update:","Success!")
+                        tvUpdateError.setText("Uspešno posodobljeno")
+                    }
+                    else Log.wtf("HTTP OK 3 update:","FAIL!!!")
+                    //BookService.instance.updateUser(user.id,ime, priimek,email,newPass).enqueue(OnLoadCallbacks1(this))
+                }
             }
         }
 
@@ -71,8 +102,24 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         override fun onFailure(call: Call<Array<User>>, t: Throwable) {
-            TODO("Not yet implemented")
+            t.printStackTrace()
         }
 
     }
+}
+
+class OnLoadCallbacks1(val profileActivity: ProfileActivity) : Callback<Void> {
+    override fun onResponse(call: Call<Void>, response: Response<Void>) {
+        if (response.isSuccessful){
+            Log.wtf("UPDATE:","SUCCESS!")
+        }
+        else{
+            Log.wtf("UPDATE:","FAIL!")
+        }
+    }
+
+    override fun onFailure(call: Call<Void>, t: Throwable) {
+        t.printStackTrace()
+    }
+
 }
