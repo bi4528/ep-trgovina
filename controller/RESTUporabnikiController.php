@@ -74,7 +74,7 @@ class RESTUporabnikiController {
         if ($up != null) {
             $up = $up[0];
             if (crypt($geslo, self::SALT) == $up["geslo"]) {
-                if ($up["aktiven"] == 1) {
+                if ($up["aktiven"] == 1 && $up["vloga"] == "stranka") {
                     ViewHelper::renderJSON("OK.", 200);
                 }else {
                     echo ViewHelper::renderJSON("Forbidden.", 403);
